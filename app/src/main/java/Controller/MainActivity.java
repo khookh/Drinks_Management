@@ -1,3 +1,7 @@
+
+//TODO : Transform Main Activity into several proper controller for every .xml
+//TODO : Create a proper MAIN.java called by Androidmanifest.xml
+
 package Controller;
 
 import android.os.Bundle;

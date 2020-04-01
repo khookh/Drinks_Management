@@ -11,7 +11,7 @@
 9-->C:\Users\Stefano\Documents\Defonce_Management\app\src\main\AndroidManifest.xml
 10
 11    <application
-11-->C:\Users\Stefano\Documents\Defonce_Management\app\src\main\AndroidManifest.xml:5:5-22:19
+11-->C:\Users\Stefano\Documents\Defonce_Management\app\src\main\AndroidManifest.xml:5:5-21:19
 12        android:allowBackup="true"
 12-->C:\Users\Stefano\Documents\Defonce_Management\app\src\main\AndroidManifest.xml:6:13-39
 13        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
@@ -29,7 +29,7 @@
 20        android:theme="@style/AppTheme" >
 20-->C:\Users\Stefano\Documents\Defonce_Management\app\src\main\AndroidManifest.xml:11:13-44
 21        <activity
-21-->C:\Users\Stefano\Documents\Defonce_Management\app\src\main\AndroidManifest.xml:12:9-21:20
+21-->C:\Users\Stefano\Documents\Defonce_Management\app\src\main\AndroidManifest.xml:12:9-20:20
 22            android:name="Controller.MainActivity"
 22-->C:\Users\Stefano\Documents\Defonce_Management\app\src\main\AndroidManifest.xml:13:17-55
 23            android:label="@string/app_name"
@@ -37,14 +37,14 @@
 24            android:theme="@style/AppTheme.NoActionBar" >
 24-->C:\Users\Stefano\Documents\Defonce_Management\app\src\main\AndroidManifest.xml:15:17-60
 25            <intent-filter>
-25-->C:\Users\Stefano\Documents\Defonce_Management\app\src\main\AndroidManifest.xml:16:13-20:29
+25-->C:\Users\Stefano\Documents\Defonce_Management\app\src\main\AndroidManifest.xml:16:13-19:29
 26                <action android:name="android.intent.action.MAIN" />
 26-->C:\Users\Stefano\Documents\Defonce_Management\app\src\main\AndroidManifest.xml:17:17-68
 26-->C:\Users\Stefano\Documents\Defonce_Management\app\src\main\AndroidManifest.xml:17:25-66
 27
 28                <category android:name="android.intent.category.LAUNCHER" />
-28-->C:\Users\Stefano\Documents\Defonce_Management\app\src\main\AndroidManifest.xml:19:17-76
-28-->C:\Users\Stefano\Documents\Defonce_Management\app\src\main\AndroidManifest.xml:19:27-74
+28-->C:\Users\Stefano\Documents\Defonce_Management\app\src\main\AndroidManifest.xml:18:17-76
+28-->C:\Users\Stefano\Documents\Defonce_Management\app\src\main\AndroidManifest.xml:18:27-74
 29            </intent-filter>
 30        </activity>
 31    </application>

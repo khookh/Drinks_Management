@@ -1029,6 +1029,8 @@ id FUNCTION
 id META
 id SHIFT
 id SYM
+id SignIn
+id SignUp
 id action_bar
 id action_bar_activity_content
 id action_bar_container
@@ -1053,6 +1055,7 @@ id add
 id alertTitle
 id all
 id always
+id appBarLayout
 id async
 id auto
 id barrier
@@ -1199,6 +1202,7 @@ id text2
 id textSpacerNoButtons
 id textSpacerNoTitle
 id textStart
+id textView
 id text_input_password_toggle
 id textinput_counter
 id textinput_error
