@@ -76,14 +76,14 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\St
 		ADDED from C:\Users\Stefano\Documents\Defonce_Management\app\src\main\AndroidManifest.xml:6:13-39
 	android:theme
 		ADDED from C:\Users\Stefano\Documents\Defonce_Management\app\src\main\AndroidManifest.xml:11:13-44
-activity#com.example.defonce_management.MainActivity
+activity#Controller.MainActivity
 ADDED from C:\Users\Stefano\Documents\Defonce_Management\app\src\main\AndroidManifest.xml:12:9-21:20
 	android:label
 		ADDED from C:\Users\Stefano\Documents\Defonce_Management\app\src\main\AndroidManifest.xml:14:17-49
 	android:theme
 		ADDED from C:\Users\Stefano\Documents\Defonce_Management\app\src\main\AndroidManifest.xml:15:17-60
 	android:name
-		ADDED from C:\Users\Stefano\Documents\Defonce_Management\app\src\main\AndroidManifest.xml:13:17-45
+		ADDED from C:\Users\Stefano\Documents\Defonce_Management\app\src\main\AndroidManifest.xml:13:17-55
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
 ADDED from C:\Users\Stefano\Documents\Defonce_Management\app\src\main\AndroidManifest.xml:16:13-20:29
 action#android.intent.action.MAIN
