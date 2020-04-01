@@ -4,6 +4,7 @@
 
 package Controller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import com.example.defonce_management.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -59,8 +60,10 @@ public class WelcomePage extends AppCompatActivity {
         System.out.println("go to sign in");
 
     }
+
     public void GoToSignUp(View view){
         //will redirect to sign up page
         System.out.println("go to sign up");
+        startActivity(new Intent(WelcomePage.this, SignUp.class));
     }
 }

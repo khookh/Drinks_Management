@@ -29,6 +29,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="Controller.SignUp"
+            android:label="Sign_Up" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="Controller.SignUp" />
+        </activity>
     </application>
 
 </manifest>
