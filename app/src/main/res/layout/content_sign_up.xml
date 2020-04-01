@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="Controller.SignUp"
+        tools:showIn="@layout/sign_up">
+
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="NickName"
+            android:ems="10"
+            tools:layout_editor_absoluteY="129dp" android:id="@+id/nickname"
+            tools:ignore="MissingConstraints"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:ems="10"
+            android:text="Email"
+            tools:layout_editor_absoluteY="190dp" android:id="@+id/email"
+            tools:ignore="MissingConstraints" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    <TextView
+            android:text="Sign Up Page"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" tools:layout_editor_absoluteY="75dp"
+            android:id="@+id/textView6" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" tools:ignore="MissingConstraints"/>
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:text="Password"
+            android:ems="10"
+            tools:layout_editor_absoluteY="252dp" android:id="@+id/password"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="MissingConstraints"/>
+    <CheckBox
+            android:text="Accept Terms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" tools:layout_editor_absoluteY="339dp"
+            android:id="@+id/checkterms" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.685"
+            tools:ignore="MissingConstraints"/>
+    <Button
+            android:text="Sign Up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" tools:layout_editor_absoluteY="330dp"
+            android:id="@+id/signupbutton" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.306"
+            android:onClick="SignUp"
+            tools:ignore="MissingConstraints"/>
+    <TextView
+            android:text=""
+            android:layout_width="151dp"
+            android:layout_height="32dp" tools:layout_editor_absoluteY="378dp"
+            android:id="@+id/errormessage" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" tools:ignore="MissingConstraints"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,12 +2,14 @@ package Model;
 
 public class Alcool {
     private String Name;
-    private Double Volume;
-    private Double Percentage;
+    private Double Volume; //in cL
+    private Double Percentage; // in %
+    private Double AlQt; // in cL, quantity of alcohol in the drink
     public Alcool(String name, Double volume, Double percentage) {
         Name = name;
         Volume = volume;
         Percentage = percentage;
+        AlQt = Percentage*Volume;
     }
 
     public String getName() {

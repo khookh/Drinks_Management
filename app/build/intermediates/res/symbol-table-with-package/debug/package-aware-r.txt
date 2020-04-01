@@ -1068,6 +1068,7 @@ id center_horizontal
 id center_vertical
 id chains
 id checkbox
+id checkterms
 id chronometer
 id clip_horizontal
 id clip_vertical
@@ -1089,9 +1090,11 @@ id dimensions
 id direct
 id disableHome
 id edit_query
+id email
 id end
 id enterAlways
 id enterAlwaysCollapsed
+id errormessage
 id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
@@ -1132,6 +1135,7 @@ id mtrl_internal_children_alpha_tag
 id multiply
 id navigation_header_container
 id never
+id nickname
 id none
 id normal
 id notification_background
@@ -1143,6 +1147,7 @@ id parallax
 id parent
 id parentPanel
 id parent_matrix
+id password
 id percent
 id pin
 id progress_circular
@@ -1176,6 +1181,7 @@ id shortcut
 id showCustom
 id showHome
 id showTitle
+id signupbutton
 id smallLabel
 id snackbar_action
 id snackbar_text
@@ -1204,6 +1210,7 @@ id textSpacerNoTitle
 id textStart
 id textView
 id textView2
+id textView6
 id text_input_password_toggle
 id textinput_counter
 id textinput_error
@@ -1279,6 +1286,7 @@ layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_main
 layout content_main
+layout content_sign_up
 layout design_bottom_navigation_item
 layout design_bottom_sheet_dialog
 layout design_layout_snackbar

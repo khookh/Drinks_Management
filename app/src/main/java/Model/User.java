@@ -1,11 +1,15 @@
 package Model;
 
+import java.time.LocalDateTime;
+import java.util.HashMap;
+
 public class User {
     private String Name;
     private String Email;
     private Double Weight;
     private Integer Age;
     private String Password;
+    private HashMap<LocalDateTime,Alcool> Consumption;
 
     public User(String name, String email, Double weight, Integer age, String password){
         Name = name;
@@ -54,5 +58,10 @@ public class User {
     public String getPassword() {
         return Password;
     }
+
+    public HashMap<LocalDateTime, Alcool> getConsumption() {
+        return Consumption;
+    }
+
 
 }
