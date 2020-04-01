@@ -1,5 +1,5 @@
 
-//TODO : Transform Main Activity into several proper controller for every .xml
+//TODO : Transform it into several proper controller for every .xml
 //TODO : Create a proper MAIN.java called by Androidmanifest.xml
 
 package Controller;
@@ -14,7 +14,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+public class WelcomePage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,5 +53,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    public void GoToSignIn(View view){ //called by sign in button
+        //will redirect to sign in page
+        System.out.println("go to sign in");
+
+    }
+    public void GoToSignUp(View view){
+        //will redirect to sign up page
+        System.out.println("go to sign up");
     }
 }

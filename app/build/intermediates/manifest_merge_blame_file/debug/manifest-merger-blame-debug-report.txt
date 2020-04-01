@@ -30,8 +30,8 @@
 20-->C:\Users\Stefano\Documents\Defonce_Management\app\src\main\AndroidManifest.xml:11:13-44
 21        <activity
 21-->C:\Users\Stefano\Documents\Defonce_Management\app\src\main\AndroidManifest.xml:12:9-20:20
-22            android:name="Controller.MainActivity"
-22-->C:\Users\Stefano\Documents\Defonce_Management\app\src\main\AndroidManifest.xml:13:17-55
+22            android:name="Controller.WelcomePage"
+22-->C:\Users\Stefano\Documents\Defonce_Management\app\src\main\AndroidManifest.xml:13:17-54
 23            android:label="@string/app_name"
 23-->C:\Users\Stefano\Documents\Defonce_Management\app\src\main\AndroidManifest.xml:14:17-49
 24            android:theme="@style/AppTheme.NoActionBar" >
