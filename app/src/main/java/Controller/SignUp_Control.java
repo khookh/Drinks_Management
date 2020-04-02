@@ -7,8 +7,12 @@ import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.defonce_management.R;
+
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Control the Sign_Up activity
+ */
 public class SignUp_Control extends AppCompatActivity {
     EditText nickname, email, password, age, weight;
     CheckBox checkterms;
@@ -74,7 +78,8 @@ public class SignUp_Control extends AppCompatActivity {
             radioSexButton = (RadioButton) findViewById(selectedId);
             String sex = radioSexButton.getText().toString();
 
-            String signed = SignUp.SignUp(name,mail,pass,Integer.parseInt(ag),sex,Double.parseDouble(wg));
+            SignUp.SignUp(name,mail,pass,Integer.parseInt(ag),sex,Double.parseDouble(wg));
+            String signed = SignUp.getSignedup();
             errormessage.setText(signed);
             if(signed.equals("Signed Up")){ //si pas d'erreur
                 TimeUnit.SECONDS.sleep(2);

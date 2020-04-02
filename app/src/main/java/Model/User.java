@@ -13,6 +13,7 @@ public class User {
     private HashMap<LocalDateTime,Alcool> Consumption;
 
     public User(String name, String email, Double weight, Integer age, String password, String sex){
+        System.out.println("NEW USER CREATED");
         Name = name;
         Email = email;
         Weight = weight;

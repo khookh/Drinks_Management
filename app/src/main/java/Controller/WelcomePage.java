@@ -1,18 +1,24 @@
 
 package Controller;
 
+import Model.User;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import com.example.defonce_management.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
+
+import java.util.ArrayList;
 
 public class WelcomePage extends AppCompatActivity {
+
+    public static ArrayList<User> users = new ArrayList();   //TEMPORARY FOR TEST
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +35,14 @@ public class WelcomePage extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+    }
+
+    public static ArrayList<User> getUsers() {
+        return users;
+    }
+
+    public static void setUsers(ArrayList<User> users) {
+        WelcomePage.users = users;
     }
 
     @Override
@@ -70,7 +84,7 @@ public class WelcomePage extends AppCompatActivity {
      * @param view
      */
     public void GoToSignUp(View view){
-        //will redirect to sign up page
+        //redirect to sign up page
         System.out.println("go to sign up");
         startActivity(new Intent(WelcomePage.this, SignUp_Control.class));
     }
