@@ -28,6 +28,7 @@ public class WebServer {
 
     private void initServer() {
         this.server = Javalin.create().start(DEFAULT_PORT);
+
         this.server.post("/api/*", ctx -> {
             handleApiRequest(ctx);
         });
