@@ -8,6 +8,16 @@ public class SignUp {
 
     private static String signedup = "error";
     private static ArrayList<User> users = WelcomePage.getUsers();
+
+    /**
+     * SignUp instance; verify the information and proceed to sign up
+     * @param nickname
+     * @param email
+     * @param password
+     * @param age
+     * @param sex
+     * @param weight
+     */
     public static void SignUp(String nickname, String email, String password, Integer age, String sex, Double weight){
         if(CheckUser(email,nickname)){
             CreateUser(nickname,email,password,age,sex,weight);

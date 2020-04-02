@@ -1,12 +1,15 @@
 
 package Controller;
 
+import Model.SignIn;
 import Model.User;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import com.example.defonce_management.R;
@@ -18,12 +21,18 @@ import java.util.ArrayList;
 public class WelcomePage extends AppCompatActivity {
 
     public static ArrayList<User> users = new ArrayList();   //TEMPORARY FOR TEST
-
+    EditText nickname, password;
+    TextView errormessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.welcome);
+
+        nickname = (EditText)findViewById(R.id.nickname);
+        password = (EditText)findViewById(R.id.password);
+        errormessage =(TextView)findViewById(R.id.errormessage);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -31,7 +40,7 @@ public class WelcomePage extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Facing issues ? Improvement idea ? Contact the devs", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -68,24 +77,26 @@ public class WelcomePage extends AppCompatActivity {
     }
 
     /**
-     * Is called by the Sign In button from content_main.xml
-     * Move to the Sign In activity (not yet)
+     * Is called by the Sign In button from content_welcome.xml
+     * Call Methods in Sign In to check if the user exists
+     * Then move to new Activity
      * @param view
      */
-    public void GoToSignIn(View view){ //called by sign in button
-        //will redirect to sign in page
-        System.out.println("go to sign in");
+    public void GoToSignIn(View view) throws InterruptedException {
+        SignIn.SignIn(nickname.getText().toString().trim(),password.getText().toString().trim());
+        errormessage.setText(SignIn.getSignedin());
+        if(SignIn.getSignedin().equals("Signed In")){
+            //startActivity(WelcomePage.this, Session_Control.class));
+        }
 
     }
 
     /**
-     * Is called by the Sign Up button from content_main.xml
+     * Is called by the Sign Up button from content_welcome.xml
      * Move to the Sign Up activity
      * @param view
      */
     public void GoToSignUp(View view){
-        //redirect to sign up page
-        System.out.println("go to sign up");
         startActivity(new Intent(WelcomePage.this, SignUp_Control.class));
     }
 }

@@ -82,7 +82,7 @@ public class SignUp_Control extends AppCompatActivity {
             String signed = SignUp.getSignedup();
             errormessage.setText(signed);
             if(signed.equals("Signed Up")){ //si pas d'erreur
-                TimeUnit.SECONDS.sleep(3);
+                TimeUnit.SECONDS.sleep(1);
                 startActivity(new Intent(SignUp_Control.this, WelcomePage.class)); //retourne à la page d'acceuil
             }
         }
