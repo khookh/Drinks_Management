@@ -3,6 +3,7 @@ package webapi;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
@@ -24,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class WebServerTest {
 
     /** Ip for local testing */
-    static String localHost = "127.0.0.1";
+    static String url = "http://localhost/";
 
     static WebServer server = null;
 
@@ -46,7 +47,7 @@ class WebServerTest {
      */
     String sendPost(String path, String data) throws IOException {
         HttpClient client = HttpClientBuilder.create().build();
-        HttpPost request = new HttpPost(localHost+"/"+path);
+        HttpPost request = new HttpPost(url+path);
         StringEntity entity = new StringEntity(data);
         request.addHeader("content-type", "application/x-www-from-urlencoded");
         request.setEntity(entity);
@@ -75,7 +76,8 @@ class WebServerTest {
      */
     String sendGet(String path) throws IOException {
         HttpClient client = HttpClientBuilder.create().build();
-        HttpPost request = new HttpPost("http://"+localHost+"/"+path);
+
+        HttpGet request = new HttpGet(url+path);
 
         HttpResponse response = client.execute(request);
         return response.toString();
