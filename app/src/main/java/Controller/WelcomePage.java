@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public class WelcomePage extends AppCompatActivity {
 
-    public static ArrayList<User> users = new ArrayList();   //TEMPORARY FOR TEST
+    public static ArrayList<User> users = new ArrayList();
     EditText nickname, password;
     TextView errormessage;
 
@@ -28,6 +28,12 @@ public class WelcomePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome);
+
+        //TEMPORARY FOR TEST
+        User newuser = new User("Stefano","e",85.6,23,"123456","boi");
+        users.add(newuser);
+        WelcomePage.setUsers(users);
+        //TEMPORARY FOR TEST
 
         nickname = (EditText)findViewById(R.id.nickname);
         password = (EditText)findViewById(R.id.password);
@@ -86,7 +92,7 @@ public class WelcomePage extends AppCompatActivity {
         SignIn.SignIn(nickname.getText().toString().trim(),password.getText().toString().trim());
         errormessage.setText(SignIn.getSignedin());
         if(SignIn.getSignedin().equals("Signed In")){
-            //startActivity(WelcomePage.this, Session_Control.class));
+            startActivity(new Intent(WelcomePage.this, Session_Control.class));
         }
 
     }
