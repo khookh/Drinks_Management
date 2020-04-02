@@ -12,7 +12,8 @@ local.properties
 .captures
 .externalNativeBuild
 .cxx
-/app/build/
-/app/libs/
-/.idea/
-/app/build/
+app/build/
+app/libs/
+
+web/build/
+web/libs/
