@@ -9,10 +9,10 @@
         tools:showIn="@layout/sign_up">
 
     <EditText
+            android:hint="NickName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
-            android:text="NickName"
             android:ems="10"
             android:id="@+id/nickname"
             tools:ignore="MissingConstraints"
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
             android:ems="10"
-            android:text="Email"
+            android:hint="Email"
             android:id="@+id/email"
             tools:ignore="MissingConstraints" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
@@ -42,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
-            android:text="Password"
+            android:hint="Password"
             android:ems="10"
             android:id="@+id/password"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
@@ -85,22 +85,22 @@
             app:layout_constraintVertical_bias="0.76"/>
     <EditText
             android:layout_width="60dp"
-            android:text="Age"
+            android:hint="Age"
             android:layout_height="41dp"
-            android:inputType="numberDecimal"
+            android:inputType="number"
             android:ems="10"
             android:id="@+id/age"
             tools:ignore="MissingConstraints" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.282"
-            app:layout_constraintVertical_bias="0.572"/>
+            app:layout_constraintVertical_bias="0.533"/>
     <RadioGroup
-            android:layout_width="140dp"
-            android:layout_height="76dp"
+            android:layout_width="138dp"
+            android:layout_height="103dp"
             android:id="@+id/radioGroup"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_bias="0.771" app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.569">
+            app:layout_constraintHorizontal_bias="0.809" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.59000003">
         <TextView
                 android:text="You are a ..."
                 android:layout_width="match_parent"
@@ -115,4 +115,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:id="@+id/woman"/>
     </RadioGroup>
+    <EditText
+            android:hint="Weight (kg)"
+            android:layout_width="122dp"
+            android:layout_height="44dp"
+            android:inputType="numberDecimal"
+            android:ems="10"
+            android:id="@+id/weight"
+            tools:ignore="MissingConstraints" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.342"
+            app:layout_constraintVertical_bias="0.641"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

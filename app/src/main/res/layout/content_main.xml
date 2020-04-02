@@ -30,8 +30,9 @@
             tools:ignore="OnClick"/>
     <TextView
             android:text="V0.0 of the software"
-            android:layout_width="137dp"
-            android:layout_height="48dp"
+            android:layout_width="178dp"
+            android:layout_height="50dp"
+            android:gravity="center"
             android:id="@+id/textView" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintBottom_toTopOf="@+id/SignUp" app:layout_constraintTop_toTopOf="parent"/>

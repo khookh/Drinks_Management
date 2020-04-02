@@ -9,14 +9,16 @@ public class User {
     private Double Weight;
     private Integer Age;
     private String Password;
+    private String Sex;
     private HashMap<LocalDateTime,Alcool> Consumption;
 
-    public User(String name, String email, Double weight, Integer age, String password){
+    public User(String name, String email, Double weight, Integer age, String password, String sex){
         Name = name;
         Email = email;
         Weight = weight;
         Age = age;
         Password = password;
+        Sex = sex;
     }
 
     public void setName(String name) {
@@ -58,6 +60,10 @@ public class User {
     public String getPassword() {
         return Password;
     }
+
+    public String getSex() { return Sex; }
+
+    public void setSex(String sex) { Sex = sex; }
 
     public HashMap<LocalDateTime, Alcool> getConsumption() {
         return Consumption;
