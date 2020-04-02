@@ -5,7 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="Controller.SignUp"
+        tools:context="Controller.SignUp_Control"
         tools:showIn="@layout/sign_up">
 
     <EditText
@@ -67,8 +67,9 @@
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.877"/>
     <TextView
             android:text=""
-            android:layout_width="151dp"
-            android:layout_height="32dp"
+            android:layout_width="301dp"
+            android:layout_height="28dp"
+            android:gravity="center"
             android:id="@+id/errormessage" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" tools:ignore="MissingConstraints"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
@@ -88,28 +89,29 @@
             android:layout_height="41dp"
             android:inputType="numberDecimal"
             android:ems="10"
-            android:id="@+id/editText"
+            android:id="@+id/age"
             tools:ignore="MissingConstraints" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.282"
-            app:layout_constraintVertical_bias="0.573"/>
+            app:layout_constraintVertical_bias="0.572"/>
     <RadioGroup
             android:layout_width="140dp"
             android:layout_height="76dp"
             android:id="@+id/radioGroup"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_bias="0.763" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_bias="0.771" app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.569">
         <TextView
                 android:text="You are a ..."
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:id="@+id/textView2"/>
         <RadioButton
+                android:checked="true"
                 android:text="boi"
                 android:layout_width="89dp"
                 android:layout_height="wrap_content" android:id="@+id/man"/>
         <RadioButton
-                android:text="dishwasher"
+                android:text="woman"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:id="@+id/woman"/>
     </RadioGroup>

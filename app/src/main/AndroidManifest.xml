@@ -19,11 +19,11 @@
             </intent-filter>
         </activity>
         <activity
-                android:name="Controller.SignUp"
+                android:name="Controller.SignUp_Control"
                 android:label="Sign_Up">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value="Controller.SignUp" />
+                    android:value="Controller.SignUp_Control" />
         </activity>
 
 

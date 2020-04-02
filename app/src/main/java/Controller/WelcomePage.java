@@ -1,7 +1,4 @@
 
-//TODO : Transform it into several proper controller for every .xml
-//TODO : Create a proper MAIN.java called by Androidmanifest.xml
-
 package Controller;
 
 import android.content.Intent;
@@ -55,15 +52,26 @@ public class WelcomePage extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    /**
+     * Is called by the Sign In button from content_main.xml
+     * Move to the Sign In activity (not yet)
+     * @param view
+     */
     public void GoToSignIn(View view){ //called by sign in button
         //will redirect to sign in page
         System.out.println("go to sign in");
 
     }
 
+    /**
+     * Is called by the Sign Up button from content_main.xml
+     * Move to the Sign Up activity
+     * @param view
+     */
     public void GoToSignUp(View view){
         //will redirect to sign up page
         System.out.println("go to sign up");
-        startActivity(new Intent(WelcomePage.this, SignUp.class));
+        startActivity(new Intent(WelcomePage.this, SignUp_Control.class));
     }
 }

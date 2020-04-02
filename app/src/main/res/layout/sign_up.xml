@@ -4,6 +4,6 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               xmlns:tools="http://schemas.android.com/tools"
-              tools:context="Controller.SignUp">
+              tools:context="Controller.SignUp_Control">
     <include layout="@layout/content_sign_up"/>
 </LinearLayout>
