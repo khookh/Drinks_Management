@@ -27,6 +27,7 @@ class WebServerTest {
     /** Ip for local testing */
     static String url = "http://localhost/";
 
+    /** Static WebServer instance used for all tests. */
     static WebServer server = null;
 
     // TODO: Use JSON with Google's GSON.
