@@ -5,10 +5,10 @@
                                                    android:id="@+id/constraintLayout"
                                                    android:layout_width="match_parent"
                                                    android:layout_height="match_parent"
-                                                   tools:context="Controller.Fragment.PlaceholderFragment">
+                                                   tools:context="Controller.Fragment.Consumption">
 
     <TextView
-            android:id="@+id/section_label"
+            android:id="@+id/cons_label"
             android:gravity="center"
             android:layout_width="349dp"
             android:layout_height="60dp"
