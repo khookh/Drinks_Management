@@ -27,7 +27,7 @@
         </activity>
         <activity
                 android:name="Controller.Session_Control"
-                android:label="Sign_Up">
+                    android:label="Session">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="Controller.Session_Control" />

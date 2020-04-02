@@ -11,6 +11,7 @@ public class User {
     private String Password;
     private String Sex;
     private HashMap<LocalDateTime,Alcool> Consumption;
+    private Double AlcoolRate = 0.0; // en g/L dans le sang
 
     public User(String name, String email, Double weight, Integer age, String password, String sex){
         Name = name;
@@ -65,8 +66,20 @@ public class User {
 
     public void setSex(String sex) { Sex = sex; }
 
+    public Double getAlcoolRate() {
+        return AlcoolRate;
+    }
+
+    public void setAlcoolRate(Double alcoolRate) {
+        AlcoolRate = alcoolRate;
+    }
+
     public HashMap<LocalDateTime, Alcool> getConsumption() {
         return Consumption;
+    }
+
+    public void setConsumption(HashMap<LocalDateTime, Alcool> consumption) {
+        Consumption = consumption;
     }
 
 

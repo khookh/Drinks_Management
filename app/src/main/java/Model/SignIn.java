@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class SignIn {
 
+
     private static String signedin = "error";
 
     /**
@@ -32,6 +33,7 @@ public class SignIn {
                 setSignedin("Wrong Password");
                 if(users.get(i).getPassword().equals(pw)){
                     setSignedin("Signed In");
+                    WelcomePage.setActual_user(users.get(i));
                 }
             }
         }

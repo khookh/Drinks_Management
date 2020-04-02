@@ -20,6 +20,8 @@ import java.util.ArrayList;
 
 public class WelcomePage extends AppCompatActivity {
 
+    private static User actual_user;
+
     public static ArrayList<User> users = new ArrayList();
     EditText nickname, password;
     TextView errormessage;
@@ -92,9 +94,9 @@ public class WelcomePage extends AppCompatActivity {
         SignIn.SignIn(nickname.getText().toString().trim(),password.getText().toString().trim());
         errormessage.setText(SignIn.getSignedin());
         if(SignIn.getSignedin().equals("Signed In")){
+
             startActivity(new Intent(WelcomePage.this, Session_Control.class));
         }
-
     }
 
     /**
@@ -104,5 +106,13 @@ public class WelcomePage extends AppCompatActivity {
      */
     public void GoToSignUp(View view){
         startActivity(new Intent(WelcomePage.this, SignUp_Control.class));
+    }
+
+    public static User getActual_user() {
+        return actual_user;
+    }
+
+    public static void setActual_user(User actual_user) {
+        WelcomePage.actual_user = actual_user;
     }
 }

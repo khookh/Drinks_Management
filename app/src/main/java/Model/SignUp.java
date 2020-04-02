@@ -1,9 +1,7 @@
 package Model;
 
 import Controller.WelcomePage;
-
 import java.util.ArrayList;
-
 public class SignUp {
 
     private static String signedup = "error";
@@ -58,8 +56,11 @@ public class SignUp {
      */
     private static void CreateUser(String n, String e, String p, Integer a, String s, Double w){
         User newuser = new User(n,e,w,a,p,s);
+
+        //
         users.add(newuser);
         WelcomePage.setUsers(users);
+        //
     }
 
     /**

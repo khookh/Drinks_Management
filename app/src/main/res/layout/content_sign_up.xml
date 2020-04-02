@@ -18,7 +18,8 @@
             tools:ignore="MissingConstraints"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.155"/>
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.104"
+    />
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,7 +29,7 @@
             android:id="@+id/email"
             tools:ignore="MissingConstraints" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.278"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.225"
     />
     <TextView
             android:text="Sign Up Page"
@@ -37,7 +38,7 @@
             android:id="@+id/textView6" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" tools:ignore="MissingConstraints"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.082"/>
+            app:layout_constraintVertical_bias="0.022" app:layout_constraintHorizontal_bias="0.515"/>
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,7 +48,7 @@
             android:id="@+id/password"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
             tools:ignore="MissingConstraints" app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.402"/>
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.352"/>
     <CheckBox
             android:text="Accept Terms"
             android:layout_width="129dp"
@@ -93,17 +94,17 @@
             tools:ignore="MissingConstraints" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.282"
-            app:layout_constraintVertical_bias="0.533"/>
+            app:layout_constraintVertical_bias="0.488"/>
     <RadioGroup
-            android:layout_width="138dp"
-            android:layout_height="103dp"
+            android:layout_width="91dp"
+            android:layout_height="81dp"
             android:id="@+id/radioGroup"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_bias="0.809" app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.59000003">
+            app:layout_constraintHorizontal_bias="0.487" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.632">
         <TextView
                 android:text="You are a ..."
-                android:layout_width="match_parent"
+                android:layout_width="97dp"
                 android:layout_height="wrap_content" android:id="@+id/textView2"/>
         <RadioButton
                 android:checked="true"
@@ -112,7 +113,7 @@
                 android:layout_height="wrap_content" android:id="@+id/man"/>
         <RadioButton
                 android:text="woman"
-                android:layout_width="match_parent"
+                android:layout_width="93dp"
                 android:layout_height="wrap_content" android:id="@+id/woman"/>
     </RadioGroup>
     <EditText
@@ -124,6 +125,6 @@
             android:id="@+id/weight"
             tools:ignore="MissingConstraints" app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.342"
-            app:layout_constraintVertical_bias="0.641"/>
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.657"
+            app:layout_constraintVertical_bias="0.486"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
