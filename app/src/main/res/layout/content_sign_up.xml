@@ -14,53 +14,103 @@
             android:inputType="textPersonName"
             android:text="NickName"
             android:ems="10"
-            tools:layout_editor_absoluteY="129dp" android:id="@+id/nickname"
+            android:id="@+id/nickname"
             tools:ignore="MissingConstraints"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.155"/>
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
             android:ems="10"
             android:text="Email"
-            tools:layout_editor_absoluteY="190dp" android:id="@+id/email"
+            android:id="@+id/email"
             tools:ignore="MissingConstraints" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.278"
+    />
     <TextView
             android:text="Sign Up Page"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" tools:layout_editor_absoluteY="75dp"
+            android:layout_height="wrap_content"
             android:id="@+id/textView6" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" tools:ignore="MissingConstraints"/>
+            app:layout_constraintStart_toStartOf="parent" tools:ignore="MissingConstraints"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.082"/>
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:text="Password"
             android:ems="10"
-            tools:layout_editor_absoluteY="252dp" android:id="@+id/password"
+            android:id="@+id/password"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            tools:ignore="MissingConstraints"/>
+            tools:ignore="MissingConstraints" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.402"/>
     <CheckBox
             android:text="Accept Terms"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" tools:layout_editor_absoluteY="339dp"
+            android:layout_width="129dp"
+            android:layout_height="32dp"
             android:id="@+id/checkterms" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.685"
-            tools:ignore="MissingConstraints"/>
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.315"
+            tools:ignore="MissingConstraints" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.76"/>
     <Button
             android:text="Sign Up"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" tools:layout_editor_absoluteY="330dp"
+            android:layout_height="wrap_content"
             android:id="@+id/signupbutton" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.306"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.507"
             android:onClick="SignUp"
-            tools:ignore="MissingConstraints"/>
+            tools:ignore="MissingConstraints" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.877"/>
     <TextView
             android:text=""
             android:layout_width="151dp"
-            android:layout_height="32dp" tools:layout_editor_absoluteY="378dp"
+            android:layout_height="32dp"
             android:id="@+id/errormessage" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" tools:ignore="MissingConstraints"/>
+            app:layout_constraintStart_toStartOf="parent" tools:ignore="MissingConstraints"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.938"/>
+    <Button
+            android:text="Terms"
+            android:layout_width="86dp"
+            android:layout_height="42dp"
+            android:id="@+id/terms" tools:ignore="MissingConstraints"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.723"
+            app:layout_constraintVertical_bias="0.76"/>
+    <EditText
+            android:layout_width="60dp"
+            android:text="Age"
+            android:layout_height="41dp"
+            android:inputType="numberDecimal"
+            android:ems="10"
+            android:id="@+id/editText"
+            tools:ignore="MissingConstraints" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.282"
+            app:layout_constraintVertical_bias="0.573"/>
+    <RadioGroup
+            android:layout_width="140dp"
+            android:layout_height="76dp"
+            android:id="@+id/radioGroup"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.763" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.569">
+        <TextView
+                android:text="You are a ..."
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/textView2"/>
+        <RadioButton
+                android:text="boi"
+                android:layout_width="89dp"
+                android:layout_height="wrap_content" android:id="@+id/man"/>
+        <RadioButton
+                android:text="dishwasher"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/woman"/>
+    </RadioGroup>
 </androidx.constraintlayout.widget.ConstraintLayout>

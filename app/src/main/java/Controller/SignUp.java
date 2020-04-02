@@ -7,14 +7,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.defonce_management.R;
 
 public class SignUp  extends AppCompatActivity {
-    private EditText nickame;
+    EditText nickname;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_up);
+        nickname = (EditText) findViewById(R.id.nickname);
     }
 
     public void SignUp(View view) {
-        System.out.println(nickame.getText()); //test syntaxe
+        System.out.println(nickname.getText().toString()); //test syntaxe
 
     }
 }

@@ -6,14 +6,4 @@
               xmlns:tools="http://schemas.android.com/tools"
               tools:context="Controller.SignUp">
     <include layout="@layout/content_sign_up"/>
-
-    <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        <TextView
-                android:text="SIGNUP TEST"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:id="@+id/textView2"/>
-    </LinearLayout>
 </LinearLayout>
