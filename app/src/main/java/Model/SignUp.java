@@ -19,19 +19,17 @@ public class SignUp {
      * @return boolean check ; if the user already exist or not
      */
     private static boolean CheckUser(String e, String n) {
-        System.out.println("Start checking");
         boolean check = true;
         ArrayList<User> users = WelcomePage.getUsers();
 
         //check dans le stockage, arraylist sol. temporaire pour test
+
         for (int i = 0; i < users.size(); i++) {
-            if(users.get(i).getEmail() == e){
-                System.out.println("Email adress already used");
+            if(users.get(i).getEmail().equals(e)){
                 check = false;
                 setSignedup("Email adress already used");
             }
-            if(users.get(i).getName() == n){
-                System.out.println("Nickname already used");
+            if(users.get(i).getName().equals(n)){
                 check = false;
                 setSignedup("Nickname already taken");
             }
@@ -51,9 +49,7 @@ public class SignUp {
     private static void CreateUser(String n, String e, String p, Integer a, String s, Double w){
         User newuser = new User(n,e,w,a,p,s);
         users.add(newuser);
-        System.out.println("users.add(newuser);");
         WelcomePage.setUsers(users);
-        System.out.println("WelcomePage.setUsers(users);");
     }
 
     /**

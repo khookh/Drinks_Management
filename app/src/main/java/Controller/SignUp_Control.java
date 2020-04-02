@@ -56,7 +56,7 @@ public class SignUp_Control extends AppCompatActivity {
             errormessage.setText("You must put your email adress");
         }
         else if(pass.isEmpty()){
-            errormessage.setText("You must put choose a password");
+            errormessage.setText("You must choose a password");
         }
         else if(pass.length()<6){
             errormessage.setText("Your password must be at least 6 characters");
@@ -82,7 +82,7 @@ public class SignUp_Control extends AppCompatActivity {
             String signed = SignUp.getSignedup();
             errormessage.setText(signed);
             if(signed.equals("Signed Up")){ //si pas d'erreur
-                TimeUnit.SECONDS.sleep(2);
+                TimeUnit.SECONDS.sleep(3);
                 startActivity(new Intent(SignUp_Control.this, WelcomePage.class)); //retourne à la page d'acceuil
             }
         }
