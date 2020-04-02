@@ -7,6 +7,9 @@ repositories {
 dependencies {
     implementation 'io.javalin:javalin:3.8.0'
     implementation 'mysql:mysql-connector-java:5.1.13'
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'org.apache.httpcomponents:httpclient:4.5.10'
     testImplementation('org.junit.jupiter:junit-jupiter-api:5.4.2')
     testRuntime('org.junit.jupiter:junit-jupiter-engine:5.4.2')
+    implementation 'junit:junit:4.12'
 }

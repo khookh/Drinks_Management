@@ -1,8 +1,13 @@
 package webapi;
 
+import io.javalin.Javalin;
+
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println("Hello world! This is the Web API of Defonce Manager.");
+        Javalin app = Javalin.create().start(7000);
+        app.post("/api/*", ctx -> {
+            ctx.result("Connection worked.");
+        });
     }
 }

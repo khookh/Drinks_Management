@@ -1,5 +1,6 @@
 package database;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
@@ -14,6 +15,9 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class DBControllerTest {
 
+    /**
+     * Tries if the user has entered all the environment variables
+     */
     @Test
     void areVariablesSet() {
         Map<String, String> variables = System.getenv();
@@ -27,6 +31,9 @@ class DBControllerTest {
         assertNotNull(ip, "Environment variable not set.");
     }
 
+    /**
+     * Tries to connect with the environment variables given by the user.
+     */
     @Test
     void getInstance() {
         try {
