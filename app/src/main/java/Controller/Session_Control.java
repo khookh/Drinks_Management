@@ -3,8 +3,11 @@ package Controller;
 import Controller.Fragment.Consumption;
 import Controller.Fragment.Overview;
 import Controller.Fragment.SectionsPagerAdapter;
+import Model.PredefinedAlcohol.Classic25Pils;
+import Model.PredefinedAlcohol.VodkaShot;
 import Model.Session;
 import Model.User;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -49,17 +52,43 @@ public class Session_Control extends AppCompatActivity {
      * Called into Consumption.java
      */
     public static void startup_cons(){
-        System.out.print("startup");
-        cons.setTextLabel("Hello "+actual_user.getName()+" !" +"\n"+"Your alcool blood level is now around "+actual_user.getAlcoolRate()+" g/L");
         Session.setSkren(actual_user);
         cons.setProgressBar(Session.getSkrenlevel());
-        cons.setTextBar(Session.getSkrenmessage());
+        cons.setTextBar("Your alcool blood level is now around "+actual_user.getAlcoolRate()+" g/L" +"\n"+ Session.getSkrenmessage());
     }
-    public void selectedAlcool(View view){
-        selectedalcool = (Button) findViewById(view.getId());
-        System.out.println("Selected alcool is"+ selectedalcool.getText().toString());
-    }
-    //TODO: When the button 'add consumption' is pressed : verify if an alcool is selected or the field completed
-    //TODO: If an alcool has been selected or the field completed, proceed to create an alcool, and asign it to the user with a time stamp
 
+    /**
+     * Called when an alcohol is selectionned in the Consumption fragment
+     * @param view
+     */
+    public void selectedAlcool(View view){
+        if(selectedalcool!=null){ //si il y a déjà un alcool selectionné, le réeaffiche comme non sélectionné
+            selectedalcool.setTextColor(Color.BLACK);
+        }
+        selectedalcool = (Button) findViewById(view.getId());
+        selectedalcool.setTextColor(Color.WHITE); //affiche l'alcool comme selectionné
+    }
+
+    /**
+     * Called when the user push to "add consumption" in consumption fragment
+     * See if it's a predetermined alcohol or not
+     * @param view
+     */
+    public void addconsumption(View view){
+        if(selectedalcool!=null){
+            if(selectedalcool.getTag().equals("Classic25Pils")){
+                Session.addAlcohol(Classic25Pils.getName(),Classic25Pils.getVolume(),Classic25Pils.getPercentage());
+            }
+            else if(selectedalcool.getTag().equals("VodkaShot")){
+                Session.addAlcohol(VodkaShot.getName(),VodkaShot.getVolume(),VodkaShot.getPercentage());
+            }
+            //TODO ; add predifined alcohol
+        }
+        else{
+            Session.addAlcohol(cons.getBevname(),Double.parseDouble(cons.getVolume()), Double.parseDouble(cons.getPercent()));
+        }
+
+    }
+
+    //TODO : start implementing overview, by showing the lasts drinks by example
 }

@@ -10,7 +10,7 @@ public class User {
     private Integer Age;
     private String Password;
     private String Sex;
-    private HashMap<LocalDateTime,Alcool> Consumption;
+    private HashMap<LocalDateTime,Alcool> Consumption = new HashMap<LocalDateTime, Alcool>();
     private Double AlcoolRate = 0.0; // en g/L dans le sang
 
     public User(String name, String email, Double weight, Integer age, String password, String sex){
@@ -80,6 +80,10 @@ public class User {
 
     public void setConsumption(HashMap<LocalDateTime, Alcool> consumption) {
         Consumption = consumption;
+    }
+
+    public void addConsumption(LocalDateTime time, Alcool new_alcohol){
+        Consumption.put(time,new_alcohol);
     }
 
 
