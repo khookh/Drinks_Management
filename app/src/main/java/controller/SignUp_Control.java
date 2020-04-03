@@ -1,6 +1,6 @@
-package Controller;
+package controller;
 
-import Model.SignUp;
+import model.SignUp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -52,7 +52,7 @@ public class SignUp_Control extends AppCompatActivity {
      * Verify if all fields are correctly completed and then proceed to sign up
      * @param view
      */
-    public void SignUp(View view) throws InterruptedException {
+    public void signUp(View view) throws InterruptedException {
         //TODO: rajouter + réécrire les conditions de manière plus propre
 
         String name = nickname.getText().toString().trim();
@@ -90,7 +90,7 @@ public class SignUp_Control extends AppCompatActivity {
             radioSexButton = (RadioButton) findViewById(selectedId);
             String sex = radioSexButton.getText().toString();
 
-            SignUp.SignUp(name,mail,pass,Integer.parseInt(ag),sex,Double.parseDouble(wg));
+            SignUp.signUp(name,mail,pass,Integer.parseInt(ag),sex,Double.parseDouble(wg));
             String signed = SignUp.getSignedup();
             errormessage.setText(signed);
             if(signed.equals(getErrormessage4())){ //si pas d'erreur

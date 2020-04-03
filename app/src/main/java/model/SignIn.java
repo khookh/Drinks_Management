@@ -1,6 +1,6 @@
-package Model;
+package model;
 
-import Controller.WelcomePage;
+import controller.WelcomePage;
 
 import java.util.ArrayList;
 
@@ -14,8 +14,9 @@ public class SignIn {
      * @param nickname
      * @param password
      */
-    public static void SignIn(String nickname, String password){
-        CheckUser(password,nickname);
+    public static void signIn(String nickname, String password){
+        checkUser(password,nickname);
+        //
     }
 
     /**
@@ -23,7 +24,7 @@ public class SignIn {
      * @param pw
      * @param name
      */
-    private static void CheckUser(String pw, String name) {
+    private static void checkUser(String pw, String name) {
 
         ArrayList<User> users = WelcomePage.getUsers();
         //check dans le stockage, arraylist sol. temporaire pour test

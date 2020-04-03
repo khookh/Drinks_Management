@@ -1,4 +1,4 @@
-package Controller.Fragment;
+package controller.fragment;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;

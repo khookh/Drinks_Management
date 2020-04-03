@@ -1,12 +1,12 @@
-package Controller;
+package controller;
 
-import Controller.Fragment.Consumption;
-import Controller.Fragment.Overview;
-import Controller.Fragment.SectionsPagerAdapter;
-import Model.PredefinedAlcohol.Classic25Pils;
-import Model.PredefinedAlcohol.VodkaShot;
-import Model.Session;
-import Model.User;
+import controller.fragment.Consumption;
+import controller.fragment.Overview;
+import controller.fragment.SectionsPagerAdapter;
+import model.predefinedAlcohol.Classic25Pils;
+import model.predefinedAlcohol.VodkaShot;
+import model.Session;
+import model.User;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;

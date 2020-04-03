@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 import android.util.Pair;
 
@@ -6,87 +6,87 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 
 public class User {
-    private String Name;
-    private String Email;
-    private Double Weight;
-    private Integer Age;
-    private String Password;
-    private String Sex;
+    private String name;
+    private String email;
+    private Double weight;
+    private Integer age;
+    private String password;
+    private String sex;
     private static Pair<LocalDateTime, Alcool> lastdrink; //TEMPORARY
-    private HashMap<LocalDateTime,Alcool> Consumption = new HashMap<LocalDateTime, Alcool>();
-    private Double AlcoolRate = 0.0; // en g/L dans le sang
+    private HashMap<LocalDateTime,Alcool> consumption = new HashMap<LocalDateTime, Alcool>();
+    private Double alcoolRate = 0.0; // en g/L dans le sang
 
     public User(String name, String email, Double weight, Integer age, String password, String sex){
-        Name = name;
-        Email = email;
-        Weight = weight;
-        Age = age;
-        Password = password;
-        Sex = sex;
+        this.name = name;
+        this.email = email;
+        this.weight = weight;
+        this.age = age;
+        this.password = password;
+        this.sex = sex;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public void setEmail(String email) {
-        Email = email;
+        this.email = email;
     }
 
     public void setWeight(Double weight) {
-        Weight = weight;
+        this.weight = weight;
     }
 
     public void setAge(Integer age) {
-        Age = age;
+        this.age = age;
     }
 
     public void setPassword(String password) {
-        Password = password;
+        this.password = password;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public Double getWeight() {
-        return Weight;
+        return weight;
     }
 
     public Integer getAge() {
-        return Age;
+        return age;
     }
 
     public String getPassword() {
-        return Password;
+        return password;
     }
 
-    public String getSex() { return Sex; }
+    public String getSex() { return sex; }
 
-    public void setSex(String sex) { Sex = sex; }
+    public void setSex(String sex) { this.sex = sex; }
 
     public Double getAlcoolRate() {
-        return AlcoolRate;
+        return alcoolRate;
     }
 
     public void setAlcoolRate(Double alcoolRate) {
-        AlcoolRate = alcoolRate;
+        this.alcoolRate = alcoolRate;
     }
 
     public HashMap<LocalDateTime, Alcool> getConsumption() {
-        return Consumption;
+        return consumption;
     }
 
     public void setConsumption(HashMap<LocalDateTime, Alcool> consumption) {
-        Consumption = consumption;
+        this.consumption = consumption;
     }
 
     public void addConsumption(LocalDateTime time, Alcool new_alcohol){
-        Consumption.put(time,new_alcohol);
+        consumption.put(time,new_alcohol);
     }
 
     //TEMPORARY

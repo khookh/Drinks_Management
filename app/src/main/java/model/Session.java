@@ -1,6 +1,6 @@
-package Model;
+package model;
 
-import Controller.Session_Control;
+import controller.Session_Control;
 import android.annotation.SuppressLint;
 import android.util.Pair;
 
@@ -15,10 +15,6 @@ public class Session {
     private static Integer skrenlevel;
     private static User actual_user;
     private static Pair<LocalDateTime, Alcool> lastdrink; //temporaire
-
-    public void Session() {
-
-    }
 
     /**
      * Create new alcohol and the time it has been consumed and add it to the actual_user

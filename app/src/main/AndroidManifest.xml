@@ -10,7 +10,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme" tools:ignore="GoogleAppIndexingWarning">
         <activity
-                android:name="Controller.WelcomePage"
+                android:name="controller.WelcomePage"
                 android:label="@string/app_name"
                 android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -19,20 +19,20 @@
             </intent-filter>
         </activity>
         <activity
-                android:name="Controller.SignUp_Control"
+                android:name="controller.SignUp_Control"
                 android:label="Sign_Up">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value="Controller.SignUp_Control" />
+                    android:value="controller.SignUp_Control" />
         </activity>
         <activity
-                android:name="Controller.Session_Control"
+                android:name="controller.Session_Control"
                 android:configChanges="orientation|screenSize|keyboardHidden"
                 android:windowSoftInputMode="adjustPan"
                 android:label="Session">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value="Controller.Session_Control" />
+                    android:value="controller.Session_Control" />
         </activity>
 
 

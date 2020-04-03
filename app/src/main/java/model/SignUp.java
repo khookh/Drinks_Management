@@ -1,7 +1,7 @@
-package Model;
+package model;
 
-import Controller.SignUp_Control;
-import Controller.WelcomePage;
+import controller.SignUp_Control;
+import controller.WelcomePage;
 import java.util.ArrayList;
 public class SignUp {
 
@@ -17,9 +17,9 @@ public class SignUp {
      * @param sex
      * @param weight
      */
-    public static void SignUp(String nickname, String email, String password, Integer age, String sex, Double weight){
-        if(CheckUser(email,nickname)){
-            CreateUser(nickname,email,password,age,sex,weight);
+    public static void signUp(String nickname, String email, String password, Integer age, String sex, Double weight){
+        if(checkUser(email,nickname)){
+            createUser(nickname,email,password,age,sex,weight);
             setSignedup(SignUp_Control.getErrormessage4());
         }
     }
@@ -27,7 +27,7 @@ public class SignUp {
     /**
      * @return boolean check ; if the user already exist or not
      */
-    private static boolean CheckUser(String e, String n) {
+    private static boolean checkUser(String e, String n) {
         boolean check = true;
         ArrayList<User> users = WelcomePage.getUsers();
         //check dans le stockage, arraylist sol. temporaire pour test
@@ -54,7 +54,7 @@ public class SignUp {
      * @param s sex
      * @param w weight
      */
-    private static void CreateUser(String n, String e, String p, Integer a, String s, Double w){
+    private static void createUser(String n, String e, String p, Integer a, String s, Double w){
         User newuser = new User(n,e,w,a,p,s);
 
         //

@@ -1,8 +1,8 @@
 
-package Controller;
+package controller;
 
-import Model.SignIn;
-import Model.User;
+import model.SignIn;
+import model.User;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -91,8 +91,8 @@ public class WelcomePage extends AppCompatActivity {
      * Then move to new Activity
      * @param view
      */
-    public void GoToSignIn(View view) throws InterruptedException {
-        SignIn.SignIn(nickname.getText().toString().trim(),password.getText().toString().trim());
+    public void goToSignIn(View view) throws InterruptedException {
+        SignIn.signIn(nickname.getText().toString().trim(),password.getText().toString().trim());
         errormessage.setText(SignIn.getSignedin());
         if(SignIn.getSignedin().equals("Signed In")){
 
@@ -105,7 +105,7 @@ public class WelcomePage extends AppCompatActivity {
      * Move to the Sign Up activity
      * @param view
      */
-    public void GoToSignUp(View view){
+    public void goToSignUp(View view){
         startActivity(new Intent(WelcomePage.this, SignUp_Control.class));
     }
 

@@ -1,6 +1,6 @@
-package Controller.Fragment;
+package controller.fragment;
 
-import Controller.Session_Control;
+import controller.Session_Control;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;

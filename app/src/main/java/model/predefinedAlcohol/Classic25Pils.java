@@ -1,4 +1,4 @@
-package Model.PredefinedAlcohol;
+package model.predefinedAlcohol;
 
 public class Classic25Pils {
 
