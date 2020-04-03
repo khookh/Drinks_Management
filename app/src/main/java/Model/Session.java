@@ -1,6 +1,7 @@
 package Model;
 
 import android.annotation.SuppressLint;
+import android.util.Pair;
 
 import java.time.LocalDateTime;
 
@@ -11,7 +12,12 @@ public class Session {
 
     private static String skrenmessage;
     private static Integer skrenlevel;
+
+
     private static User actual_user;
+
+
+    private static Pair<LocalDateTime, Alcool> lastdrink; //temporaire
 
 
     public void Session() {
@@ -27,7 +33,9 @@ public class Session {
     @SuppressLint("NewApi")
     public static void addAlcohol(String bevname, Double volume, Double percent) { //works
         Alcool new_alcohol = new Alcool(bevname,volume,percent);
+        actual_user.setLastdrink(LocalDateTime.now(),new_alcohol); //set la dernière boisson bu par le user
         actual_user.addConsumption(LocalDateTime.now(),new_alcohol);
+        //updatebloodlevel(); //temporary
     }
     /**
      * Determine de level of skren and generate the informations to display by Session_Control
@@ -65,6 +73,21 @@ public class Session {
     public static void setActual_user(User actual_user) {
         Session.actual_user = actual_user;
     }
+    public static User getActual_user() {
+        return actual_user;
+    }
 
+    /**
+     * @return message: string indiquant quelle est la dernière boisson et quand elle a été consommée
+     */
+    public static String returnldstring() {
+        String message = "";
+        Pair<LocalDateTime, Alcool> ld = getActual_user().getLastdrink(); //à remplacer par autre chose quand il y aura persistance
+        if(ld!=null){
+            Alcool alcool = ld.second;
+            message = "Your last drink was : " + alcool.getName();
+        }
+        return message ;
+    }
 }
 

@@ -7,8 +7,10 @@ import Model.PredefinedAlcohol.Classic25Pils;
 import Model.PredefinedAlcohol.VodkaShot;
 import Model.Session;
 import Model.User;
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,27 +26,43 @@ public class Session_Control extends AppCompatActivity {
 
     static User actual_user = WelcomePage.getActual_user();
     TabLayout tabLayout;
+
     ViewPager viewPager;
+    SectionsPagerAdapter sectionsPagerAdapter;
     Button selectedalcool;
     static Consumption cons;
+    static Overview ov;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.session);
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        setSectionsPagerAdapter(sectionsPagerAdapter);
         ViewPager viewPager = findViewById(R.id.view_pager);
+        setViewPager(viewPager);
 
         TabLayout tabs = findViewById(R.id.tabs);
         FloatingActionButton fab = findViewById(R.id.fab);
 
         cons = new Consumption();
+        ov = new Overview();
         sectionsPagerAdapter.addFragment(cons, "Alcool Consumption");
-        sectionsPagerAdapter.addFragment(new Overview(), "Overview");
-        viewPager.setAdapter(sectionsPagerAdapter);
+        sectionsPagerAdapter.addFragment(ov, "Overview");
+        viewPager.setAdapter(sectionsPagerAdapter); //initialise les fragment dans le viewpager -> fonctionne  aussi pour refresh les items
         tabs.setupWithViewPager(viewPager);
 
+        //Touch Listener detecte .... les touch , utilisé pour refresh les fragments
+        viewPager.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                getViewPager().getAdapter().notifyDataSetChanged();
+                System.out.println("TOUCH LISTENED");
+                return false;
+            }
+        });
     }
 
     /**
@@ -87,8 +105,32 @@ public class Session_Control extends AppCompatActivity {
         else{
             Session.addAlcohol(cons.getBevname(),Double.parseDouble(cons.getVolume()), Double.parseDouble(cons.getPercent()));
         }
-
     }
 
     //TODO : start implementing overview, by showing the lasts drinks by example
+
+    /**
+     * Load the needed information into the consumption objects at creation
+     * Called into Overview.java
+     */
+    public static void startup_ov(){
+        String ld = Session.returnldstring();
+        ov.setLastDText(ld);
+
+    }
+
+    public SectionsPagerAdapter getSectionsPagerAdapter() {
+        return sectionsPagerAdapter;
+    }
+
+    public void setSectionsPagerAdapter(SectionsPagerAdapter sectionsPagerAdapter) {
+        this.sectionsPagerAdapter = sectionsPagerAdapter;
+    }
+    public ViewPager getViewPager() {
+        return viewPager;
+    }
+
+    public void setViewPager(ViewPager viewPager) {
+        this.viewPager = viewPager;
+    }
 }

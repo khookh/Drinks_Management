@@ -8,8 +8,8 @@
                                                    tools:context="Controller.Fragment.Overview">
 
     <TextView
-            android:text="overview tab"
-            android:id="@+id/section_label"
+            android:text=""
+            android:id="@+id/lastd"
             android:gravity="center"
             android:layout_width="349dp"
             android:layout_height="60dp"

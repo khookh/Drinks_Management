@@ -1,5 +1,7 @@
 package Model;
 
+import android.util.Pair;
+
 import java.time.LocalDateTime;
 import java.util.HashMap;
 
@@ -10,6 +12,7 @@ public class User {
     private Integer Age;
     private String Password;
     private String Sex;
+    private static Pair<LocalDateTime, Alcool> lastdrink; //temporaire
     private HashMap<LocalDateTime,Alcool> Consumption = new HashMap<LocalDateTime, Alcool>();
     private Double AlcoolRate = 0.0; // en g/L dans le sang
 
@@ -85,6 +88,14 @@ public class User {
     public void addConsumption(LocalDateTime time, Alcool new_alcohol){
         Consumption.put(time,new_alcohol);
     }
+    public static Pair<LocalDateTime, Alcool> getLastdrink() {
+        return lastdrink;
+    }
+
+    public static void setLastdrink(LocalDateTime time , Alcool alcool) {
+        lastdrink = new Pair<>(time,alcool);
+    }
+
 
 
 }

@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import com.example.defonce_management.R;
 
 /**
- * Implements the controls of the Consumption fragment displayed on session.xml
+ * Implements the controls of the Consumption fragment displayed
  */
 public class Consumption extends Fragment {
     View root;
