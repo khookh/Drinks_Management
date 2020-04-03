@@ -8,7 +8,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -25,7 +24,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class WebServerTest {
 
     /** Ip for local testing */
-    static String url = "http://localhost/";
+    static String URL = "http://localhost/";
+
+    static String API_URL = "http://localhost/api/";
 
     /** Static WebServer instance used for all tests. */
     static WebServer server = null;
@@ -48,7 +49,7 @@ class WebServerTest {
      */
     String sendPost(String path, String data) throws IOException {
         HttpClient client = HttpClientBuilder.create().build();
-        HttpPost request = new HttpPost(url+path);
+        HttpPost request = new HttpPost(API_URL +path);
         StringEntity entity = new StringEntity(data);
         request.addHeader("content-type", "application/x-www-from-urlencoded");
         request.setEntity(entity);
@@ -78,7 +79,7 @@ class WebServerTest {
     String sendGet(String path) throws IOException {
         HttpClient client = HttpClientBuilder.create().build();
 
-        HttpGet request = new HttpGet(url+path);
+        HttpGet request = new HttpGet(URL +path);
 
         HttpResponse response = client.execute(request);
         return response.toString();
