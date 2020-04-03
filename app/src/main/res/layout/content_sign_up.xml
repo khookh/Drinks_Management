@@ -54,9 +54,9 @@
             android:layout_width="129dp"
             android:layout_height="32dp"
             android:id="@+id/checkterms" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.315"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.351"
             tools:ignore="MissingConstraints" app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.76"/>
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.763"/>
     <Button
             android:text="Sign Up"
             android:layout_width="wrap_content"
@@ -82,8 +82,8 @@
             android:id="@+id/terms" tools:ignore="MissingConstraints"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.723"
-            app:layout_constraintVertical_bias="0.76"/>
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.701"
+            app:layout_constraintVertical_bias="0.765"/>
     <EditText
             android:layout_width="60dp"
             android:hint="Age"
@@ -96,15 +96,15 @@
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.282"
             app:layout_constraintVertical_bias="0.488"/>
     <RadioGroup
-            android:layout_width="91dp"
-            android:layout_height="81dp"
+            android:layout_width="160dp"
+            android:layout_height="77dp"
             android:id="@+id/radioGroup"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_bias="0.487" app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.632">
+            app:layout_constraintHorizontal_bias="0.394" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.622">
         <TextView
                 android:text="You are a ..."
-                android:layout_width="97dp"
+                android:layout_width="89dp"
                 android:layout_height="wrap_content" android:id="@+id/textView2"/>
         <RadioButton
                 android:checked="true"
@@ -113,7 +113,7 @@
                 android:layout_height="wrap_content" android:id="@+id/man"/>
         <RadioButton
                 android:text="woman"
-                android:layout_width="93dp"
+                android:layout_width="90dp"
                 android:layout_height="wrap_content" android:id="@+id/woman"/>
     </RadioGroup>
     <EditText
