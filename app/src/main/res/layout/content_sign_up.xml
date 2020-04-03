@@ -9,7 +9,7 @@
         tools:showIn="@layout/sign_up">
 
     <EditText
-            android:hint="NickName"
+            android:hint="@string/nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
@@ -25,14 +25,14 @@
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
             android:ems="10"
-            android:hint="Email"
+            android:hint="@string/email"
             android:id="@+id/email"
             tools:ignore="MissingConstraints" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.225"
     />
     <TextView
-            android:text="Sign Up Page"
+            android:text="@string/sign_up_page"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView6" app:layout_constraintEnd_toEndOf="parent"
@@ -50,7 +50,7 @@
             tools:ignore="MissingConstraints" app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.352"/>
     <CheckBox
-            android:text="Accept Terms"
+            android:text="@string/accept_terms"
             android:layout_width="129dp"
             android:layout_height="32dp"
             android:id="@+id/checkterms" app:layout_constraintStart_toStartOf="parent"
@@ -58,7 +58,7 @@
             tools:ignore="MissingConstraints" app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.763"/>
     <Button
-            android:text="Sign Up"
+            android:text="@string/sign_up"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/signupbutton" app:layout_constraintEnd_toEndOf="parent"
@@ -76,7 +76,7 @@
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintVertical_bias="0.938"/>
     <Button
-            android:text="Terms"
+            android:text="@string/terms"
             android:layout_width="86dp"
             android:layout_height="42dp"
             android:id="@+id/terms" tools:ignore="MissingConstraints"
@@ -103,21 +103,21 @@
             app:layout_constraintHorizontal_bias="0.394" app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.622">
         <TextView
-                android:text="You are a ..."
+                android:text="@string/you_are_a"
                 android:layout_width="89dp"
                 android:layout_height="wrap_content" android:id="@+id/textView2"/>
         <RadioButton
                 android:checked="true"
-                android:text="boi"
+                android:text="@string/gender_male"
                 android:layout_width="89dp"
                 android:layout_height="wrap_content" android:id="@+id/man"/>
         <RadioButton
-                android:text="woman"
+                android:text="@string/gender_woman"
                 android:layout_width="90dp"
                 android:layout_height="wrap_content" android:id="@+id/woman"/>
     </RadioGroup>
     <EditText
-            android:hint="Weight (kg)"
+            android:hint="@string/weight_kg"
             android:layout_width="122dp"
             android:layout_height="44dp"
             android:inputType="numberDecimal"

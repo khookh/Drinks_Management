@@ -16,14 +16,10 @@ import com.example.defonce_management.R;
  */
 public class Consumption extends Fragment {
     View root;
+
     TextView bar;
     ProgressBar skren;
-
     EditText volume, percent, bevname;
-
-
-    // User actual_user = WelcomePage.getActual_user();
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

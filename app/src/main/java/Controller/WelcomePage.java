@@ -49,7 +49,7 @@ public class WelcomePage extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Facing issues ? Improvement idea ? Contact the devs", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, getString(R.string.contact_dev), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });

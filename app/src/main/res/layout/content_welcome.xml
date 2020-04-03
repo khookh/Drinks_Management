@@ -11,7 +11,7 @@
 
 
     <Button
-            android:text="Sign Up"
+            android:text="@string/sign_up"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="GoToSignUp"
@@ -20,7 +20,7 @@
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.499" android:layout_marginBottom="8dp"/>
     <Button
-            android:text="Sign In "
+            android:text="@string/sign_in"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/SignIn"
@@ -32,7 +32,7 @@
             app:layout_constraintTop_toBottomOf="@+id/password" app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintVertical_bias="0.009"/>
     <TextView
-            android:text="V0.0 of the software"
+            android:text="@string/vsoftware"
             android:layout_width="178dp"
             android:layout_height="50dp"
             android:gravity="center"
@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
-            android:hint="nickname"
+            android:hint="@string/nickname"
             android:ems="10"
             android:id="@+id/nickname"
             app:layout_constraintBottom_toTopOf="@+id/password" android:layout_marginBottom="12dp"
@@ -63,7 +63,7 @@
             app:layout_constraintHorizontal_bias="0.51"/>
     <TextView
             android:gravity="center"
-            android:text="New to Défonce Management ? Sign Up here ! "
+            android:text="@string/wsignup"
             android:layout_width="219dp"
             android:layout_height="55dp"
             android:id="@+id/textView3"

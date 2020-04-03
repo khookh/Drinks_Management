@@ -34,13 +34,13 @@
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                       android:orientation="vertical">
             <Button
-                    android:text="25 cL of classic Pilsner"
+                    android:text="@string/pils25cl"
                     android:onClick="selectedAlcool"
                     android:tag="Classic25Pils"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:id="@+id/Classic25Pils"/>
             <Button
-                    android:text="3cL VodkaShot"
+                    android:text="@string/vodkashot"
                     android:onClick="selectedAlcool"
                     android:tag="VodkaShot"
                     android:layout_width="match_parent"
@@ -65,7 +65,7 @@
         </LinearLayout>
     </ScrollView>
     <TextView
-            android:text="Add an alcool from the list below"
+            android:text="@string/add_an_alcool_from_the_list_below"
             android:gravity="center"
             android:layout_width="256dp"
             android:layout_height="26dp"
@@ -73,7 +73,7 @@
             app:layout_constraintBottom_toTopOf="@+id/scrollView2" tools:ignore="MissingConstraints"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="76dp"/>
     <Button
-            android:text="Add Consumption"
+            android:text="@string/add_consumption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/addcons"
@@ -86,7 +86,7 @@
             android:layout_width="128dp"
             android:layout_height="42dp"
             android:inputType="numberDecimal"
-            android:hint="volume in cL"
+            android:hint="@string/volume_in_cl"
             android:ems="10"
             android:id="@+id/volume"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -94,7 +94,7 @@
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintHorizontal_bias="0.742"/>
     <TextView
-            android:text="Or add a consumption manually"
+            android:text="@string/or_add_a_consumption_manually"
             android:gravity="center"
             android:layout_width="205dp"
             android:layout_height="37dp"
@@ -106,7 +106,7 @@
             android:layout_width="128dp"
             android:layout_height="42dp"
             android:inputType="numberDecimal"
-            android:hint="alcohol %"
+            android:hint="@string/alcohol"
             android:ems="10"
             android:id="@+id/percent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -117,7 +117,7 @@
             android:layout_width="220dp"
             android:layout_height="42dp"
             android:inputType="textPersonName"
-            android:hint="beverage name"
+            android:hint="@string/beverage_name"
             android:ems="10"
             android:id="@+id/bevname"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -125,7 +125,7 @@
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintHorizontal_bias="0.429"/>
     <Switch
-            android:text="I'm drinking while eating"
+            android:text="@string/i_m_drinking_while_eating"
             android:layout_width="159dp"
             android:layout_height="55dp"
             android:id="@+id/switch1"

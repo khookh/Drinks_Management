@@ -25,8 +25,6 @@ import com.google.android.material.tabs.TabLayout;
 public class Session_Control extends AppCompatActivity {
 
     static User actual_user = WelcomePage.getActual_user();
-    TabLayout tabLayout;
-
     ViewPager viewPager;
     SectionsPagerAdapter sectionsPagerAdapter;
     Button selectedalcool;
@@ -49,9 +47,10 @@ public class Session_Control extends AppCompatActivity {
 
         cons = new Consumption();
         ov = new Overview();
-        sectionsPagerAdapter.addFragment(cons, "Alcool Consumption");
-        sectionsPagerAdapter.addFragment(ov, "Overview");
-        viewPager.setAdapter(sectionsPagerAdapter); //initialise les fragment dans le viewpager -> fonctionne  aussi pour refresh les items
+
+        sectionsPagerAdapter.addFragment(cons, getString(R.string.Alcool_Consumption));
+        sectionsPagerAdapter.addFragment(ov, getString(R.string.Overview));
+        viewPager.setAdapter(sectionsPagerAdapter); //initialise les fragment dans le viewpager -
         tabs.setupWithViewPager(viewPager);
 
         //Touch Listener detecte .... les touch , utilisé pour refresh les fragments
@@ -59,7 +58,6 @@ public class Session_Control extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 getViewPager().getAdapter().notifyDataSetChanged();
-                System.out.println("TOUCH LISTENED");
                 return false;
             }
         });
@@ -76,7 +74,7 @@ public class Session_Control extends AppCompatActivity {
     }
 
     /**
-     * Called when an alcohol is selectionned in the Consumption fragment
+     * Called when an alcohol is selected in the Consumption fragment (scrollview items)
      * @param view
      */
     public void selectedAlcool(View view){
@@ -85,6 +83,14 @@ public class Session_Control extends AppCompatActivity {
         }
         selectedalcool = (Button) findViewById(view.getId());
         selectedalcool.setTextColor(Color.WHITE); //affiche l'alcool comme selectionné
+    }
+
+    /**
+     * Deselect logically and graphically the alcool
+     */
+    private void deselectalcool() {
+        selectedalcool.setTextColor(Color.BLACK);
+        selectedalcool=null;
     }
 
     /**
@@ -100,6 +106,7 @@ public class Session_Control extends AppCompatActivity {
             else if(selectedalcool.getTag().equals("VodkaShot")){
                 Session.addAlcohol(VodkaShot.getName(),VodkaShot.getVolume(),VodkaShot.getPercentage());
             }
+            deselectalcool();
             //TODO ; add predifined alcohol
         }
         else{
@@ -107,7 +114,7 @@ public class Session_Control extends AppCompatActivity {
         }
     }
 
-    //TODO : start implementing overview, by showing the lasts drinks by example
+
 
     /**
      * Load the needed information into the consumption objects at creation
@@ -116,20 +123,18 @@ public class Session_Control extends AppCompatActivity {
     public static void startup_ov(){
         String ld = Session.returnldstring();
         ov.setLastDText(ld);
-
     }
+
 
     public SectionsPagerAdapter getSectionsPagerAdapter() {
         return sectionsPagerAdapter;
     }
-
     public void setSectionsPagerAdapter(SectionsPagerAdapter sectionsPagerAdapter) {
         this.sectionsPagerAdapter = sectionsPagerAdapter;
     }
     public ViewPager getViewPager() {
         return viewPager;
     }
-
     public void setViewPager(ViewPager viewPager) {
         this.viewPager = viewPager;
     }

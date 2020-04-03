@@ -6,19 +6,14 @@ import android.util.Pair;
 import java.time.LocalDateTime;
 
 /**
- *
+ * Implements methods to manage Data displayed by Session_Control
  */
 public class Session {
 
     private static String skrenmessage;
     private static Integer skrenlevel;
-
-
     private static User actual_user;
-
-
     private static Pair<LocalDateTime, Alcool> lastdrink; //temporaire
-
 
     public void Session() {
 
@@ -38,7 +33,7 @@ public class Session {
         //updatebloodlevel(); //temporary
     }
     /**
-     * Determine de level of skren and generate the informations to display by Session_Control
+     * Determine de level of skren and generate the informations to display by Session_Control (skren bar)
      * @param actual_user
      */
     public static void setSkren(User actual_user){
@@ -54,6 +49,19 @@ public class Session {
             setSkrenmessage("You are almost sober");
         }
     }
+    /**
+     * @return message: string indiquant quelle est la dernière boisson
+     */
+    public static String returnldstring() { //je voulais implémenter aussi le temps depuis la dernière conso mais pas pertinent tant que je stocke en hashmap
+        String message = "";
+        Pair<LocalDateTime, Alcool> ld = getActual_user().getLastdrink(); //à remplacer par autre chose quand il y aura persistance
+        if(ld!=null){
+            Alcool alcool = ld.second;
+            message = "Your last drink was : " + alcool.getName();
+        }
+        return message ;
+    }
+
     public static String getSkrenmessage() {
         return skrenmessage;
     }
@@ -77,17 +85,5 @@ public class Session {
         return actual_user;
     }
 
-    /**
-     * @return message: string indiquant quelle est la dernière boisson et quand elle a été consommée
-     */
-    public static String returnldstring() {
-        String message = "";
-        Pair<LocalDateTime, Alcool> ld = getActual_user().getLastdrink(); //à remplacer par autre chose quand il y aura persistance
-        if(ld!=null){
-            Alcool alcool = ld.second;
-            message = "Your last drink was : " + alcool.getName();
-        }
-        return message ;
-    }
 }
 

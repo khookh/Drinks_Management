@@ -1,5 +1,6 @@
 package Model;
 
+import Controller.SignUp_Control;
 import Controller.WelcomePage;
 import java.util.ArrayList;
 public class SignUp {
@@ -19,7 +20,7 @@ public class SignUp {
     public static void SignUp(String nickname, String email, String password, Integer age, String sex, Double weight){
         if(CheckUser(email,nickname)){
             CreateUser(nickname,email,password,age,sex,weight);
-            setSignedup("Signed Up");
+            setSignedup(SignUp_Control.getErrormessage4());
         }
     }
 
@@ -29,17 +30,16 @@ public class SignUp {
     private static boolean CheckUser(String e, String n) {
         boolean check = true;
         ArrayList<User> users = WelcomePage.getUsers();
-
         //check dans le stockage, arraylist sol. temporaire pour test
 
         for (int i = 0; i < users.size(); i++) {
             if(users.get(i).getEmail().equals(e)){
                 check = false;
-                setSignedup("Email adress already used");
+                setSignedup(SignUp_Control.getErrormessage2());
             }
             if(users.get(i).getName().equals(n)){
                 check = false;
-                setSignedup("Nickname already taken");
+                setSignedup(SignUp_Control.getErrormessage3());
             }
         }
         return check;
