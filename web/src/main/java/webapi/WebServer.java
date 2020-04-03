@@ -8,6 +8,8 @@ import io.javalin.http.Context;
  * Responsible of handling all the POST requestes used by
  * the DManager clients, forming the first point where the
  * API calls come.
+ *
+ * @author GriffinBabe
  */
 public class WebServer {
 

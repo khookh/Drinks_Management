@@ -20,12 +20,15 @@ import static org.junit.jupiter.api.Assertions.*;
  * {@link WebServer}'s test class.
  * Will test some requests and checks
  * if the answers are correct or not.
+ *
+ * @author GriffinBabe
  */
 class WebServerTest {
 
-    /** Ip for local testing */
+    /** Ip for local GET testing */
     static String URL = "http://localhost/";
 
+    /** IP for local POST testing */
     static String API_URL = "http://localhost/api/";
 
     /** Static WebServer instance used for all tests. */

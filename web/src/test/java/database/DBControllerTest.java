@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
 /**
- * {@link DBController}'s test class.
+ * {@link DBController}'s Junit test class.
  *
  * @author GriffinBabe
  */
