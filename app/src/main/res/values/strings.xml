@@ -42,4 +42,6 @@
     <string name="Signed_In">Signed In</string>
     <string name="user_dont_exit">User doesn\'t exist</string>
     <string name="wrong_password">Wrong Password</string>
+    <string name="skrenmsg2">You are almost sober</string>
+    <string name="skrenmsg1">You are sober</string>
 </resources>

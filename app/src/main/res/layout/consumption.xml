@@ -28,9 +28,9 @@
             android:layout_height="155dp"
             tools:ignore="MissingConstraints"
             android:id="@+id/scrollView2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.31">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="24dp" app:layout_constraintVertical_bias="0.319">
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                       android:orientation="vertical">
             <Button
@@ -86,48 +86,49 @@
             android:layout_width="128dp"
             android:layout_height="42dp"
             android:inputType="numberDecimal"
+            android:gravity="center"
             android:hint="@string/volume_in_cl"
             android:ems="10"
             android:id="@+id/volume"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.836"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_bias="0.742"/>
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.835"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="208dp"/>
     <TextView
             android:text="@string/or_add_a_consumption_manually"
             android:gravity="center"
             android:layout_width="205dp"
             android:layout_height="37dp"
             android:id="@+id/textView15" tools:ignore="MissingConstraints"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.69"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginStart="100dp"
+            app:layout_constraintVertical_bias="0.717"/>
     <EditText
             android:layout_width="128dp"
             android:layout_height="42dp"
             android:inputType="numberDecimal"
+            android:gravity="center"
             android:hint="@string/alcohol"
             android:ems="10"
             android:id="@+id/percent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.836"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_bias="0.287"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.835"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="80dp"/>
     <EditText
-            android:layout_width="220dp"
-            android:layout_height="42dp"
+            android:layout_width="254dp"
+            android:layout_height="41dp"
+            android:gravity="center"
             android:inputType="textPersonName"
             android:hint="@string/beverage_name"
             android:ems="10"
             android:id="@+id/bevname"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.779"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_bias="0.429"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginStart="80dp"
+            app:layout_constraintVertical_bias="0.775" app:layout_constraintTop_toTopOf="parent"/>
     <Switch
             android:text="@string/i_m_drinking_while_eating"
             android:layout_width="159dp"
             android:layout_height="55dp"
+            android:gravity="center"
             android:id="@+id/switch1"
             tools:ignore="MissingConstraints"
             app:layout_constraintBottom_toTopOf="@+id/addcons" app:layout_constraintStart_toStartOf="parent"

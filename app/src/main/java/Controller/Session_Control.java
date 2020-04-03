@@ -24,6 +24,10 @@ import com.google.android.material.tabs.TabLayout;
  */
 public class Session_Control extends AppCompatActivity {
 
+    //skrenmessage used to display user state
+    static String skrenmessage1;
+    static String skrenmessage2;
+
     static User actual_user = WelcomePage.getActual_user();
     ViewPager viewPager;
     SectionsPagerAdapter sectionsPagerAdapter;
@@ -36,6 +40,9 @@ public class Session_Control extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.session);
+
+        setSkrenmessage1(getString(R.string.skrenmsg1));
+        setSkrenmessage2(getString(R.string.skrenmsg2));
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         setSectionsPagerAdapter(sectionsPagerAdapter);
@@ -54,6 +61,7 @@ public class Session_Control extends AppCompatActivity {
         tabs.setupWithViewPager(viewPager);
 
         //Touch Listener detecte .... les touch , utilisé pour refresh les fragments
+        //utilisé ici pour test
         viewPager.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -112,6 +120,7 @@ public class Session_Control extends AppCompatActivity {
         else{
             Session.addAlcohol(cons.getBevname(),Double.parseDouble(cons.getVolume()), Double.parseDouble(cons.getPercent()));
         }
+        getViewPager().getAdapter().notifyDataSetChanged(); //refresh data displayed
     }
 
 
@@ -137,5 +146,21 @@ public class Session_Control extends AppCompatActivity {
     }
     public void setViewPager(ViewPager viewPager) {
         this.viewPager = viewPager;
+    }
+
+    public static String getSkrenmessage1() {
+        return skrenmessage1;
+    }
+
+    public static void setSkrenmessage1(String skrenmessage1) {
+        Session_Control.skrenmessage1 = skrenmessage1;
+    }
+
+    public static String getSkrenmessage2() {
+        return skrenmessage2;
+    }
+
+    public static void setSkrenmessage2(String skrenmessage2) {
+        Session_Control.skrenmessage2 = skrenmessage2;
     }
 }

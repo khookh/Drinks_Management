@@ -1,5 +1,6 @@
 package Model;
 
+import Controller.Session_Control;
 import android.annotation.SuppressLint;
 import android.util.Pair;
 
@@ -42,11 +43,11 @@ public class Session {
         Double alcoolrate = actual_user.getAlcoolRate();
         if (alcoolrate == 0.0){
             setSkrenlevel(0);
-            setSkrenmessage("You are sober");
+            setSkrenmessage(Session_Control.getSkrenmessage1());
         }
         else if(alcoolrate>0.0 && alcoolrate<=0.1){
             setSkrenlevel(5);
-            setSkrenmessage("You are almost sober");
+            setSkrenmessage(Session_Control.getSkrenmessage2());
         }
     }
     /**
