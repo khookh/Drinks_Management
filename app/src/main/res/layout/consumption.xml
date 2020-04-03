@@ -82,48 +82,6 @@
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintVertical_bias="0.989" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.498"/>
-    <EditText
-            android:layout_width="128dp"
-            android:layout_height="42dp"
-            android:inputType="numberDecimal"
-            android:gravity="center"
-            android:hint="@string/volume_in_cl"
-            android:ems="10"
-            android:id="@+id/volume"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.835"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="208dp"/>
-    <TextView
-            android:text="@string/or_add_a_consumption_manually"
-            android:gravity="center"
-            android:layout_width="205dp"
-            android:layout_height="37dp"
-            android:id="@+id/textView15" tools:ignore="MissingConstraints"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" android:layout_marginStart="100dp"
-            app:layout_constraintVertical_bias="0.717"/>
-    <EditText
-            android:layout_width="128dp"
-            android:layout_height="42dp"
-            android:inputType="numberDecimal"
-            android:gravity="center"
-            android:hint="@string/alcohol"
-            android:ems="10"
-            android:id="@+id/percent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.835"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="80dp"/>
-    <EditText
-            android:layout_width="254dp"
-            android:layout_height="41dp"
-            android:gravity="center"
-            android:inputType="textPersonName"
-            android:hint="@string/beverage_name"
-            android:ems="10"
-            android:id="@+id/bevname"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginStart="80dp"
-            app:layout_constraintVertical_bias="0.775" app:layout_constraintTop_toTopOf="parent"/>
     <Switch
             android:text="@string/i_m_drinking_while_eating"
             android:layout_width="159dp"
@@ -134,5 +92,63 @@
             app:layout_constraintBottom_toTopOf="@+id/addcons" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0"/>
+    <FrameLayout
+            android:layout_width="269dp"
+            android:layout_height="160dp"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginStart="76dp"
+            app:layout_constraintVertical_bias="0.777">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <EditText
+                    android:layout_width="254dp"
+                    android:layout_height="41dp"
+                    android:gravity="center"
+                    android:inputType="textPersonName"
+                    android:hint="@string/beverage_name"
+                    android:ems="10"
+                    android:id="@+id/bevname"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.533"
+                    app:layout_constraintVertical_bias="0.621"/>
+            <EditText
+                    android:layout_width="128dp"
+                    android:layout_height="42dp"
+                    android:inputType="numberDecimal"
+                    android:gravity="center"
+                    android:hint="@string/alcohol"
+                    android:ems="10"
+                    android:id="@+id/percent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.974"
+                    app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintHorizontal_bias="0.95"/>
+            <EditText
+                    android:layout_width="128dp"
+                    android:layout_height="42dp"
+                    android:inputType="numberDecimal"
+                    android:gravity="center"
+                    android:hint="@string/volume_in_cl"
+                    android:ems="10"
+                    android:id="@+id/volume"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.974"
+                    app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.056"/>
+            <TextView
+                    android:text="@string/or_add_a_consumption_manually"
+                    android:gravity="center"
+                    android:layout_width="205dp"
+                    android:layout_height="37dp"
+                    android:id="@+id/textView15" tools:ignore="MissingConstraints"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/bevname" app:layout_constraintVertical_bias="1.0"
+                    app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
