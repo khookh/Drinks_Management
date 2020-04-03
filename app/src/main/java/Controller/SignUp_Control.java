@@ -19,6 +19,7 @@ public class SignUp_Control extends AppCompatActivity {
     TextView errormessage;
     RadioGroup radioSexGroup;
     RadioButton radioSexButton;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_up);

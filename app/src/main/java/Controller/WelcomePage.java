@@ -33,6 +33,7 @@ public class WelcomePage extends AppCompatActivity {
 
         //TEMPORARY FOR TEST
         User newuser = new User("Stefano","e",85.6,23,"123456","boi");
+        newuser.setAlcoolRate(0.1);
         users.add(newuser);
         WelcomePage.setUsers(users);
         //TEMPORARY FOR TEST
