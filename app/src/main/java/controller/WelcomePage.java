@@ -95,7 +95,6 @@ public class WelcomePage extends AppCompatActivity {
         SignIn.signIn(nickname.getText().toString().trim(),password.getText().toString().trim());
         errormessage.setText(SignIn.getSignedin());
         if(SignIn.getSignedin().equals("Signed In")){
-
             startActivity(new Intent(WelcomePage.this, Session_Control.class));
         }
     }

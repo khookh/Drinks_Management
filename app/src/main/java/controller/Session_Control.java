@@ -65,7 +65,8 @@ public class Session_Control extends AppCompatActivity {
         viewPager.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                getViewPager().getAdapter().notifyDataSetChanged();
+                //getViewPager().getAdapter().notifyDataSetChanged();
+                deselectalcool();
                 return false;
             }
         });
@@ -97,8 +98,10 @@ public class Session_Control extends AppCompatActivity {
      * Deselect logically and graphically the alcool
      */
     private void deselectalcool() {
-        selectedalcool.setTextColor(Color.BLACK);
-        selectedalcool=null;
+        if (selectedalcool != null){
+            selectedalcool.setTextColor(Color.BLACK);
+            selectedalcool = null;
+        }
     }
 
     /**
@@ -117,8 +120,9 @@ public class Session_Control extends AppCompatActivity {
             deselectalcool();
             //TODO ; add predifined alcohol
         }
-        else{
+        else if(!cons.getBevname().isEmpty() && !cons.getVolume().isEmpty() && !cons.getPercent().isEmpty() ){
             Session.addAlcohol(cons.getBevname(),Double.parseDouble(cons.getVolume()), Double.parseDouble(cons.getPercent()));
+
         }
         getViewPager().getAdapter().notifyDataSetChanged(); //refresh data displayed
     }

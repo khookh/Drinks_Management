@@ -39,9 +39,9 @@
     <string name="nickname_already">Nickname already taken</string>
     <string name="Signed_Up">Signed Up</string>
     <string name="contact_dev">Facing issues ? Improvement idea ? Contact the devs</string>
-    <string name="Signed_In">Signed In</string>
     <string name="user_dont_exit">User doesn\'t exist</string>
     <string name="wrong_password">Wrong Password</string>
     <string name="skrenmsg2">You are almost sober</string>
     <string name="skrenmsg1">You are sober</string>
+    <string name="Signed_In">Signed In</string>
 </resources>
