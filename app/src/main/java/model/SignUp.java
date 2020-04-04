@@ -70,9 +70,6 @@ public class SignUp {
         return signedup;
     }
 
-    /**
-     * @param signedup
-     */
     public static void setSignedup(String signedup) {
         SignUp.signedup = signedup;
     }

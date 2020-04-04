@@ -1,12 +1,5 @@
 package controller;
 
-import controller.fragment.Consumption;
-import controller.fragment.Overview;
-import controller.fragment.SectionsPagerAdapter;
-import model.predefinedAlcohol.Classic25Pils;
-import model.predefinedAlcohol.VodkaShot;
-import model.Session;
-import model.User;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -16,8 +9,14 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 import com.example.defonce_management.R;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+import controller.fragment.Consumption;
+import controller.fragment.Overview;
+import controller.fragment.SectionsPagerAdapter;
+import model.Session;
+import model.User;
+import model.predefinedAlcohol.Classic25Pils;
+import model.predefinedAlcohol.VodkaShot;
 
 /**
  * Manage the display and acquisition of data into the session page (+Consumption and Overview panels)
@@ -45,12 +44,10 @@ public class Session_Control extends AppCompatActivity {
         setSkrenmessage2(getString(R.string.skrenmsg2));
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        setSectionsPagerAdapter(sectionsPagerAdapter);
         ViewPager viewPager = findViewById(R.id.view_pager);
         setViewPager(viewPager);
 
         TabLayout tabs = findViewById(R.id.tabs);
-        FloatingActionButton fab = findViewById(R.id.fab);
 
         cons = new Consumption();
         ov = new Overview();
@@ -60,8 +57,6 @@ public class Session_Control extends AppCompatActivity {
         viewPager.setAdapter(sectionsPagerAdapter); //initialise les fragment dans le viewpager -
         tabs.setupWithViewPager(viewPager);
 
-        //Touch Listener detecte .... les touch , utilisé pour refresh les fragments
-        //utilisé ici pour test
         viewPager.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -73,7 +68,7 @@ public class Session_Control extends AppCompatActivity {
     }
 
     /**
-     * Load the needed information into the consumption objects at creation
+     * Load the needed information into the consumption fragment at creation
      * Called into Consumption.java
      */
     public static void startup_cons(){
@@ -139,12 +134,6 @@ public class Session_Control extends AppCompatActivity {
     }
 
 
-    public SectionsPagerAdapter getSectionsPagerAdapter() {
-        return sectionsPagerAdapter;
-    }
-    public void setSectionsPagerAdapter(SectionsPagerAdapter sectionsPagerAdapter) {
-        this.sectionsPagerAdapter = sectionsPagerAdapter;
-    }
     public ViewPager getViewPager() {
         return viewPager;
     }
@@ -152,19 +141,9 @@ public class Session_Control extends AppCompatActivity {
         this.viewPager = viewPager;
     }
 
-    public static String getSkrenmessage1() {
-        return skrenmessage1;
-    }
+    public static String getSkrenmessage1() { return skrenmessage1; }
+    public static void setSkrenmessage1(String skrenmessage1) { Session_Control.skrenmessage1 = skrenmessage1; }
 
-    public static void setSkrenmessage1(String skrenmessage1) {
-        Session_Control.skrenmessage1 = skrenmessage1;
-    }
-
-    public static String getSkrenmessage2() {
-        return skrenmessage2;
-    }
-
-    public static void setSkrenmessage2(String skrenmessage2) {
-        Session_Control.skrenmessage2 = skrenmessage2;
-    }
+    public static String getSkrenmessage2() { return skrenmessage2; }
+    public static void setSkrenmessage2(String skrenmessage2) { Session_Control.skrenmessage2 = skrenmessage2; }
 }

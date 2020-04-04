@@ -111,7 +111,6 @@ public class WelcomePage extends AppCompatActivity {
     public static User getActual_user() {
         return actual_user;
     }
-
     public static void setActual_user(User actual_user) {
         WelcomePage.actual_user = actual_user;
     }

@@ -49,7 +49,7 @@ public class Session {
     /**
      * @return message: string indiquant quelle est la dernière boisson
      */
-    public static String returnldstring() { //je voulais implémenter aussi le temps depuis la dernière conso mais pas pertinent tant que je stocke en hashmap
+    public static String returnldstring() {
         String message = "";
         Pair<LocalDateTime, Alcool> ld = getActual_user().getLastdrink(); //à remplacer par autre chose quand il y aura persistance
         if(ld!=null){
@@ -62,7 +62,6 @@ public class Session {
     public static String getSkrenmessage() {
         return skrenmessage;
     }
-
     public static void setSkrenmessage(String skrenmessage) {
         Session.skrenmessage = skrenmessage;
     }
@@ -70,7 +69,6 @@ public class Session {
     public static Integer getSkrenlevel() {
         return skrenlevel;
     }
-
     public static void setSkrenlevel(Integer skrenlevel) {
         Session.skrenlevel = skrenlevel;
     }

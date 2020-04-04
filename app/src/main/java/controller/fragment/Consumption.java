@@ -35,11 +35,16 @@ public class Consumption extends Fragment {
         return root;
     }
 
+    /**
+     * set the text to display under the the skren bar
+     * @param text
+     */
+    public void setTextBar(String text) { bar.setText(text); }
 
-    public void setTextBar(String text) {
-        bar.setText(text);
-    }
-
+    /**
+     * set the progress of the skren bar
+     * @param progress
+     */
     public void setProgressBar(Integer progress) { skren.setProgress(progress); }
 
     public String getVolume() {

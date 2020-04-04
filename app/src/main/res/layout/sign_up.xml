@@ -6,4 +6,5 @@
               xmlns:tools="http://schemas.android.com/tools"
               tools:context="controller.SignUp_Control">
     <include layout="@layout/content_sign_up"/>
+
 </LinearLayout>
