@@ -9,6 +9,8 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import packets.LoginPacket;
+import serializers.WriteJSON;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -106,6 +108,20 @@ class WebServerTest {
         try {
             String response = sendGet();
             assertFalse(response.contains("404"));
+        } catch (IOException e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+    /**
+     * Tries the connection by sending a http POST request.
+     */
+    @Test
+    void sendPostRequest() {
+        try {
+            LoginPacket packet = new LoginPacket("testUser", "testPassword");
+            String response = sendPost("", WriteJSON.writePacket(packet));
         } catch (IOException e) {
             e.printStackTrace();
             fail();

@@ -2,6 +2,9 @@ package webapi;
 
 import io.javalin.Javalin;
 import io.javalin.http.Context;
+import packets.JSONPacket;
+import packets.LoginPacket;
+import serializers.ReadJSON;
 
 /**
  * Web server class contains all the {@link Javalin} object.
@@ -13,6 +16,7 @@ import io.javalin.http.Context;
  */
 public class WebServer {
 
+    // www default port
     static int DEFAULT_PORT = 80;
 
     private Javalin server = null;
@@ -28,6 +32,10 @@ public class WebServer {
         initServer();
     }
 
+    /**
+     * Initializes the server, initializing all the
+     * handles of the Javalin framework.
+     */
     private void initServer() {
         this.server = Javalin.create().start(DEFAULT_PORT);
 
@@ -35,6 +43,7 @@ public class WebServer {
             handleApiRequest(ctx);
         });
 
+        // test functionnality
         this.server.get("/", ctx -> {
             ctx.result("Hello world");
         });
@@ -45,7 +54,12 @@ public class WebServer {
     }
 
     private void handleApiRequest(Context ctx) {
+        String body = ctx.body();
+        JSONPacket packet = ReadJSON.readPacket(body);
 
+        if (packet instanceof LoginPacket) {
+            
+        }
     }
 
 }
