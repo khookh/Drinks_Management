@@ -56,10 +56,6 @@ public class WebServer {
     private void handleApiRequest(Context ctx) {
         String body = ctx.body();
         JSONPacket packet = ReadJSON.readPacket(body);
-
-        if (packet instanceof LoginPacket) {
-            
-        }
     }
 
 }
