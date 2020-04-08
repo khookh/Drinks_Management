@@ -1,12 +1,16 @@
 package controllers;
 
-import io.javalin.apibuilder.CrudHandler;
 import io.javalin.http.Context;
-import org.jetbrains.annotations.NotNull;
+import packets.JSONPacket;
 
 /**
  * User controller api used to login, search for users.
  */
 public class UserController extends Controller {
+
+    @Override
+    void handleRequest(Context ctx, JSONPacket packet) {
+
+    }
 
 }

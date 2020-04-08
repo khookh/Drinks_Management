@@ -1,10 +1,16 @@
 package webapi;
 
+import controllers.UserController;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 import packets.JSONPacket;
 import packets.LoginPacket;
 import serializers.ReadJSON;
+import services.AuthenticationService;
+import services.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Web server class contains all the {@link Javalin} object.
@@ -21,7 +27,11 @@ public class WebServer {
 
     private Javalin server = null;
 
-    private int port;
+    private int port = DEFAULT_PORT;
+
+    List<Service> serviceList = new ArrayList<>();
+
+    UserController userController = new UserController();
 
     public WebServer() {
         this(DEFAULT_PORT);
@@ -37,13 +47,14 @@ public class WebServer {
      * handles of the Javalin framework.
      */
     private void initServer() {
+        initServices();
+
         this.server = Javalin.create().start(DEFAULT_PORT);
 
         this.server.post("/api/*", ctx -> {
-            handleApiRequest(ctx);
+
         });
 
-        // test functionnality
         this.server.get("/", ctx -> {
             ctx.result("Hello world");
         });
@@ -51,6 +62,10 @@ public class WebServer {
         this.server.exception(Exception.class, (e, ctx) -> {
            e.printStackTrace();
         });
+    }
+
+    private void initServices() {
+        this.serviceList.add(new AuthenticationService());
     }
 
     private void handleApiRequest(Context ctx) {

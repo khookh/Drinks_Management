@@ -3,17 +3,18 @@ package packets;
 /**
  * Login packet. Base class sent by the app
  * to ask a login token.
+ *
+ * @author GriffinBabe
  */
-public class LoginPacket extends ActionPacket {
+public class LoginPacket extends JSONPacket {
 
     private String username;
     private String password;
 
     public LoginPacket(String username, String password) {
-        super();
-        super.packetName = this.getClass().getSimpleName();
         this.username = username;
         this.password = password;
+        super.packetName = this.getClass().getSimpleName();
     }
 
     public String getUsername() {

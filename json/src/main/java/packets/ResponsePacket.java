@@ -1,5 +1,10 @@
 package packets;
 
+/**
+ * Base class for all responses. From the server to the client.
+ *
+ * @author GriffinBabe
+ */
 public abstract class ResponsePacket extends JSONPacket {
 
     private boolean success;

@@ -33,6 +33,12 @@ public class PolymorphicDeserializer implements JsonDeserializer<JSONPacket> {
         classMap.put(ResponsePacket.class.getSimpleName(), ResponsePacket.class);
         classMap.put(LoginPacket.class.getSimpleName(), LoginPacket.class);
         classMap.put(ResponseLoginPacket.class.getSimpleName(), ResponseLoginPacket.class);
+        classMap.put(AskConsumptionsPacket.class.getSimpleName(), AskConsumptionsPacket.class);
+        classMap.put(ConsumePacket.class.getSimpleName(), ConsumePacket.class);
+        classMap.put(RegisterPacket.class.getSimpleName(), RegisterPacket.class);
+        classMap.put(ResponseConsumedPacket.class.getSimpleName(), ResponseConsumedPacket.class);
+        classMap.put(ResponseConsumptionsPacket.class.getSimpleName(), ResponseConsumptionsPacket.class);
+        classMap.put(ResponseRegisterPacket.class.getSimpleName(), ResponseRegisterPacket.class);
     }
 
     /**
