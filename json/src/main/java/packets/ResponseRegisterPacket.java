@@ -14,6 +14,7 @@ public class ResponseRegisterPacket extends ResponsePacket {
     public ResponseRegisterPacket(boolean success, String message, String token) {
         super(success, message);
         this.token = token;
+        super.packetName = this.getClass().getSimpleName();
     }
 
     public String getToken() {

@@ -1,13 +1,15 @@
 package webapi;
 
+import controllers.Controller;
 import controllers.UserController;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 import packets.JSONPacket;
-import packets.LoginPacket;
+import packets.ResponsePingPacket;
 import serializers.ReadJSON;
+import serializers.WriteJSON;
 import services.AuthenticationService;
-import services.Service;
+import util.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,21 +27,34 @@ public class WebServer {
     // www default port
     static int DEFAULT_PORT = 80;
 
-    private Javalin server = null;
+    /** Server {@link Logger}, for the moment it is shared across all the server software. */
+    private static Logger serverLogger = new Logger(true);
+
+    static {
+        AuthenticationService.logger = WebServer.serverLogger;
+        Controller.logger = WebServer.serverLogger;
+    }
 
     private int port = DEFAULT_PORT;
 
-    List<Service> serviceList = new ArrayList<>();
+    private List<Controller> controllerList = new ArrayList<>();
 
-    UserController userController = new UserController();
-
-    public WebServer() {
+    WebServer() {
         this(DEFAULT_PORT);
     }
 
-    public WebServer(int port) {
+    WebServer(int port) {
         this.port = port;
-        initServer();
+    }
+
+    /**
+     * Starts the server by initializing
+     * the {@link Controller} list and the
+     * {@link Context} handlers.
+     */
+    void start() {
+        this.initControllers();
+        this.initServer();
     }
 
     /**
@@ -47,30 +62,42 @@ public class WebServer {
      * handles of the Javalin framework.
      */
     private void initServer() {
-        initServices();
 
-        this.server = Javalin.create().start(DEFAULT_PORT);
+        Javalin server = Javalin.create().start(DEFAULT_PORT);
 
-        this.server.post("/api/*", ctx -> {
-
+        // all the requests managed by the controllers
+        server.post("/api/*", ctx -> {
+            String json = ctx.body();
+            JSONPacket packet = ReadJSON.readPacket(json);
+            controllerList.forEach(controller -> { controller.handleRequest(ctx, packet);});
         });
 
-        this.server.get("/", ctx -> {
+        // for connection testing
+        server.get("/", ctx -> {
             ctx.result("Hello world");
         });
 
-        this.server.exception(Exception.class, (e, ctx) -> {
+        // for connection pinging
+        server.get("/ping/", ctx -> {
+            ResponsePingPacket rpp = new ResponsePingPacket();
+            String json = WriteJSON.writePacket(rpp);
+            ctx.result(json);
+        });
+
+        server.exception(Exception.class, (e, ctx) -> {
            e.printStackTrace();
         });
     }
 
-    private void initServices() {
-        this.serviceList.add(new AuthenticationService());
+    /**
+     * Initializes the {@link Controller} list of the server.
+     */
+    private void initControllers() {
+        this.controllerList.add(new UserController());
     }
 
-    private void handleApiRequest(Context ctx) {
-        String body = ctx.body();
-        JSONPacket packet = ReadJSON.readPacket(body);
+    public static void main(String[] args) {
+        WebServer webServer = new WebServer();
+        webServer.start();
     }
-
 }

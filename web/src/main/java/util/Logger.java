@@ -4,6 +4,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Utility object of logger, this will permit later to
+ * save in a file logs.
+ *
+ * @author GriffinBabe
+ */
 public class Logger {
 
     private boolean print = false;

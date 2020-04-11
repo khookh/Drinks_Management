@@ -2,6 +2,7 @@ package database;
 
 import java.sql.*;
 import java.util.Map;
+import java.util.Properties;
 
 /**
  * DBController is a singleton patterned class that
@@ -36,7 +37,9 @@ public class DBController {
     /**
      * String needed by {@link Connection} to connect to the sql database.
      */
-    static String CONNECTION_ADDRESS = "jdbc:mysql://%s:%d/%s?user=%s&password=%s";
+    // static String CONNECTION_ADDRESS = "jdbc:mysql://%s:%d/%s;user=%s&password=%s";
+
+    Properties connectionProperties = new Properties();
 
     /**
      * String containing all the information to connect to the database.
@@ -62,10 +65,15 @@ public class DBController {
         String username = enVariables.get(SYS_ENV_USER);
         String password = enVariables.get(SYS_ENV_PWD);
         String ip = enVariables.get(SYS_ENV_IP);
-        this.connectionString = String.format(CONNECTION_ADDRESS, ip, DEFAULT_PORT, DB_NAME, username, password);
+
+        connectionProperties.put("user", username);
+        connectionProperties.put("password", password);
+
+        // this.connectionString = String.format(CONNECTION_ADDRESS, ip, DEFAULT_PORT, DB_NAME, username, password);
+        this.connectionString = "jdbc:mysql://"+ip+":"+DEFAULT_PORT+"/"+DB_NAME;
 
         // We instantiate the connection object but we close it asap.
-        connection = DriverManager.getConnection(this.connectionString);
+        connection = DriverManager.getConnection(this.connectionString, connectionProperties);
         this.connection.close();
     }
 
@@ -92,7 +100,7 @@ public class DBController {
      */
     public PreparedStatement getPreparedStmt(String query) throws SQLException {
         if (connection.isClosed()) {
-            this.connection = DriverManager.getConnection(connectionString);
+            this.connection = DriverManager.getConnection(connectionString, connectionProperties);
         }
         return connection.prepareStatement(query);
     }
@@ -105,26 +113,29 @@ public class DBController {
      * @return the {@link ResultSet}.
      * @throws SQLException if there is a problem with the connection or the query.
      */
-    public ResultSet executePreparedStatement(PreparedStatement stmt) throws SQLException {
+    public ResultSet executePreparedQuery(PreparedStatement stmt) throws SQLException {
         ResultSet set = stmt.executeQuery();
-        if (!connection.isClosed()) {
-            this.connection.close();
-        }
         return set;
     }
 
     /**
-     * See {@link #executePreparedStatement(PreparedStatement)}. Same
+     * See {@link #executePreparedQuery(PreparedStatement)}. Same
      * but with a simple {@link Statement} instead of {@link PreparedStatement}.
      */
-    public ResultSet executeStatement(String query) throws SQLException {
+    public ResultSet executeQuery(String query) throws SQLException {
         if (connection.isClosed()) {
-            this.connection = DriverManager.getConnection(connectionString);
+            this.connection = DriverManager.getConnection(connectionString, connectionProperties);
         }
         Statement stmt = connection.createStatement();
-        ResultSet set = stmt.executeQuery(query);
-        this.connection.close();
-        return set;
+        return stmt.executeQuery(query);
+    }
+
+    public int executeUpdate(String update) throws SQLException {
+        if (connection.isClosed()) {
+            this.connection = DriverManager.getConnection(connectionString, connectionProperties);
+        }
+        Statement stmt = connection.createStatement();
+        return stmt.executeUpdate(update);
     }
 
     /**
@@ -135,12 +146,14 @@ public class DBController {
      */
     public ResultSet getDatabaseTableData(String tableName) throws SQLException {
         if (connection.isClosed()) {
-            this.connection = DriverManager.getConnection(connectionString);
+            this.connection = DriverManager.getConnection(connectionString, connectionProperties);
         }
         DatabaseMetaData meta = connection.getMetaData();
-        ResultSet set = meta.getTables(null, null, tableName, new String[] {"TABLE"});
+        return meta.getTables(null, null, tableName, new String[] {"TABLE"});
+    }
+
+    public void close() throws SQLException {
         this.connection.close();
-        return set;
     }
 
 
