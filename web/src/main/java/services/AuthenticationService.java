@@ -26,7 +26,7 @@ public class AuthenticationService implements Service {
     
     boolean running = false;
 
-    private static String TABLE_NAME = "users";
+    public static String TABLE_NAME = "users";
 
     private static String USERNAME_FIELD = "username";
 
