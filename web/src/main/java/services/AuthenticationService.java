@@ -40,11 +40,11 @@ public class AuthenticationService implements Service {
             HASHED_PASSWORD_FIELD + " VARCHAR(256) NOT NULL, " +
             TOKEN_FIELD + " VARCHAR(256) UNIQUE);";
 
-    private static String GET_USERNAME = "SELECT " + USERNAME_FIELD + " FROM " + TABLE_NAME + " WHERE " + USERNAME_FIELD +"=?;";
+    private static String GET_USERNAME = "SELECT * FROM " + TABLE_NAME + " WHERE " + USERNAME_FIELD +"=?;";
 
     private static String GET_TOKEN = "SELECT * FROM " + TABLE_NAME + " WHERE " + TOKEN_FIELD +"=?;";
 
-    private static String ASS_USER = "INSERT INTO " + TABLE_NAME + "("+USERNAME_FIELD+","+HASHED_PASSWORD_FIELD+") values(?,?);";
+    private static String ADD_USER = "INSERT INTO " + TABLE_NAME + "("+USERNAME_FIELD+","+HASHED_PASSWORD_FIELD+") values(?,?);";
 
     private static String SET_TOKEN = "UPDATE " + TABLE_NAME + " SET " + TOKEN_FIELD + "=? WHERE " + USERNAME_FIELD + "=?;";
 
@@ -127,7 +127,7 @@ public class AuthenticationService implements Service {
      * @throws SQLException if there is a problem with the database
      */
     private String generateAndSetToken(String username) throws SQLException {
-        String token = "random token";
+        String token;
         do {
             token = StringGenerators.generateToken(TOKEN_LENGTH);
         } while(!isTokenAvailable(token));
@@ -136,7 +136,7 @@ public class AuthenticationService implements Service {
         PreparedStatement stmt = controller.getPreparedStmt(SET_TOKEN);
         stmt.setString(1, token);
         stmt.setString(2, username);
-        ResultSet set = controller.executePreparedQuery(stmt);
+        controller.executePreparedUpdate(stmt);
         return token;
     }
 
@@ -169,7 +169,7 @@ public class AuthenticationService implements Service {
     public String registerUser(String username, String password) throws SQLException {
         String hashedPassword = Hasher.hashString(password);
         DBController controller = DBController.getInstance();
-        PreparedStatement stmt = controller.getPreparedStmt(ASS_USER);
+        PreparedStatement stmt = controller.getPreparedStmt(ADD_USER);
         stmt.setString(1, username);
         stmt.setString(2, hashedPassword);
         stmt.execute();
@@ -263,7 +263,7 @@ public class AuthenticationService implements Service {
         DBController controller = DBController.getInstance();
         PreparedStatement stmt = controller.getPreparedStmt(DELETE_USER);
         stmt.setString(1, username);
-        ResultSet set = controller.executePreparedQuery(stmt);
+        int retState = controller.executePreparedUpdate(stmt);
         controller.close();
      }
 

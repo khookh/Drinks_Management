@@ -138,6 +138,10 @@ public class DBController {
         return stmt.executeUpdate(update);
     }
 
+    public int executePreparedUpdate(PreparedStatement stmt) throws SQLException {
+        return stmt.executeUpdate();
+    }
+
     /**
      * Returns a set of the metadata from the specified table.
      *

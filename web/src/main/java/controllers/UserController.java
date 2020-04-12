@@ -47,8 +47,12 @@ public class UserController extends Controller {
         String username = packet.getUsername();
         String password = packet.getPassword();
         try {
-            String token = authService.registerUser(username, password);
-            returnPacket(ctx, new ResponseLoginPacket(true, "Authentication successful.", token));
+            String token = authService.logUser(username, password);
+            if (token != null) {
+                returnPacket(ctx, new ResponseLoginPacket(true, "Authentication successful.", token));
+            } else {
+                returnPacket(ctx, new ResponseLoginPacket(false, "Username or password doesn't match any result", null));
+            }
         } catch (SQLException e) {
             returnPacket(ctx, new ResponseLoginPacket(false, "Server error occurred while logging user", null));
         }

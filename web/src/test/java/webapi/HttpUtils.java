@@ -1,5 +1,6 @@
 package webapi;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -8,8 +9,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 
 public class HttpUtils {
 
@@ -42,7 +42,9 @@ public class HttpUtils {
         request.setEntity(entity);
 
         HttpResponse response = client.execute(request);
-        return response.toString();
+        HttpEntity responseEntity = response.getEntity();
+
+        return readResponsebody(responseEntity);
     }
 
     /**
@@ -70,6 +72,26 @@ public class HttpUtils {
 
         HttpResponse response = client.execute(request);
         return response.toString();
+    }
+
+    private static String readResponsebody(HttpEntity entity) {
+        StringBuilder sb = new StringBuilder();
+        try {
+            BufferedReader reader =
+                    new BufferedReader(new InputStreamReader(entity.getContent()), 65728);
+            String line = null;
+
+            while ((line = reader.readLine()) != null) {
+                sb.append(line);
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return sb.toString();
     }
 
 }

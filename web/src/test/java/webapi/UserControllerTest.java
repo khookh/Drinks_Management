@@ -2,10 +2,7 @@ package webapi;
 
 import data.User;
 import info.Gender;
-import org.eclipse.jetty.util.IO;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import packets.*;
 import serializers.ReadJSON;
 import serializers.WriteJSON;
@@ -18,6 +15,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class UserControllerTest {
 
     /** Environment variables */
@@ -26,16 +24,18 @@ class UserControllerTest {
     private static String ENV_TEST_USERNAME = "DManager_test_username";
     private static String ENV_TEST_PASSWORD  = "DManager_test_password";
 
-    String token = null;
+    static String token;
 
     @BeforeAll
     static void initServer() {
+        token = null;
         System.out.println(String.format("Initializing local server on ip: %d", WebServer.DEFAULT_PORT));
         WebServer server = new WebServer(WebServer.DEFAULT_PORT);
         server.start();
     }
 
     @Test
+    @Order(1)
     void areVariablesSet() {
         String username = variables.get(ENV_TEST_USERNAME);
         String password = variables.get(ENV_TEST_PASSWORD);
@@ -44,6 +44,7 @@ class UserControllerTest {
     }
 
     @Test
+    @Order(2)
     void registerUser() {
         String username = variables.get(ENV_TEST_USERNAME);
         String password = variables.get(ENV_TEST_PASSWORD);
@@ -66,6 +67,7 @@ class UserControllerTest {
     }
 
     @Test
+    @Order(3)
     void logUser() {
         String username = variables.get(ENV_TEST_USERNAME);
         String password = variables.get(ENV_TEST_PASSWORD);
@@ -90,6 +92,7 @@ class UserControllerTest {
     }
 
     @Test
+    @Order(4)
     void getUserData() {
         if (token == null) {
             fail(); // test is dependant from logUser test.
