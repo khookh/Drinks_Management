@@ -1,5 +1,6 @@
 package util;
 
+import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -14,8 +15,9 @@ public class Hasher {
     public static String hashString(String toHash) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hashed = digest.digest(toHash.getBytes(StandardCharsets.UTF_8));
-            return new String(hashed);
+            digest.update(toHash.getBytes(StandardCharsets.UTF_8));
+            byte[] hashed = digest.digest();
+            return String.format("%064x", new BigInteger(1, hashed));
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
             System.exit(-1); // fatal error

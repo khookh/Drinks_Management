@@ -1,5 +1,6 @@
 package webapi;
 
+import controllers.ConsumeController;
 import controllers.Controller;
 import controllers.UserController;
 import io.javalin.Javalin;
@@ -94,6 +95,7 @@ public class WebServer {
      */
     private void initControllers() {
         this.controllerList.add(new UserController());
+        this.controllerList.add(new ConsumeController());
     }
 
     public static void main(String[] args) {

@@ -31,8 +31,8 @@ public class ConsumeService extends Service {
             DRINK_ID_FIELD + " INT UNSIGNED NOT NULL, " +
             USER_ID_FIELD + " INT UNSIGNED NOT NULL, " +
             TIME_FIELD + " DATETIME NOT NULL, " +
-            "FOREIGN KEY (" + DRINK_ID_FIELD + ") REFERENCES " + DrinkService.TABLE_NAME + "(id)," +
-            "FOREIGN KEY (" + USER_ID_FIELD+ ") REFERENCES " + AuthenticationService.TABLE_NAME + "(id) );";
+            "FOREIGN KEY (" + DRINK_ID_FIELD + ") REFERENCES " + DrinkService.TABLE_NAME + "(id) ON DELETE CASCADE, " +
+            "FOREIGN KEY (" + USER_ID_FIELD+ ") REFERENCES " + AuthenticationService.TABLE_NAME + "(id) ON DELETE CASCADE);";
 
     private static String ADD_CONSUMPTION = "INSERT INTO " + TABLE_NAME +
             " (" + DRINK_ID_FIELD + "," + USER_ID_FIELD + "," + TIME_FIELD +") " +

@@ -149,6 +149,17 @@ class DBConnection {
     }
 
     /**
+     * Same as {@link #executeUpdate(String)}, but returns
+     * the set of all the generated keys from the insert statement.
+     * @return the set of generate keys.
+     * @throws SQLException
+     */
+    ResultSet executePreparedInsert(PreparedStatement stmt) throws SQLException {
+        stmt.executeUpdate();
+        return stmt.getGeneratedKeys();
+    }
+
+    /**
      * Returns a set of the metadata from the specified table.
      *
      * @param tableName, the name we want to look for

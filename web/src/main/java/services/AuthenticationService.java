@@ -169,7 +169,7 @@ public class AuthenticationService extends Service {
 
     /**
      * Here we describe the rules for choosing an username.
-     * @param username, the username we want to check.
+     * @param username, the username we want to check.W
      * @return a String with a message in case of error, null if everything's good.
      */
     public String isUsernameValid(String username) {

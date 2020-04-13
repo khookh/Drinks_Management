@@ -4,6 +4,7 @@ import info.CustomDrink;
 import info.User;
 import util.DateFormatter;
 
+import javax.xml.transform.Result;
 import java.text.ParseException;
 import java.util.Date;
 
@@ -32,7 +33,7 @@ public class DrinkService extends Service {
             VOLUME_FIELD + " FLOAT NOT NULL, " +
             PERCENT_FIELD + " FLOAT NOT NULL, " +
             DATE_FIELD + " DATE NOT NULL, " +
-            "FOREIGN KEY (" + USER_ID_FIELD + ") REFERENCES " + AuthenticationService.TABLE_NAME + "(id) ); ";
+            "FOREIGN KEY (" + USER_ID_FIELD + ") REFERENCES " + AuthenticationService.TABLE_NAME + "(id) ON DELETE CASCADE); ";
 
     private static String GET_DRINK_ID = "SELECT id FROM " + TABLE_NAME +
             " WHERE " + NAME_FIELD +"=? AND " + USER_ID_FIELD + "=?;";
@@ -93,7 +94,9 @@ public class DrinkService extends Service {
             stmt.setFloat(3, drink.getVolume());
             stmt.setFloat(4, drink.getAlcoholPercent());
             stmt.setString(5, dateString);
-            int entryId = connection.executePreparedUpdate(stmt);
+            ResultSet set = connection.executePreparedInsert(stmt);
+            if (!set.next()) return -1;
+            int entryId = set.getInt(1);
             connection.close();
             return entryId;
         } catch (ParseException e) {

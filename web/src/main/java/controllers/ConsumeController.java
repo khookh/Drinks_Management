@@ -20,8 +20,9 @@ public class ConsumeController extends Controller {
     public ConsumeController() {
         try {
             authService.start();
-            consumeService.start();
             drinkService.start();
+            consumeService.start(); // attention! consumeService sql table is dependant of drink service, so it must
+            // be initialized after!
         }
         catch (CantStartServiceException e) {
             e.printStackTrace();
@@ -53,16 +54,16 @@ public class ConsumeController extends Controller {
                 drinkId = drinkService.addDrink(cons.getDrink(), user);
             }
             consumeService.addConsumption(drinkId, user.getId());
-            returnPacket(ctx, new ResponseConsumedPacket(true, "Consumption added successfully"));
+            returnPacket(ctx, new ResponseConsumePacket(true, "Consumption added successfully"));
         } catch (SQLException e) {
             e.printStackTrace();
-            returnPacket(ctx, new ResponseConsumedPacket(false,"Server error occurred while logging user"));
+            returnPacket(ctx, new ResponseConsumePacket(false,"Server error occurred while logging user"));
         }
     }
 
     private void handlePacket(Context ctx, AskConsumptionsPacket packet) {
         // TODO handle packet
-        returnPacket(ctx, new ResponseConsumedPacket(false, "Functionality not implemented yet."));
+        returnPacket(ctx, new ResponseConsumePacket(false, "Functionality not implemented yet."));
     }
 
 }

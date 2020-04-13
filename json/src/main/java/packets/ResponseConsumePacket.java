@@ -7,9 +7,9 @@ package packets;
  *
  * @author GriffinBabe
  */
-public class ResponseConsumedPacket extends ResponsePacket {
+public class ResponseConsumePacket extends ResponsePacket {
 
-    public ResponseConsumedPacket(boolean success, String message) {
+    public ResponseConsumePacket(boolean success, String message) {
         super(success, message);
         super.packetName = this.getClass().getSimpleName();
     }
