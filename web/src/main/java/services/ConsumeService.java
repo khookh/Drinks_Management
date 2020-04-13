@@ -1,6 +1,13 @@
 package services;
 
-import util.Logger;
+
+import info.User;
+import util.DateFormatter;
+
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.Date;
 
 /**
  * This services takes care of the consumptions
@@ -21,21 +28,19 @@ public class ConsumeService extends Service {
 
     private static String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " (" +
             "id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, " +
-            DRINK_ID_FIELD + " INT NOT NULL, " +
-            USER_ID_FIELD + " INT NOT NULL, " +
-            TIME_FIELD + " DATE NOT NULL, " +
+            DRINK_ID_FIELD + " INT UNSIGNED NOT NULL, " +
+            USER_ID_FIELD + " INT UNSIGNED NOT NULL, " +
+            TIME_FIELD + " DATETIME NOT NULL, " +
             "FOREIGN KEY (" + DRINK_ID_FIELD + ") REFERENCES " + DrinkService.TABLE_NAME + "(id)," +
-            "FOREIGN KEY (" + USER_ID_FIELD+ ") REFERENCES " + AuthenticationService.TABLE_NAME + "(id);";
+            "FOREIGN KEY (" + USER_ID_FIELD+ ") REFERENCES " + AuthenticationService.TABLE_NAME + "(id) );";
+
+    private static String ADD_CONSUMPTION = "INSERT INTO " + TABLE_NAME +
+            " (" + DRINK_ID_FIELD + "," + USER_ID_FIELD + "," + TIME_FIELD +") " +
+            "VALUES(?,?,?);";
 
     @Override
     public void start() throws CantStartServiceException {
-        SERVICE_LOGGER.log(this, "Starting service...");
-        this.running = true;
-        if (!this.checkTables(TABLE_NAME)) {
-            SERVICE_LOGGER.log(this,"Tables not created in database. Creating table now.");
-            this.createTable(CREATE_TABLE);
-        }
-        SERVICE_LOGGER.log(this, "Service is ready.");
+        startCreateTables(TABLE_NAME, CREATE_TABLE);
     }
 
     @Override
@@ -52,5 +57,24 @@ public class ConsumeService extends Service {
     @Override
     public void resume() {
         SERVICE_LOGGER.log(this, "Service closed!");
+    }
+
+    public int addConsumption(int drinkId, int userId) throws SQLException {
+        try {
+            String dateString = DateFormatter.toString(new Date());
+            DBConnection connection = DBConnection.getInstance();
+            PreparedStatement stmt = connection.getInsertPreparedStmt(ADD_CONSUMPTION);
+            stmt.setInt(1, drinkId);
+            stmt.setInt(2, userId);
+            stmt.setString(3, dateString);
+            int entryId = connection.executePreparedUpdate(stmt);
+            connection.close();
+            return entryId;
+        } catch (ParseException e) {
+            // this error should never happen here
+            e.printStackTrace();
+            System.exit(-1);
+        }
+        return -1;
     }
 }

@@ -1,6 +1,6 @@
 package info;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * Consumption data. A consumption represents a user that drinks

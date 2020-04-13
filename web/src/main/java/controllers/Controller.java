@@ -13,7 +13,7 @@ import util.Logger;
  */
 public abstract class Controller {
 
-    public static Logger logger;
+    public static Logger CONTROLLER_LOGGER;
 
     /**
      * Handle request is abstract, only the controllers.
@@ -24,6 +24,11 @@ public abstract class Controller {
      */
     public abstract void handleRequest(Context ctx, JSONPacket packet);
 
+    /**
+     *
+     * @param ctx
+     * @param packet
+     */
     void returnPacket(Context ctx, JSONPacket packet) {
         String json = WriteJSON.writePacket(packet);
         ctx.result(json);

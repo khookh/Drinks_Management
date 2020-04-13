@@ -1,4 +1,4 @@
-package database;
+package services;
 
 import java.sql.*;
 import java.util.Map;
@@ -10,7 +10,7 @@ import java.util.Properties;
  *
  * @author GriffinBabe
  */
-public class DBController {
+class DBConnection {
 
     /**
      * Environment variable name for the user.
@@ -34,12 +34,7 @@ public class DBController {
 
     static int DEFAULT_PORT = 3306;
 
-    /**
-     * String needed by {@link Connection} to connect to the sql database.
-     */
-    // static String CONNECTION_ADDRESS = "jdbc:mysql://%s:%d/%s;user=%s&password=%s";
-
-    Properties connectionProperties = new Properties();
+    private Properties connectionProperties = new Properties();
 
     /**
      * String containing all the information to connect to the database.
@@ -47,9 +42,9 @@ public class DBController {
     private String connectionString;
 
     /**
-     * Singleton {@link DBController} instace.
+     * Singleton {@link DBConnection} instace.
      */
-    private static DBController instance = null;
+    private static DBConnection instance = null;
 
     /**
      * Connection, interface to the MySQL server.
@@ -57,10 +52,10 @@ public class DBController {
     private Connection connection = null;
 
     /**
-     * {@link DBController} constructor.
+     * {@link DBConnection} constructor.
      * Private as we use singleton pattern.
      */
-    private DBController() throws SQLException {
+    private DBConnection() throws SQLException {
         Map<String, String> enVariables = System.getenv();
         String username = enVariables.get(SYS_ENV_USER);
         String password = enVariables.get(SYS_ENV_PWD);
@@ -79,15 +74,15 @@ public class DBController {
 
     /**
      * Singleton design pattern. Gets the instance of
-     * {@link DBController} to access the SQL database.
+     * {@link DBConnection} to access the SQL database.
      *
      * @return
      */
-    public static DBController getInstance() throws SQLException {
-        if (DBController.instance == null) {
-            DBController.instance = new DBController();
+    static DBConnection getInstance() throws SQLException {
+        if (DBConnection.instance == null) {
+            DBConnection.instance = new DBConnection();
         }
-        return DBController.instance;
+        return DBConnection.instance;
     }
 
     /**
@@ -98,11 +93,22 @@ public class DBController {
      * @return a {@link PreparedStatement}.
      * @throws SQLException if there is a problem with the connection.
      */
-    public PreparedStatement getPreparedStmt(String query) throws SQLException {
+    PreparedStatement getPreparedStmt(String query) throws SQLException {
         if (connection.isClosed()) {
             this.connection = DriverManager.getConnection(connectionString, connectionProperties);
         }
         return connection.prepareStatement(query);
+    }
+
+    /**
+     * Same as {@link #getPreparedStmt(String)}, but the {@link PreparedStatement#executeUpdate()}
+     * will return the key of the last generated element.
+     */
+    PreparedStatement getInsertPreparedStmt(String query) throws SQLException {
+        if (connection.isClosed()) {
+            this.connection = DriverManager.getConnection(connectionString, connectionProperties);
+        }
+        return connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
     }
 
     /**
@@ -113,7 +119,7 @@ public class DBController {
      * @return the {@link ResultSet}.
      * @throws SQLException if there is a problem with the connection or the query.
      */
-    public ResultSet executePreparedQuery(PreparedStatement stmt) throws SQLException {
+    ResultSet executePreparedQuery(PreparedStatement stmt) throws SQLException {
         ResultSet set = stmt.executeQuery();
         return set;
     }
@@ -122,7 +128,7 @@ public class DBController {
      * See {@link #executePreparedQuery(PreparedStatement)}. Same
      * but with a simple {@link Statement} instead of {@link PreparedStatement}.
      */
-    public ResultSet executeQuery(String query) throws SQLException {
+    ResultSet executeQuery(String query) throws SQLException {
         if (connection.isClosed()) {
             this.connection = DriverManager.getConnection(connectionString, connectionProperties);
         }
@@ -130,7 +136,7 @@ public class DBController {
         return stmt.executeQuery(query);
     }
 
-    public int executeUpdate(String update) throws SQLException {
+    int executeUpdate(String update) throws SQLException {
         if (connection.isClosed()) {
             this.connection = DriverManager.getConnection(connectionString, connectionProperties);
         }
@@ -138,7 +144,7 @@ public class DBController {
         return stmt.executeUpdate(update);
     }
 
-    public int executePreparedUpdate(PreparedStatement stmt) throws SQLException {
+    int executePreparedUpdate(PreparedStatement stmt) throws SQLException {
         return stmt.executeUpdate();
     }
 
@@ -148,7 +154,7 @@ public class DBController {
      * @param tableName, the name we want to look for
      * @throws SQLException
      */
-    public ResultSet getDatabaseTableData(String tableName) throws SQLException {
+    ResultSet getDatabaseTableData(String tableName) throws SQLException {
         if (connection.isClosed()) {
             this.connection = DriverManager.getConnection(connectionString, connectionProperties);
         }
@@ -156,7 +162,7 @@ public class DBController {
         return meta.getTables(null, null, tableName, new String[] {"TABLE"});
     }
 
-    public void close() throws SQLException {
+    void close() throws SQLException {
         this.connection.close();
     }
 

@@ -1,4 +1,4 @@
-package data;
+package info;
 
 /**
  * Data user. Contains useful information
@@ -8,12 +8,18 @@ package data;
  */
 public class User {
 
+    private int id;
     private String username;
     private String token;
 
-    public User(String username, String token) {
+    public User(int id, String username, String token) {
+        this.id = id;
         this.username = username;
         this.token = token;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getUsername() {

@@ -1,9 +1,7 @@
 package services;
 
-import data.User;
-import database.DBController;
+import info.User;
 import util.Hasher;
-import util.Logger;
 import util.StringGenerators;
 
 import java.nio.charset.StandardCharsets;
@@ -48,13 +46,7 @@ public class AuthenticationService extends Service {
 
     @Override
     public void start() throws CantStartServiceException {
-        SERVICE_LOGGER.log(this, "Starting service...");
-        this.running = true;
-        if (!this.checkTables(TABLE_NAME)) {
-            SERVICE_LOGGER.log(this,"Tables not created in database. Creating table now.");
-            this.createTable(CREATE_TABLE);
-        }
-        SERVICE_LOGGER.log(this, "Service is ready.");
+        startCreateTables(TABLE_NAME, CREATE_TABLE);
     }
 
     @Override
@@ -73,8 +65,6 @@ public class AuthenticationService extends Service {
         SERVICE_LOGGER.log(this, "Service closed!");
     }
 
-
-
     /**
      * Checks in the database if {@param token} is already used.
      * (Very rare, should normally never happen).
@@ -84,7 +74,7 @@ public class AuthenticationService extends Service {
      * @throws SQLException if there is a problem with the database
      */
     private boolean isTokenAvailable(String token) throws SQLException {
-        DBController controller = DBController.getInstance();
+        DBConnection controller = DBConnection.getInstance();
         PreparedStatement stmt = controller.getPreparedStmt(GET_TOKEN);
         stmt.setString(1, token);
         ResultSet set = controller.executePreparedQuery(stmt);
@@ -105,7 +95,7 @@ public class AuthenticationService extends Service {
             token = StringGenerators.generateToken(TOKEN_LENGTH);
         } while(!isTokenAvailable(token));
 
-        DBController controller = DBController.getInstance();
+        DBConnection controller = DBConnection.getInstance();
         PreparedStatement stmt = controller.getPreparedStmt(SET_TOKEN);
         stmt.setString(1, token);
         stmt.setString(2, username);
@@ -122,7 +112,7 @@ public class AuthenticationService extends Service {
      * @throws SQLException if there is a problem with the database
      */
     public boolean isUsernameAvailable(String username) throws SQLException {
-        DBController controller = DBController.getInstance();
+        DBConnection controller = DBConnection.getInstance();
         PreparedStatement stmt = controller.getPreparedStmt(GET_USERNAME);
         stmt.setString(1, username);
         ResultSet set = controller.executePreparedQuery(stmt);
@@ -141,7 +131,7 @@ public class AuthenticationService extends Service {
      */
     public String registerUser(String username, String password) throws SQLException {
         String hashedPassword = Hasher.hashString(password);
-        DBController controller = DBController.getInstance();
+        DBConnection controller = DBConnection.getInstance();
         PreparedStatement stmt = controller.getPreparedStmt(ADD_USER);
         stmt.setString(1, username);
         stmt.setString(2, hashedPassword);
@@ -160,7 +150,7 @@ public class AuthenticationService extends Service {
      * @throws SQLException if there is an exception with the database
      */
     public String logUser(String username, String password) throws SQLException {
-        DBController controller = DBController.getInstance();
+        DBConnection controller = DBConnection.getInstance();
         PreparedStatement stmt = controller.getPreparedStmt(GET_USERNAME);
         stmt.setString(1, username);
         ResultSet set = controller.executePreparedQuery(stmt);
@@ -214,17 +204,18 @@ public class AuthenticationService extends Service {
      * @return an {@link User object} containing user important data.
      */
     public User authenticateUser(String token) throws SQLException {
-        DBController controller = DBController.getInstance();
-        PreparedStatement stmt = controller.getPreparedStmt(GET_TOKEN);
+        DBConnection connection = DBConnection.getInstance();
+        PreparedStatement stmt = connection.getPreparedStmt(GET_TOKEN);
         stmt.setString(1, token);
-        ResultSet set = controller.executePreparedQuery(stmt);
+        ResultSet set = connection.executePreparedQuery(stmt);
         if (!set.next()) {
-            controller.close();
+            connection.close();
             return null;
         }
         String username = set.getString(USERNAME_FIELD);
-        controller.close();
-        return new User(username, token);
+        int id = set.getInt("id");
+        connection.close();
+        return new User(id, username, token);
      }
 
     /**
@@ -233,11 +224,11 @@ public class AuthenticationService extends Service {
      * @throws SQLException if there is an error with the database.
      */
      public void deleteUser(String username) throws SQLException {
-        DBController controller = DBController.getInstance();
-        PreparedStatement stmt = controller.getPreparedStmt(DELETE_USER);
+        DBConnection connection = DBConnection.getInstance();
+        PreparedStatement stmt = connection.getPreparedStmt(DELETE_USER);
         stmt.setString(1, username);
-        int retState = controller.executePreparedUpdate(stmt);
-        controller.close();
+        int retState = connection.executePreparedUpdate(stmt);
+        connection.close();
      }
 
 }

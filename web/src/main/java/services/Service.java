@@ -1,7 +1,5 @@
 package services;
 
-import com.mysql.jdbc.log.Log;
-import database.DBController;
 import util.Logger;
 
 import java.sql.ResultSet;
@@ -42,29 +40,48 @@ public abstract class Service {
      */
     abstract public void resume();
 
-    boolean checkTables(String tableName) {
+    /**
+     * Usually called when starting a new service. This will initialize all the new tables
+     * @param tableName the table to check on the SQL Database
+     * @param createTable the table creation instruction for the SQL Database
+     * @throws CantStartServiceException if there is a problem with the initialization of the tables.
+     */
+    void startCreateTables(String tableName, String createTable) throws CantStartServiceException {
+        SERVICE_LOGGER.log(this, "Starting service...");
+        this.running = true;
         try {
-            DBController connection = DBController.getInstance();
-            ResultSet set = connection.getDatabaseTableData(tableName);
-            return (set.next()); // if next returns false then no table
+            if (!this.checkTables(tableName)) {
+                SERVICE_LOGGER.log(this,"Tables not created in database. Creating table now.");
+                this.createTable(createTable);
+            }
+            SERVICE_LOGGER.log(this, "Service is ready.");
         } catch (SQLException e) {
-            SERVICE_LOGGER.log(this, e.toString());
-            e.printStackTrace();
-            this.stop();
-            return false;
+            this.running = false;
+            throw new CantStartServiceException("Can't start service, SQL exception occurred", this);
         }
     }
 
-    void createTable(String createTableSQL) {
-        try {
-            DBController controller = DBController.getInstance();
-            controller.executeUpdate(createTableSQL);
-        } catch (SQLException e) {
-            SERVICE_LOGGER.log(this, e.toString());
-            e.printStackTrace();
-            this.stop();
-        }
+    /**
+     * Checks if the given table name exists or not in the database.
+     * @param tableName the table to check.
+     * @return true if it exists, false otherwise
+     * @throws SQLException if there is a problem with the Database.
+     */
+    boolean checkTables(String tableName) throws SQLException {
+        DBConnection connection = DBConnection.getInstance();
+        ResultSet set = connection.getDatabaseTableData(tableName);
+        return (set.next()); // if next returns false then no table
     }
+
+    /**
+     * Creates a new table into the database.
+     * @param createTableSQL the instruction to launch
+     * @throws SQLException if there is a problem with the Database.
+     */
+    void createTable(String createTableSQL) throws SQLException {
+        DBConnection controller = DBConnection.getInstance();
+        controller.executeUpdate(createTableSQL);
+}
 
 
 

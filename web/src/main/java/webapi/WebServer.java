@@ -32,6 +32,7 @@ public class WebServer {
 
     static {
         Service.SERVICE_LOGGER = WebServer.SERVER_LOGGER;
+        Controller.CONTROLLER_LOGGER = WebServer.SERVER_LOGGER;
     }
 
     private int port = DEFAULT_PORT;

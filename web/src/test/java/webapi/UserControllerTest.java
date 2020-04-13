@@ -1,6 +1,6 @@
 package webapi;
 
-import data.User;
+import info.User;
 import info.Gender;
 import org.junit.jupiter.api.*;
 import packets.*;
