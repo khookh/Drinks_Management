@@ -9,11 +9,9 @@ public class Classic25Pils {
     public static String getName() {
         return name;
     }
-
     public static Double getPercentage() {
         return percentage;
     }
-
     public static Double getVolume() {
         return volume;
     }

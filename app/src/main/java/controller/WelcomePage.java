@@ -107,7 +107,6 @@ public class WelcomePage extends AppCompatActivity {
     public void goToSignUp(View view){
         startActivity(new Intent(WelcomePage.this, SignUp_Control.class));
     }
-
     public static User getActual_user() {
         return actual_user;
     }

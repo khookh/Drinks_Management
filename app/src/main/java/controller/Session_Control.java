@@ -117,7 +117,6 @@ public class Session_Control extends AppCompatActivity {
         }
         else if(!cons.getBevname().isEmpty() && !cons.getVolume().isEmpty() && !cons.getPercent().isEmpty() ){
             Session.addAlcohol(cons.getBevname(),Double.parseDouble(cons.getVolume()), Double.parseDouble(cons.getPercent()));
-
         }
         getViewPager().getAdapter().notifyDataSetChanged(); //refresh data displayed
     }
