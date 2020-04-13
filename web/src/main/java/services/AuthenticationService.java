@@ -11,7 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class AuthenticationService implements Service {
+public class AuthenticationService extends Service {
 
     // ----- SETTINGS ---------
     private static int usernameMinLength = 6;
@@ -21,10 +21,6 @@ public class AuthenticationService implements Service {
     private static int passwordMaxLength = 15;
 
     private static int TOKEN_LENGTH = 32;
-
-    public static Logger logger;
-    
-    boolean running = false;
 
     public static String TABLE_NAME = "users";
 
@@ -52,54 +48,31 @@ public class AuthenticationService implements Service {
 
     @Override
     public void start() throws CantStartServiceException {
-        logger.log(this, "Starting service...");
+        SERVICE_LOGGER.log(this, "Starting service...");
         this.running = true;
-        if (!this.checkTables()) {
-            logger.log(this,"Tables not created in database. Creating table now.");
-            createTable();
+        if (!this.checkTables(TABLE_NAME)) {
+            SERVICE_LOGGER.log(this,"Tables not created in database. Creating table now.");
+            this.createTable(CREATE_TABLE);
         }
-        logger.log(this, "Service is ready.");
+        SERVICE_LOGGER.log(this, "Service is ready.");
     }
 
     @Override
     public void stop() {
-        logger.log(this, "Service stopping...");
-        logger.log(this, "Service stopped!");
+        SERVICE_LOGGER.log(this, "Service stopping...");
+        SERVICE_LOGGER.log(this, "Service stopped!");
     }
 
     @Override
     public void pause() {
-        logger.log(this, "[Authentication Service] Service paused!");
+        SERVICE_LOGGER.log(this, "Service paused!");
     }
 
     @Override
     public void resume() {
-        logger.log(this, "[Authentication Service] Service closed!");
+        SERVICE_LOGGER.log(this, "Service closed!");
     }
 
-    private boolean checkTables() {
-        try {
-            DBController connection = DBController.getInstance();
-            ResultSet set = connection.getDatabaseTableData(TABLE_NAME);
-            return (set.next()); // if next returns false then no table
-        } catch (SQLException e) {
-            logger.log(this, e.toString());
-            e.printStackTrace();
-            this.stop();
-            return false;
-        }
-    }
-
-    private void createTable() {
-        try {
-            DBController controller = DBController.getInstance();
-            controller.executeUpdate(CREATE_TABLE);
-        } catch (SQLException e) {
-            logger.log(this, e.toString());
-            e.printStackTrace();
-            this.stop();
-        }
-    }
 
 
     /**

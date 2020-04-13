@@ -4,14 +4,11 @@ import controllers.Controller;
 import controllers.UserController;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
-import packets.ConsumePacket;
 import packets.JSONPacket;
 import packets.ResponsePingPacket;
 import serializers.ReadJSON;
 import serializers.WriteJSON;
-import services.AuthenticationService;
-import services.ConsumeService;
-import services.DrinkService;
+import services.Service;
 import util.Logger;
 
 import java.util.ArrayList;
@@ -31,12 +28,10 @@ public class WebServer {
     static int DEFAULT_PORT = 80;
 
     /** Server {@link Logger}, for the moment it is shared across all the server software. */
-    private static Logger serverLogger = new Logger(true);
+    private static Logger SERVER_LOGGER = new Logger(true);
 
     static {
-        AuthenticationService.logger = WebServer.serverLogger;
-        Controller.logger = WebServer.serverLogger;
-        ConsumeService.logger = WebServer.serverLogger;
+        Service.SERVICE_LOGGER = WebServer.SERVER_LOGGER;
     }
 
     private int port = DEFAULT_PORT;

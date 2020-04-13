@@ -9,9 +9,7 @@ import util.Logger;
  *
  * @author GriffinBabe
  */
-public class ConsumeService implements Service {
-
-    public static Logger logger;
+public class ConsumeService extends Service {
 
     private static String TABLE_NAME = "consumptions";
 
@@ -29,25 +27,30 @@ public class ConsumeService implements Service {
             "FOREIGN KEY (" + DRINK_ID_FIELD + ") REFERENCES " + DrinkService.TABLE_NAME + "(id)," +
             "FOREIGN KEY (" + USER_ID_FIELD+ ") REFERENCES " + AuthenticationService.TABLE_NAME + "(id);";
 
-
-
     @Override
     public void start() throws CantStartServiceException {
-
+        SERVICE_LOGGER.log(this, "Starting service...");
+        this.running = true;
+        if (!this.checkTables(TABLE_NAME)) {
+            SERVICE_LOGGER.log(this,"Tables not created in database. Creating table now.");
+            this.createTable(CREATE_TABLE);
+        }
+        SERVICE_LOGGER.log(this, "Service is ready.");
     }
 
     @Override
     public void stop() {
-
+        SERVICE_LOGGER.log(this, "Service stopping...");
+        SERVICE_LOGGER.log(this, "Service stopped!");
     }
 
     @Override
     public void pause() {
-
+        SERVICE_LOGGER.log(this, "Service paused!");
     }
 
     @Override
     public void resume() {
-
+        SERVICE_LOGGER.log(this, "Service closed!");
     }
 }
