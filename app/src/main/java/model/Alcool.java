@@ -35,4 +35,4 @@ public Double getPercentage() {
 public void setPercentage(Double percentage) {
         Percentage = percentage;
         }
-        }
+}

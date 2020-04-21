@@ -10,7 +10,7 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 
 import java.io.IOException;
-
+//todo: implements packets, http functions and testing
 
 
 

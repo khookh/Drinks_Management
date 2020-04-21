@@ -4,7 +4,7 @@ import controller.SignUp_Control;
 import controller.WelcomePage;
 import java.util.ArrayList;
 public class SignUp {
-
+    //todo: remove static
     private static String signedup = "error";
     private static ArrayList<User> users = WelcomePage.getUsers();
 

@@ -5,7 +5,7 @@ import controller.WelcomePage;
 import java.util.ArrayList;
 
 public class SignIn {
-
+    //todo: remove static
 
     private static String signedin = "error";
 
