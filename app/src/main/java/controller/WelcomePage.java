@@ -15,16 +15,21 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.defonce_management.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import network.HttpManager;
 
 import java.util.ArrayList;
+
 
 public class WelcomePage extends AppCompatActivity {
 
     private static User actual_user;
 
+    public static HttpManager hm;
     public static ArrayList<User> users = new ArrayList();
     EditText nickname, password;
     TextView errormessage;
+
+    //TODO: important , separate controller/network/model from this class
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +41,10 @@ public class WelcomePage extends AppCompatActivity {
         newuser.setAlcoolRate(0.1);
         users.add(newuser);
         WelcomePage.setUsers(users);
+
+        HttpManager hm = new HttpManager("URL","API_URL");
+        setHm(hm);
+
         //TEMPORARY FOR TEST
 
         nickname = (EditText)findViewById(R.id.nickname);
@@ -92,9 +101,9 @@ public class WelcomePage extends AppCompatActivity {
      * @param view
      */
     public void goToSignIn(View view) throws InterruptedException {
-        SignIn.signIn(nickname.getText().toString().trim(),password.getText().toString().trim());
-        errormessage.setText(SignIn.getSignedin());
-        if(SignIn.getSignedin().equals("Signed In")){
+        SignIn si = new SignIn(nickname.getText().toString().trim(),password.getText().toString().trim());
+        errormessage.setText(si.getSignedin());
+        if(si.getSignedin().equals("Signed In")){
             startActivity(new Intent(WelcomePage.this, Session_Control.class));
         }
     }
@@ -107,10 +116,17 @@ public class WelcomePage extends AppCompatActivity {
     public void goToSignUp(View view){
         startActivity(new Intent(WelcomePage.this, SignUp_Control.class));
     }
+
     public static User getActual_user() {
         return actual_user;
     }
     public static void setActual_user(User actual_user) {
         WelcomePage.actual_user = actual_user;
+    }
+    public static HttpManager getHm() {
+        return hm;
+    }
+    public static void setHm(HttpManager hm) {
+        WelcomePage.hm = hm;
     }
 }

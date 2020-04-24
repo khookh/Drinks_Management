@@ -15,10 +15,16 @@ import java.io.IOException;
 
 
 public class HttpManager {
+
     static String URL = "";
     static String API_URL = "";
 
-    String sendPost(String path, String data) throws IOException {
+    public HttpManager(String URL, String API_URL){
+        setApiUrl(API_URL);
+        setURL(URL);
+    }
+
+    public String sendPost(String path, String data) throws IOException {
         HttpClient client = HttpClientBuilder.create().build();
 
         //timeout si la connexion prend trop de temps
@@ -37,7 +43,7 @@ public class HttpManager {
         return response.toString();
     }
 
-    String sendGet(String path) throws IOException {
+    public String sendGet(String path) throws IOException {
         HttpClient client = HttpClientBuilder.create().build();
 
         //timeout si la connexion prend trop de temps
@@ -53,5 +59,14 @@ public class HttpManager {
         HttpResponse response = client.execute(request);
         return response.toString();
     }
+
+    public static void setURL(String URL) {
+        HttpManager.URL = URL;
+    }
+
+    public static void setApiUrl(String apiUrl) {
+        API_URL = apiUrl;
+    }
+
 
 }
