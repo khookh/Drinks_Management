@@ -29,6 +29,6 @@ public class SignIn {
     }
 
     public void setSignedin(String signedin) {
-        SignIn.signedin = signedin;
+        this.signedin = signedin;
     }
 }

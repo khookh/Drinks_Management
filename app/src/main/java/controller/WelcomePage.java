@@ -40,7 +40,7 @@ public class WelcomePage extends AppCompatActivity {
         User newuser = new User("Stefano","e",85.6,23,"123456","boi");
         newuser.setAlcoolRate(0.1);
         users.add(newuser);
-        WelcomePage.setUsers(users);
+        setUsers(users);
 
         HttpManager hm = new HttpManager("URL","API_URL");
         setHm(hm);
@@ -64,11 +64,11 @@ public class WelcomePage extends AppCompatActivity {
         });
     }
 
-    public static ArrayList<User> getUsers() {
+    public ArrayList<User> getUsers() {
         return users;
     }
 
-    public static void setUsers(ArrayList<User> users) {
+    public void setUsers(ArrayList<User> users) {
         WelcomePage.users = users;
     }
 
@@ -117,16 +117,16 @@ public class WelcomePage extends AppCompatActivity {
         startActivity(new Intent(WelcomePage.this, SignUp_Control.class));
     }
 
-    public static User getActual_user() {
+    public User getActual_user() {
         return actual_user;
     }
-    public static void setActual_user(User actual_user) {
+    public void setActual_user(User actual_user) {
         WelcomePage.actual_user = actual_user;
     }
-    public static HttpManager getHm() {
+    public HttpManager getHm() {
         return hm;
     }
-    public static void setHm(HttpManager hm) {
+    public void setHm(HttpManager hm) {
         WelcomePage.hm = hm;
     }
 }

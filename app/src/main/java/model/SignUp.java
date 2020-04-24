@@ -17,7 +17,7 @@ public class SignUp {
      * @param sex
      * @param weight
      */
-    public static void signUp(String nickname, String email, String password, Integer age, String sex, Double weight){
+    public SignUp(String nickname, String email, String password, Integer age, String sex, Double weight){
         if(checkUser(email,nickname)){
             createUser(nickname,email,password,age,sex,weight);
             setSignedup(SignUp_Control.getErrormessage4());
@@ -27,7 +27,7 @@ public class SignUp {
     /**
      * @return boolean check ; if the user already exist or not
      */
-    private static boolean checkUser(String e, String n) {
+    private boolean checkUser(String e, String n) {
         boolean check = true;
         ArrayList<User> users = WelcomePage.getUsers();
         //check dans le stockage, arraylist sol. temporaire pour test
@@ -54,7 +54,7 @@ public class SignUp {
      * @param s sex
      * @param w weight
      */
-    private static void createUser(String n, String e, String p, Integer a, String s, Double w){
+    private void createUser(String n, String e, String p, Integer a, String s, Double w){
         User newuser = new User(n,e,w,a,p,s);
 
         //
@@ -66,11 +66,11 @@ public class SignUp {
     /**
      * @return signedup : this String contain the information to display in case of error in SignUp_Control
      */
-    public static String getSignedup() {
+    public String getSignedup() {
         return signedup;
     }
 
-    public static void setSignedup(String signedup) {
+    public void setSignedup(String signedup) {
         SignUp.signedup = signedup;
     }
 }
