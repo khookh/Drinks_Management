@@ -23,6 +23,8 @@ import model.predefinedAlcohol.VodkaShot;
  */
 public class Session_Control extends AppCompatActivity {
 
+    Session session;
+
     //skrenmessage used to display user state
     static String skrenmessage1;
     static String skrenmessage2;
@@ -37,6 +39,10 @@ public class Session_Control extends AppCompatActivity {
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Session session = new Session();
+        setSession(session);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.session);
 
@@ -50,7 +56,9 @@ public class Session_Control extends AppCompatActivity {
         TabLayout tabs = findViewById(R.id.tabs);
 
         cons = new Consumption();
+        cons.setSession(session);
         ov = new Overview();
+        ov.setSession(session);
 
         sectionsPagerAdapter.addFragment(cons, getString(R.string.Alcool_Consumption));
         sectionsPagerAdapter.addFragment(ov, getString(R.string.Overview));
@@ -65,16 +73,6 @@ public class Session_Control extends AppCompatActivity {
                 return false;
             }
         });
-    }
-
-    /**
-     * Load the needed information into the consumption fragment at creation
-     * Called into Consumption.java
-     */
-    public static void startup_cons(){
-        Session.setSkren(actual_user);
-        cons.setProgressBar(Session.getSkrenlevel());
-        cons.setTextBar("Your alcool blood level is now around "+actual_user.getAlcoolRate()+" g/L" +"\n"+ Session.getSkrenmessage());
     }
 
     /**
@@ -107,29 +105,28 @@ public class Session_Control extends AppCompatActivity {
     public void addconsumption(View view){
         if(selectedalcool!=null){
             if(selectedalcool.getTag().equals("Classic25Pils")){
-                Session.addAlcohol(Classic25Pils.getName(),Classic25Pils.getVolume(),Classic25Pils.getPercentage());
+                getSession().addAlcohol(Classic25Pils.getName(),Classic25Pils.getVolume(),Classic25Pils.getPercentage());
             }
             else if(selectedalcool.getTag().equals("VodkaShot")){
-                Session.addAlcohol(VodkaShot.getName(),VodkaShot.getVolume(),VodkaShot.getPercentage());
+                getSession().addAlcohol(VodkaShot.getName(),VodkaShot.getVolume(),VodkaShot.getPercentage());
             }
             deselectalcool();
             //TODO ; add predifined alcohol
         }
         else if(!cons.getBevname().isEmpty() && !cons.getVolume().isEmpty() && !cons.getPercent().isEmpty() ){
-            Session.addAlcohol(cons.getBevname(),Double.parseDouble(cons.getVolume()), Double.parseDouble(cons.getPercent()));
+            getSession().addAlcohol(cons.getBevname(),Double.parseDouble(cons.getVolume()), Double.parseDouble(cons.getPercent()));
         }
         getViewPager().getAdapter().notifyDataSetChanged(); //refresh data displayed
     }
 
 
 
-    /**
-     * Load the needed information into the consumption objects at creation
-     * Called into Overview.java
-     */
-    public static void startup_ov(){
-        String ld = Session.returnldstring();
-        ov.setLastDText(ld);
+    public Session getSession() {
+        return session;
+    }
+
+    public void setSession(Session session) {
+        this.session = session;
     }
 
 
@@ -145,4 +142,5 @@ public class Session_Control extends AppCompatActivity {
 
     public static String getSkrenmessage2() { return skrenmessage2; }
     public static void setSkrenmessage2(String skrenmessage2) { Session_Control.skrenmessage2 = skrenmessage2; }
+
 }

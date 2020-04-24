@@ -1,6 +1,5 @@
 package controller.fragment;
 
-import controller.Session_Control;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,12 +9,15 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import com.example.defonce_management.R;
+import model.Session;
 
 /**
  * Implements the controls of the Consumption fragment displayed
  */
 public class Consumption extends Fragment {
     View root;
+
+    Session session;
 
     TextView bar;
     ProgressBar skren;
@@ -30,7 +32,10 @@ public class Consumption extends Fragment {
         percent = root.findViewById(R.id.percent);
         bevname = root.findViewById(R.id.bevname);
 
-        Session_Control.startup_cons();
+        //startupcons
+        getSession().setSkren();
+        setProgressBar(getSession().getSkrenlevel());
+        setTextBar("Your alcool blood level is now around "+ "x"+ "g/L" +"\n"+ getSession().getSkrenmessage());
 
         return root;
     }
@@ -55,6 +60,13 @@ public class Consumption extends Fragment {
     }
     public String getBevname() {
         return bevname.getText().toString();
+    }
+    public Session getSession() {
+        return session;
+    }
+
+    public void setSession(Session session) {
+        this.session = session;
     }
 
 }

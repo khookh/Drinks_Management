@@ -16,7 +16,7 @@ public class SignIn {
      */
     public SignIn(String nickname, String password){
         LoginPacket packet = new LoginPacket(nickname, password);
-        String response = WelcomePage.getHm().sendPost("", WriteJSON.writePacket(packet));
+        String response = WelcomePage.getHm().sendPost("", WriteJSON.writePacket(packet)); //bug merge
         setSignedin(response);
 
     }

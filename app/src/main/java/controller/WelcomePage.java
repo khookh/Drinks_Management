@@ -64,11 +64,11 @@ public class WelcomePage extends AppCompatActivity {
         });
     }
 
-    public ArrayList<User> getUsers() {
+    public static ArrayList<User> getUsers() {
         return users;
     }
 
-    public void setUsers(ArrayList<User> users) {
+    public static void setUsers(ArrayList<User> users) {
         WelcomePage.users = users;
     }
 
@@ -117,13 +117,13 @@ public class WelcomePage extends AppCompatActivity {
         startActivity(new Intent(WelcomePage.this, SignUp_Control.class));
     }
 
-    public User getActual_user() {
+    public static User getActual_user() {
         return actual_user;
     }
     public void setActual_user(User actual_user) {
         WelcomePage.actual_user = actual_user;
     }
-    public HttpManager getHm() {
+    public static HttpManager getHm() {
         return hm;
     }
     public void setHm(HttpManager hm) {

@@ -17,16 +17,21 @@ public class SignUp {
      * @param sex
      * @param weight
      */
+
+    //todo : signup packet
     public SignUp(String nickname, String email, String password, Integer age, String sex, Double weight){
         if(checkUser(email,nickname)){
             createUser(nickname,email,password,age,sex,weight);
             setSignedup(SignUp_Control.getErrormessage4());
         }
+        setSignedup(SignUp_Control.getErrormessage4());
     }
 
     /**
      * @return boolean check ; if the user already exist or not
      */
+
+    //todo : delete what's useless
     private boolean checkUser(String e, String n) {
         boolean check = true;
         ArrayList<User> users = WelcomePage.getUsers();
@@ -54,6 +59,8 @@ public class SignUp {
      * @param s sex
      * @param w weight
      */
+
+    //todo : delete what's useless
     private void createUser(String n, String e, String p, Integer a, String s, Double w){
         User newuser = new User(n,e,w,a,p,s);
 
