@@ -1,5 +1,15 @@
 apply plugin: 'com.android.application'
 
+buildscript {
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.5.0'
+    }
+}
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
