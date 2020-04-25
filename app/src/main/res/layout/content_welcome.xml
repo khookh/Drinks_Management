@@ -6,8 +6,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:showIn="@layout/welcome"
-        tools:context="controller.WelcomePage">
+        tools:showIn="@layout/sign"
+        tools:context="controller.Sign_Control">
 
 
     <Button
@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/SignIn"
-            android:onClick="goToSignIn"
+            android:onClick="cSignIn"
             tools:ignore="OnClick"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="132dp"

@@ -1,13 +1,16 @@
 package model;
 
 import controller.WelcomePage;
+import packets.LoginPacket;
+import serializers.WriteJSON;
 
-import java.util.ArrayList;
+import java.io.IOException;
 
-public class SignIn {
-    //todo: remove static
+public class SignIn extends Thread {
 
     private String signedin = "error";
+    String nickname;
+    String password;
 
     /**
      * SignIn instance; verify the information and proceed to sign in
@@ -15,10 +18,19 @@ public class SignIn {
      * @param password
      */
     public SignIn(String nickname, String password){
-        LoginPacket packet = new LoginPacket(nickname, password);
-        String response = WelcomePage.getHm().sendPost("", WriteJSON.writePacket(packet)); //bug merge
-        setSignedin(response);
+        this.nickname = nickname;
+        this.password = password;
+    }
 
+    public void run(){
+        LoginPacket packet = new LoginPacket(nickname, password);
+        try {
+            String response = WelcomePage.getHm().sendPost("", WriteJSON.writePacket(packet));
+            setSignedin(response);
+        } catch (IOException e) { //if takes too much time or fail to connect
+            setSignedin("Sign In Packet Error");
+        }
+        System.out.println(getSignedin());
     }
 
     /**
@@ -30,5 +42,6 @@ public class SignIn {
 
     public void setSignedin(String signedin) {
         this.signedin = signedin;
+
     }
 }
