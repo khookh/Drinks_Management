@@ -16,6 +16,8 @@ import com.google.android.material.snackbar.Snackbar;
 import model.Initialize;
 import model.SignIn;
 
+//todo : implement fragment for sign in and sign up
+
 
 public class WelcomePage extends AppCompatActivity {
 
@@ -24,11 +26,11 @@ public class WelcomePage extends AppCompatActivity {
 
     static Initialize init = new Initialize();
 
+    public WelcomePage(){}
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome);
-
         nickname = (EditText)findViewById(R.id.nickname);
         password = (EditText)findViewById(R.id.password);
         errormessage =(TextView)findViewById(R.id.errormessage);
@@ -48,23 +50,16 @@ public class WelcomePage extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -74,12 +69,14 @@ public class WelcomePage extends AppCompatActivity {
      * Then move to new Activity
      * @param view
      */
-    public void goToSignIn(View view) throws InterruptedException {
-        SignIn si = new SignIn(nickname.getText().toString().trim(),password.getText().toString().trim());
-        errormessage.setText(si.getSignedin());
-        if(si.getSignedin().equals("Signed In")){
-            startActivity(new Intent(WelcomePage.this, Session_Control.class));
-        }
+    public void cSign(View view) {
+        SignIn si = new SignIn(nickname.getText().toString().trim(),password.getText().toString().trim(),getInit());
+        si.start(); //lance le thread qui envoie la requête au serveur
+
+        goToSignIn(); //test
+    }
+    public void goToSignIn(){ //called when is notified
+        startActivity(new Intent(WelcomePage.this, Session_Control.class));
     }
 
     /**
@@ -94,5 +91,5 @@ public class WelcomePage extends AppCompatActivity {
     public static Initialize getInit() {
         return init;
     }
-
 }
+

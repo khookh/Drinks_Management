@@ -1,20 +1,32 @@
 package model;
 
-public class SignIn {
-    //todo: remove static
+public class SignIn extends Thread {
 
     private String signedin = "error";
+    private static Initialize init;
+    String nickname;
+    String password;
 
     /**
      * SignIn instance; verify the information and proceed to sign in
      * @param nickname
      * @param password
      */
-    public SignIn(String nickname, String password){
+    public SignIn(String nickname, String password, Initialize init){
+        this.init= init;
+        this.nickname = nickname;
+        this.password = password;
+    }
+
+    public void run(){
         //LoginPacket packet = new LoginPacket(nickname, password);
-        //String response = WelcomePage.getHm().sendPost("", WriteJSON.writePacket(packet));
-        //setSignedin(response);
-        setSignedin("Signed In");
+        //try {
+            //String response = WelcomePage.getHm().sendPost("", WriteJSON.writePacket(packet));
+            //setSignedin(response);
+        //} catch (IOException e) { //if takes too much time or fail to connect
+            //setSignedin("Sign In Packet Error");
+        //}
+        //System.out.println(getSignedin());
     }
 
     /**
@@ -26,5 +38,6 @@ public class SignIn {
 
     public void setSignedin(String signedin) {
         this.signedin = signedin;
+
     }
 }

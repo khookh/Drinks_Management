@@ -21,16 +21,12 @@ public class SignUp_Control extends AppCompatActivity {
     RadioButton radioSexButton;
 
 
-    static String errormessage1;
-    static String errormessage2;
-    static String errormessage3;
-    static String errormessage4;
+    String errormessage1 = getString(R.string.error);
+    String errormessage2 = getString(R.string.email_already);
+    String errormessage3 = getString(R.string.nickname_already);
+    String errormessage4 = getString(R.string.Signed_Up);
 
     protected void onCreate(Bundle savedInstanceState) {
-        setErrormessage1(getString(R.string.error));
-        setErrormessage2(getString(R.string.email_already));
-        setErrormessage3(getString(R.string.nickname_already));
-        setErrormessage4(getString(R.string.Signed_Up));
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_up);
@@ -92,10 +88,11 @@ public class SignUp_Control extends AppCompatActivity {
             String sex = radioSexButton.getText().toString();
 
             SignUp su = new SignUp(name,mail,pass,Integer.parseInt(ag),sex,Double.parseDouble(wg),WelcomePage.getInit());
+            su.setErrormessage4(errormessage4);
             String signed = su.getSignedup();
 
             errormessage.setText(signed);
-            if(signed.equals(getErrormessage4())){ //si pas d'erreur
+            if(signed.equals(errormessage4)){ //si pas d'erreur
                 TimeUnit.SECONDS.sleep(1);
                 startActivity(new Intent(SignUp_Control.this, WelcomePage.class)); //retourne à la page d'acceuil
             }
@@ -105,29 +102,6 @@ public class SignUp_Control extends AppCompatActivity {
     /**
      *Getter implemented to avoid hardcoding strings
      */
-    public static String getErrormessage1() {
-        return errormessage1;
-    }
-    public static String getErrormessage2() {
-        return errormessage2;
-    }
-    public static String getErrormessage3() {
-        return errormessage3;
-    }
-    public static String getErrormessage4() {
-        return errormessage4;
-    }
 
-    public static void setErrormessage1(String errormessage1) {
-        SignUp_Control.errormessage1 = errormessage1;
-    }
-    public static void setErrormessage2(String errormessage2) {
-        SignUp_Control.errormessage2 = errormessage2;
-    }
-    public static void setErrormessage3(String errormessage3) {
-        SignUp_Control.errormessage3 = errormessage3;
-    }
-    public static void setErrormessage4(String errormessage4) {
-        SignUp_Control.errormessage4 = errormessage4;
-    }
+
 }
