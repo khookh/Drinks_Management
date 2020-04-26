@@ -16,9 +16,7 @@ import model.Session;
  */
 public class Consumption extends Fragment {
     View root;
-
     Session session;
-
     TextView bar;
     ProgressBar skren;
     EditText volume, percent, bevname;
@@ -32,11 +30,10 @@ public class Consumption extends Fragment {
         percent = root.findViewById(R.id.percent);
         bevname = root.findViewById(R.id.bevname);
 
-        //startupcons
-        getSession().setSkren();
-        setProgressBar(getSession().getSkrenlevel());
-        setTextBar("Your alcool blood level is now around "+ "x"+ "g/L" +"\n"+ getSession().getSkrenmessage());
 
+        this.session.setSkren();
+        setProgressBar(this.session.getSkrenlevel());
+        setTextBar("Your alcool blood level is now around "+session.getActual_user().getAlcoolRate()+" g/L" +"\n"+ session.getSkrenmessage());
         return root;
     }
 
@@ -61,12 +58,8 @@ public class Consumption extends Fragment {
     public String getBevname() {
         return bevname.getText().toString();
     }
-    public Session getSession() {
-        return session;
-    }
 
     public void setSession(Session session) {
         this.session = session;
     }
-
 }

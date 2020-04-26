@@ -1,8 +1,8 @@
 package model;
 
-import controller.Session_Control;
 import android.annotation.SuppressLint;
 import android.util.Pair;
+import controller.Session_Control;
 
 import java.time.LocalDateTime;
 
@@ -11,14 +11,26 @@ import java.time.LocalDateTime;
  */
 public class Session {
 
-    private static String skrenmessage;
-    private static Integer skrenlevel;
-    private static User actual_user;
-    private static Pair<LocalDateTime, Alcool> lastdrink; //temporaire
+    private Initialize init;
+    private String skrenmessage;
+    private Integer skrenlevel;
+    private Pair<LocalDateTime, Alcool> lastdrink; //temporaire
+    User actual_user ;
 
-    //todo : implement meaningful attributs for construction
-    public Session(){
+    public Session(Initialize init) {
+        this.init = init;
+        this.actual_user = init.getActual_user();
     }
+
+    public Pair<LocalDateTime, Alcool> getLastdrink() {
+        return lastdrink;
+    }
+
+    public void setLastdrink(Pair<LocalDateTime, Alcool> lastdrink) {
+        this.lastdrink = lastdrink;
+    }
+
+
 
     /**
      * Create new alcohol and the time it has been consumed and add it to the actual_user
@@ -35,10 +47,8 @@ public class Session {
     }
     /**
      * Determine de level of skren and generate the informations to display by Session_Control (skren bar)
-
      */
     public void setSkren(){
-        setActual_user(actual_user);
         //TODO: add all the skren levels
         Double alcoolrate = actual_user.getAlcoolRate();
         if (alcoolrate == 0.0){
@@ -67,22 +77,27 @@ public class Session {
         return skrenmessage;
     }
     public void setSkrenmessage(String skrenmessage) {
-        Session.skrenmessage = skrenmessage;
+        this.skrenmessage = skrenmessage;
     }
 
     public Integer getSkrenlevel() {
         return skrenlevel;
     }
     public void setSkrenlevel(Integer skrenlevel) {
-        Session.skrenlevel = skrenlevel;
+        this.skrenlevel = skrenlevel;
     }
 
     public void setActual_user(User actual_user) {
-        Session.actual_user = actual_user;
+        this.actual_user = actual_user;
     }
     public User getActual_user() {
         return actual_user;
     }
+
+    public Initialize getInit() {
+        return init;
+    }
+
 
 }
 

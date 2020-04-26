@@ -1,12 +1,13 @@
 package model;
 
 import controller.SignUp_Control;
-import controller.WelcomePage;
+
 import java.util.ArrayList;
 public class SignUp {
     //todo: remove static
     private static String signedup = "error";
-    private static ArrayList<User> users = WelcomePage.getUsers();
+    private static Initialize init;
+    private static ArrayList<User> users = getInit().getUsers();
 
     /**
      * SignUp instance; verify the information and proceed to sign up
@@ -16,37 +17,22 @@ public class SignUp {
      * @param age
      * @param sex
      * @param weight
+     * @param init
      */
-
-    //todo : signup packet
-    public SignUp(String nickname, String email, String password, Integer age, String sex, Double weight){
+    public SignUp(String nickname, String email, String password, Integer age, String sex, Double weight, Initialize init){
         if(checkUser(email,nickname)){
             createUser(nickname,email,password,age,sex,weight);
             setSignedup(SignUp_Control.getErrormessage4());
         }
-        setSignedup(SignUp_Control.getErrormessage4());
     }
 
     /**
      * @return boolean check ; if the user already exist or not
      */
-
-    //todo : delete what's useless
     private boolean checkUser(String e, String n) {
         boolean check = true;
-        ArrayList<User> users = WelcomePage.getUsers();
-        //check dans le stockage, arraylist sol. temporaire pour test
-
-        for (int i = 0; i < users.size(); i++) {
-            if(users.get(i).getEmail().equals(e)){
-                check = false;
-                setSignedup(SignUp_Control.getErrormessage2());
-            }
-            if(users.get(i).getName().equals(n)){
-                check = false;
-                setSignedup(SignUp_Control.getErrormessage3());
-            }
-        }
+        //
+        //
         return check;
     }
 
@@ -59,14 +45,12 @@ public class SignUp {
      * @param s sex
      * @param w weight
      */
-
-    //todo : delete what's useless
     private void createUser(String n, String e, String p, Integer a, String s, Double w){
         User newuser = new User(n,e,w,a,p,s);
 
         //
-        users.add(newuser);
-        WelcomePage.setUsers(users);
+        //users.add(newuser);
+        //WelcomePage.setUsers(users);
         //
     }
 
@@ -80,4 +64,12 @@ public class SignUp {
     public void setSignedup(String signedup) {
         SignUp.signedup = signedup;
     }
+    public static Initialize getInit() {
+        return init;
+    }
+
+    public void setInit(Initialize init) {
+        this.init = init;
+    }
+
 }

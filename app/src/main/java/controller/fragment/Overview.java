@@ -13,16 +13,14 @@ public class Overview extends Fragment {
 
     TextView lasttext;
 
-    View root;
-
     Session session;
-
+    View root;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.overview, container, false);
         lasttext = root.findViewById(R.id.lastd);
 
-        String ld = getSession().returnldstring();
+        String ld = this.session.returnldstring();
         setLastDText(ld);
 
         return root;
@@ -31,11 +29,8 @@ public class Overview extends Fragment {
     public void setLastDText(String texte) {
         this.lasttext.setText(texte);
     }
-    public Session getSession() {
-        return session;
-    }
-
     public void setSession(Session session) {
         this.session = session;
     }
+
 }

@@ -91,7 +91,7 @@ public class SignUp_Control extends AppCompatActivity {
             radioSexButton = (RadioButton) findViewById(selectedId);
             String sex = radioSexButton.getText().toString();
 
-            SignUp su = new SignUp(name,mail,pass,Integer.parseInt(ag),sex,Double.parseDouble(wg));
+            SignUp su = new SignUp(name,mail,pass,Integer.parseInt(ag),sex,Double.parseDouble(wg),WelcomePage.getInit());
             String signed = su.getSignedup();
 
             errormessage.setText(signed);

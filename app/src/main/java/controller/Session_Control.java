@@ -14,7 +14,6 @@ import controller.fragment.Consumption;
 import controller.fragment.Overview;
 import controller.fragment.SectionsPagerAdapter;
 import model.Session;
-import model.User;
 import model.predefinedAlcohol.Classic25Pils;
 import model.predefinedAlcohol.VodkaShot;
 
@@ -23,13 +22,11 @@ import model.predefinedAlcohol.VodkaShot;
  */
 public class Session_Control extends AppCompatActivity {
 
-    Session session;
-
     //skrenmessage used to display user state
     static String skrenmessage1;
     static String skrenmessage2;
+    Session session = new Session(WelcomePage.getInit());
 
-    static User actual_user = WelcomePage.getActual_user();
     ViewPager viewPager;
     SectionsPagerAdapter sectionsPagerAdapter;
     Button selectedalcool;
@@ -39,12 +36,10 @@ public class Session_Control extends AppCompatActivity {
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        Session session = new Session();
-        setSession(session);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.session);
+
+
 
         setSkrenmessage1(getString(R.string.skrenmsg1));
         setSkrenmessage2(getString(R.string.skrenmsg2));
@@ -56,9 +51,9 @@ public class Session_Control extends AppCompatActivity {
         TabLayout tabs = findViewById(R.id.tabs);
 
         cons = new Consumption();
-        cons.setSession(session);
+        cons.setSession(this.session);
         ov = new Overview();
-        ov.setSession(session);
+        ov.setSession(this.session);
 
         sectionsPagerAdapter.addFragment(cons, getString(R.string.Alcool_Consumption));
         sectionsPagerAdapter.addFragment(ov, getString(R.string.Overview));
@@ -105,29 +100,20 @@ public class Session_Control extends AppCompatActivity {
     public void addconsumption(View view){
         if(selectedalcool!=null){
             if(selectedalcool.getTag().equals("Classic25Pils")){
-                getSession().addAlcohol(Classic25Pils.getName(),Classic25Pils.getVolume(),Classic25Pils.getPercentage());
+                this.session.addAlcohol(Classic25Pils.getName(),Classic25Pils.getVolume(),Classic25Pils.getPercentage());
             }
             else if(selectedalcool.getTag().equals("VodkaShot")){
-                getSession().addAlcohol(VodkaShot.getName(),VodkaShot.getVolume(),VodkaShot.getPercentage());
+                this.session.addAlcohol(VodkaShot.getName(),VodkaShot.getVolume(),VodkaShot.getPercentage());
             }
             deselectalcool();
             //TODO ; add predifined alcohol
         }
         else if(!cons.getBevname().isEmpty() && !cons.getVolume().isEmpty() && !cons.getPercent().isEmpty() ){
-            getSession().addAlcohol(cons.getBevname(),Double.parseDouble(cons.getVolume()), Double.parseDouble(cons.getPercent()));
+            this.session.addAlcohol(cons.getBevname(),Double.parseDouble(cons.getVolume()), Double.parseDouble(cons.getPercent()));
         }
         getViewPager().getAdapter().notifyDataSetChanged(); //refresh data displayed
     }
 
-
-
-    public Session getSession() {
-        return session;
-    }
-
-    public void setSession(Session session) {
-        this.session = session;
-    }
 
 
     public ViewPager getViewPager() {
@@ -142,5 +128,4 @@ public class Session_Control extends AppCompatActivity {
 
     public static String getSkrenmessage2() { return skrenmessage2; }
     public static void setSkrenmessage2(String skrenmessage2) { Session_Control.skrenmessage2 = skrenmessage2; }
-
 }
