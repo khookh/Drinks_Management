@@ -2,10 +2,12 @@ package controller;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 import com.example.defonce_management.R;
@@ -20,15 +22,18 @@ import model.predefinedAlcohol.VodkaShot;
 /**
  * Manage the display and acquisition of data into the session page (+Consumption and Overview panels)
  */
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class Session_Control extends AppCompatActivity {
+
+    //todo : add refresh from threads
 
     //skrenmessage used to display user state
     static String skrenmessage1;
     static String skrenmessage2;
+
     Session session = new Session(WelcomePage.getJsonHandler());
 
-    ViewPager viewPager;
-    SectionsPagerAdapter sectionsPagerAdapter;
+    static ViewPager viewPager;
     Button selectedalcool;
     static Consumption cons;
     static Overview ov;
@@ -38,8 +43,6 @@ public class Session_Control extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.session);
-
-
 
         setSkrenmessage1(getString(R.string.skrenmsg1));
         setSkrenmessage2(getString(R.string.skrenmsg2));
@@ -63,11 +66,15 @@ public class Session_Control extends AppCompatActivity {
         viewPager.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                //getViewPager().getAdapter().notifyDataSetChanged();
+                refresh();
                 deselectalcool();
                 return false;
             }
         });
+    }
+
+    public static void refresh(){
+        getViewPager().getAdapter().notifyDataSetChanged(); //refresh view
     }
 
     /**
@@ -115,8 +122,7 @@ public class Session_Control extends AppCompatActivity {
     }
 
 
-
-    public ViewPager getViewPager() {
+    public static ViewPager getViewPager() {
         return viewPager;
     }
     public void setViewPager(ViewPager viewPager) {

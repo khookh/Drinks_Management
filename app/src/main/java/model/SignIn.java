@@ -17,7 +17,6 @@ public class SignIn {
         if(jsonHandler.doesUserExist(nickname)){
             setSignedin("Wrong Password");
             User tempUser = jsonHandler.getUser(nickname);
-            System.out.println(tempUser.getPassword());
             if(tempUser.getPassword().equals(password)) {
                 jsonHandler.setActiveUser(tempUser);
                 setSignedin("Signed In");

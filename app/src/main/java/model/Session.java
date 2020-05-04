@@ -1,7 +1,9 @@
 package model;
 
 import android.annotation.SuppressLint;
+import android.os.Build;
 import android.util.Pair;
+import androidx.annotation.RequiresApi;
 import controller.Session_Control;
 
 import java.time.LocalDateTime;
@@ -17,10 +19,12 @@ public class Session {
     private Pair<LocalDateTime, Alcool> lastdrink; //temporaire
     User actual_user ;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public Session(JSONHandler js) {
         this.js = js;
         this.actual_user = js.getActiveUser();
-
+        ProcessAlcoolThread pat = new ProcessAlcoolThread(js,this);
+        pat.start();
     }
 
     public Pair<LocalDateTime, Alcool> getLastdrink() {
@@ -44,11 +48,16 @@ public class Session {
         Alcool new_alcohol = new Alcool(bevname,volume,percent);
         actual_user.setLastdrink(LocalDateTime.now(),new_alcohol); //set la dernière boisson bu par le user
         actual_user.addConsumption(LocalDateTime.now(),new_alcohol);
-        //updatebloodlevel(); //temporary
+        js.updateUser(actual_user);
+        AddAlcoolRateThread thread = new AddAlcoolRateThread(new_alcohol,js,this);
+        thread.start();
+        Session_Control.refresh();
+
     }
     /**
      * Determine de level of skren and generate the informations to display by Session_Control (skren bar)
      */
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void setSkren(){
         //TODO: add all the skren levels
         Double alcoolrate = actual_user.getAlcoolRate();

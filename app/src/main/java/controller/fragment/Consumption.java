@@ -33,7 +33,7 @@ public class Consumption extends Fragment {
 
         this.session.setSkren();
         setProgressBar(this.session.getSkrenlevel());
-        setTextBar("Your alcool blood level is now around "+session.getActual_user().getAlcoolRate()+" g/L" +"\n"+ session.getSkrenmessage());
+        setTextBar("Your alcool blood level is now around "+(double) Math.round(session.getActual_user().getAlcoolRate()*100)/100+" g/L" +"\n"+ session.getSkrenmessage());
         return root;
     }
 

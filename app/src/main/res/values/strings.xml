@@ -14,8 +14,8 @@
     <string name="sign_up">Sign Up</string>
     <string name="terms">Terms</string>
     <string name="you_are_a">You are a ...</string>
-    <string name="gender_male">boi</string>
-    <string name="gender_woman">woman</string>
+    <string name="gender_male">Man</string>
+    <string name="gender_woman">Woman</string>
     <string name="weight_kg">Weight (kg)</string>
     <string name="pils25cl">25 cL of classic Pilsner</string>
     <string name="vodkashot">3cL VodkaShot</string>

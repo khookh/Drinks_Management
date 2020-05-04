@@ -133,19 +133,14 @@ public class JSONHandler {
 	 * Update user data in JSON
 	 *
 	 * @param user
-	 * @param oldUsername if the username changes - else leave empty
 	 * @return if the user has been updated to the JSON then returns true
 	 */
-	public boolean updateUser(User user, String oldUsername) {
-
-		if (oldUsername.equals("")) {
-			oldUsername = user.getName();
-		}
-
+	public boolean updateUser(User user) {
 		try {
-			if (doesUserExist(oldUsername)) { // test if user exists before attempting to update it
-				deleteUser(oldUsername); // delete the user from json file
-				addUser(user); // re add the user with the new data to it
+			if (doesUserExist(user.getName())) { // test if user exists before attempting to update it
+				deleteUser(user.getName()); // delete the user from json file
+				addUser(user);// re add the user with the new data to it
+				setActiveUser(user);
 				return true;
 			} else {
 				return false;
