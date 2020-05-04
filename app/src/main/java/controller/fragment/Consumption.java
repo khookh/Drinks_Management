@@ -1,5 +1,6 @@
 package controller.fragment;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import com.example.defonce_management.R;
 import model.Session;
@@ -21,6 +23,7 @@ public class Consumption extends Fragment {
     ProgressBar skren;
     EditText volume, percent, bevname;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.consumption, container, false);
@@ -31,10 +34,15 @@ public class Consumption extends Fragment {
         bevname = root.findViewById(R.id.bevname);
 
 
+        cons();
+        return root;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void cons(){
         this.session.setSkren();
         setProgressBar(this.session.getSkrenlevel());
         setTextBar("Your alcool blood level is now around "+(double) Math.round(session.getActual_user().getAlcoolRate()*100)/100+" g/L" +"\n"+ session.getSkrenmessage());
-        return root;
     }
 
     /**

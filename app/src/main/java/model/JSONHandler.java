@@ -8,11 +8,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Observable;
 
 /**
  * Manages the JSON database
  */
-public class JSONHandler {
+public class JSONHandler extends Observable {
 
 
 	private User activeUser;
@@ -141,6 +142,8 @@ public class JSONHandler {
 				deleteUser(user.getName()); // delete the user from json file
 				addUser(user);// re add the user with the new data to it
 				setActiveUser(user);
+				setChanged(); //activate true flag : data has been changed
+				notifyObservers(); //notify observers of changes
 				return true;
 			} else {
 				return false;

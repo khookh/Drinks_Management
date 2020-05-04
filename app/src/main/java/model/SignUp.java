@@ -7,7 +7,6 @@ public class SignUp {
     private static Pattern emailPattern = Pattern.compile(emailRegex, Pattern.CASE_INSENSITIVE);
     //todo: remove static
     private static String signedup = "error";
-    private static Initialize init;
 
     /**
      * SignUp instance; verify the information and proceed to sign up

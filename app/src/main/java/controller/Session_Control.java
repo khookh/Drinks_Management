@@ -19,11 +19,14 @@ import model.Session;
 import model.predefinedAlcohol.Classic25Pils;
 import model.predefinedAlcohol.VodkaShot;
 
+import java.util.Observable;
+import java.util.Observer;
+
 /**
  * Manage the display and acquisition of data into the session page (+Consumption and Overview panels)
  */
 @RequiresApi(api = Build.VERSION_CODES.O)
-public class Session_Control extends AppCompatActivity {
+public class Session_Control extends AppCompatActivity implements Observer {
 
     //todo : add refresh from threads
 
@@ -46,6 +49,8 @@ public class Session_Control extends AppCompatActivity {
 
         setSkrenmessage1(getString(R.string.skrenmsg1));
         setSkrenmessage2(getString(R.string.skrenmsg2));
+
+        WelcomePage.getJsonHandler().addObserver(this);
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         ViewPager viewPager = findViewById(R.id.view_pager);
@@ -134,4 +139,9 @@ public class Session_Control extends AppCompatActivity {
 
     public static String getSkrenmessage2() { return skrenmessage2; }
     public static void setSkrenmessage2(String skrenmessage2) { Session_Control.skrenmessage2 = skrenmessage2; }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        cons.cons();
+    }
 }
