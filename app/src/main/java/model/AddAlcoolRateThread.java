@@ -10,6 +10,7 @@ public class AddAlcoolRateThread extends Thread {
 	JSONHandler js;
 	Session s;
 	Double alcoholqt; //la qt max d'alcool qui sera absorbée par le corps
+
 	boolean running = true ;
 
 	@RequiresApi(api = Build.VERSION_CODES.O)
@@ -36,8 +37,7 @@ public class AddAlcoolRateThread extends Thread {
 		while (running) { ;
 				int mint = LocalDateTime.now().getMinute()-init.getMinute();
 				if(min==30){
-					this.stop();
-					break;
+					setRunning(false); //stop la boucle  du run(), le thread est automatiquement supprimé
 				}
 				if(mint<0 || mint >0){
 					Double add = 1.0/(30.0-min)*alcoholqt; //qt d'alcool absorbée en 1min
@@ -52,6 +52,9 @@ public class AddAlcoolRateThread extends Thread {
 	}
 	public void setRunning(boolean running) {
 		this.running = running;
+	}
+	public boolean getRunning() {
+		return running;
 	}
 
 }

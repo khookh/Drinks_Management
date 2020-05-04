@@ -27,7 +27,7 @@
             android:layout_width="363dp"
             android:layout_height="155dp"
             tools:ignore="MissingConstraints"
-            android:id="@+id/scrollView2"
+            android:id="@+id/scrollView"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="24dp" app:layout_constraintVertical_bias="0.319">
@@ -64,14 +64,6 @@
 
         </LinearLayout>
     </ScrollView>
-    <TextView
-            android:text="@string/add_an_alcool_from_the_list_below"
-            android:gravity="center"
-            android:layout_width="256dp"
-            android:layout_height="26dp"
-            android:id="@+id/textView14"
-            app:layout_constraintBottom_toTopOf="@+id/scrollView2" tools:ignore="MissingConstraints"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="76dp"/>
     <Button
             android:text="@string/add_consumption"
             android:layout_width="wrap_content"
@@ -156,5 +148,15 @@
             android:background="@android:color/darker_gray"
             tools:layout_editor_absoluteX="0dp" app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.593"/>
+    <TextView
+            android:text="@string/add_an_alcool_from_the_list_below"
+            android:gravity="center"
+            android:layout_width="256dp"
+            android:layout_height="26dp"
+            android:id="@+id/textView14"
+            tools:ignore="MissingConstraints"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintBottom_toTopOf="@+id/scrollView"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

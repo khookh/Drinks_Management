@@ -1,13 +1,14 @@
 package controller.fragment;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.TextView;
+import android.widget.*;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import com.example.defonce_management.R;
@@ -33,12 +34,24 @@ public class Consumption extends Fragment {
         percent = root.findViewById(R.id.percent);
         bevname = root.findViewById(R.id.bevname);
 
-        //LinearLayout myRoot = (LinearLayout) root.findViewById(R.id.linear);
-        //todo : add personnalized alcool automically
-
+        setRoot(root);
 
         cons();
         return root;
+    }
+
+    //test
+    public void addButton(Context tis){
+        @SuppressLint("WrongViewCast") HorizontalScrollView hsv1 = root.findViewById( R.id.scrollView);
+        LinearLayout layout = hsv1.findViewById(R.id.linear);
+        layout.removeAllViews();
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams( LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT );
+        lp.setMargins( 20, 0, 20, 0 );
+        Button button = new Button(tis);
+        button.setLayoutParams(lp);
+        button.setGravity( Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL );
+        button.setText("TEST TEST TEST");
+        layout.addView(button);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -72,5 +85,12 @@ public class Consumption extends Fragment {
 
     public void setSession(Session session) {
         this.session = session;
+    }
+    public View getRoot() {
+        return root;
+    }
+
+    public void setRoot(View root) {
+        this.root = root;
     }
 }

@@ -16,7 +16,6 @@ public class Session {
     private JSONHandler js;
     private String skrenmessage;
     private Integer skrenlevel;
-    private Pair<LocalDateTime, Alcool> lastdrink; //temporaire
     User actual_user ;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -26,15 +25,6 @@ public class Session {
         ProcessAlcoolThread pat = new ProcessAlcoolThread(js,this);
         pat.start();
     }
-
-    public Pair<LocalDateTime, Alcool> getLastdrink() {
-        return lastdrink;
-    }
-
-    public void setLastdrink(Pair<LocalDateTime, Alcool> lastdrink) {
-        this.lastdrink = lastdrink;
-    }
-
 
 
     /**
@@ -48,13 +38,12 @@ public class Session {
         Alcool new_alcohol = new Alcool(bevname,volume,percent);
         actual_user.setLastdrink(LocalDateTime.now(),new_alcohol); //set la dernière boisson bu par le user
         actual_user.addConsumption(LocalDateTime.now(),new_alcohol);
-        js.updateUser(actual_user);
-        AddAlcoolRateThread thread = new AddAlcoolRateThread(new_alcohol,js,this);
-        thread.start();
-        Session_Control.refresh();
         if(custom && !checkIfCustomAA(new_alcohol,actual_user) ){
             actual_user.addCustom(new_alcohol);
         }
+        js.updateUser(actual_user);
+        AddAlcoolRateThread thread = new AddAlcoolRateThread(new_alcohol,js,this);
+        thread.start();
 
     }
 
@@ -65,7 +54,7 @@ public class Session {
      */
     public boolean checkIfCustomAA(Alcool a, User u){
         boolean already = false ;
-        for(int i = 0; i<= u.getCustomAlcool().size(); i ++){
+        for(int i = 0; i< u.getCustomAlcool().size(); i ++){
             if(u.getCustomAlcool().get(i).equals(a)){
                 already = true;
             }
@@ -79,13 +68,24 @@ public class Session {
     public void setSkren(){
         //TODO: add all the skren levels
         Double alcoolrate = actual_user.getAlcoolRate();
+        setSkrenlevel((int) (alcoolrate/2.5*100));
         if (alcoolrate == 0.0){
-            setSkrenlevel(0);
             setSkrenmessage(Session_Control.getSkrenmessage1());
         }
-        else if(alcoolrate>0.0 && alcoolrate<=0.1){
-            setSkrenlevel(5);
+        else if(alcoolrate>0.0 && alcoolrate<=0.3){
             setSkrenmessage(Session_Control.getSkrenmessage2());
+        }
+        else if(alcoolrate >0.3 && alcoolrate <=0.5){
+            setSkrenmessage("Vision field reduced and perturbation in gestures");
+        }
+        else if(alcoolrate >0.5 && alcoolrate <=0.8){
+            setSkrenmessage("Vision blured, euphoria, loss of reflexes");
+        }
+        else if(alcoolrate >0.8 && alcoolrate <=1.5){
+            setSkrenmessage("Drunkenness, excitation");
+        }
+        else if(alcoolrate >1.5 && alcoolrate <=3){
+            setSkrenmessage("Staggered walk, double vision");
         }
     }
     /**

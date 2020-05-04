@@ -60,8 +60,11 @@ public class Session_Control extends AppCompatActivity implements Observer {
 
         cons = new Consumption();
         cons.setSession(this.session);
+        // cons.addButton(this); test
         ov = new Overview();
         ov.setSession(this.session);
+
+
 
         sectionsPagerAdapter.addFragment(cons, getString(R.string.Alcool_Consumption));
         sectionsPagerAdapter.addFragment(ov, getString(R.string.Overview));
