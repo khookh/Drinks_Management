@@ -11,15 +11,16 @@ import java.time.LocalDateTime;
  */
 public class Session {
 
-    private Initialize init;
+    private JSONHandler js;
     private String skrenmessage;
     private Integer skrenlevel;
     private Pair<LocalDateTime, Alcool> lastdrink; //temporaire
     User actual_user ;
 
-    public Session(Initialize init) {
-        this.init = init;
-        this.actual_user = init.getActual_user();
+    public Session(JSONHandler js) {
+        this.js = js;
+        this.actual_user = js.getActiveUser();
+
     }
 
     public Pair<LocalDateTime, Alcool> getLastdrink() {
@@ -94,9 +95,6 @@ public class Session {
         return actual_user;
     }
 
-    public Initialize getInit() {
-        return init;
-    }
 
 
 }

@@ -186,10 +186,10 @@ public class JSONHandler {
 				Map<String, User> emptydata = new HashMap<>();
 				writer.write(new ObjectMapper().writeValueAsString(emptydata));
 			} catch (IOException e) {
-				System.exit(0);
+				//System.exit(0);
 			}
 		} catch (IOException e) {
-			System.exit(0);
+			//System.exit(0);
 		}
 		return myObj;
 	}

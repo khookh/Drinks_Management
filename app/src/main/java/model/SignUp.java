@@ -16,9 +16,9 @@ public class SignUp {
      * @param age
      * @param sex
      * @param weight
-     * @param init
+     * @param js
      */
-    public SignUp(String nickname, String email, String password, Integer age, String sex, Double weight, Initialize init){
+    public SignUp(String nickname, String email, String password, Integer age, String sex, Double weight, JSONHandler js){
         if(checkUser(email,nickname)){
             setSignedup(errormessage4);
         }

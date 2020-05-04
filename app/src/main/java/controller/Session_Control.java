@@ -25,7 +25,7 @@ public class Session_Control extends AppCompatActivity {
     //skrenmessage used to display user state
     static String skrenmessage1;
     static String skrenmessage2;
-    Session session = new Session(WelcomePage.getInit());
+    Session session = new Session(WelcomePage.getJsonHandler());
 
     ViewPager viewPager;
     SectionsPagerAdapter sectionsPagerAdapter;

@@ -19,7 +19,7 @@ import model.User;
 
 public class WelcomePage extends AppCompatActivity {
 
-    private JSONHandler jsonHandler = new JSONHandler("userdata.json");
+    private static JSONHandler jsonHandler = new JSONHandler("userdata.json");
     EditText nickname, password;
     TextView errormessage;
 
@@ -95,7 +95,7 @@ public class WelcomePage extends AppCompatActivity {
     public void goToSignUp(View view){
         startActivity(new Intent(WelcomePage.this, SignUp_Control.class));
     }
-    public JSONHandler getJsonHandler() {
+    public static JSONHandler getJsonHandler() {
         return jsonHandler;
     }
 
