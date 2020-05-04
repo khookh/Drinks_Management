@@ -112,16 +112,16 @@ public class Session_Control extends AppCompatActivity implements Observer {
     public void addconsumption(View view){
         if(selectedalcool!=null){
             if(selectedalcool.getTag().equals("Classic25Pils")){
-                this.session.addAlcohol(Classic25Pils.getName(),Classic25Pils.getVolume(),Classic25Pils.getPercentage());
+                this.session.addAlcohol(Classic25Pils.getName(),Classic25Pils.getVolume(),Classic25Pils.getPercentage(),false);
             }
             else if(selectedalcool.getTag().equals("VodkaShot")){
-                this.session.addAlcohol(VodkaShot.getName(),VodkaShot.getVolume(),VodkaShot.getPercentage());
+                this.session.addAlcohol(VodkaShot.getName(),VodkaShot.getVolume(),VodkaShot.getPercentage(),false);
             }
             deselectalcool();
             //TODO ; add predifined alcohol
         }
         else if(!cons.getBevname().isEmpty() && !cons.getVolume().isEmpty() && !cons.getPercent().isEmpty() ){
-            this.session.addAlcohol(cons.getBevname(),Double.parseDouble(cons.getVolume()), Double.parseDouble(cons.getPercent()));
+            this.session.addAlcohol(cons.getBevname(),Double.parseDouble(cons.getVolume()), Double.parseDouble(cons.getPercent()),true);
         }
         getViewPager().getAdapter().notifyDataSetChanged(); //refresh data displayed
     }
@@ -140,6 +140,11 @@ public class Session_Control extends AppCompatActivity implements Observer {
     public static String getSkrenmessage2() { return skrenmessage2; }
     public static void setSkrenmessage2(String skrenmessage2) { Session_Control.skrenmessage2 = skrenmessage2; }
 
+    /**
+     * Called when observable are updated
+     * @param o
+     * @param arg
+     */
     @Override
     public void update(Observable o, Object arg) {
         cons.cons();

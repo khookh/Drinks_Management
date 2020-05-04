@@ -33,6 +33,9 @@ public class Consumption extends Fragment {
         percent = root.findViewById(R.id.percent);
         bevname = root.findViewById(R.id.bevname);
 
+        //LinearLayout myRoot = (LinearLayout) root.findViewById(R.id.linear);
+        //todo : add personnalized alcool automically
+
 
         cons();
         return root;

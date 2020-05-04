@@ -3,6 +3,7 @@ package model;
 import android.util.Pair;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class User {
@@ -14,6 +15,8 @@ public class User {
     private String sex;
     private static Pair<LocalDateTime, Alcool> lastdrink; //TEMPORARY
     private HashMap<LocalDateTime,Alcool> consumption = new HashMap<LocalDateTime, Alcool>();
+
+    private ArrayList<Alcool> customAlcool = new ArrayList<>();
     private Double alcoolRate = 0.0; // en g/L dans le sang
 
     public User(String name, String email, Double weight, Integer age, String password, String sex){
@@ -89,6 +92,7 @@ public class User {
         consumption.put(time,new_alcohol);
     }
 
+    public void addCustom(Alcool alcool){customAlcool.add(alcool);}
     //TEMPORARY
     public static Pair<LocalDateTime, Alcool> getLastdrink() {
         return lastdrink;
@@ -98,6 +102,14 @@ public class User {
         lastdrink = new Pair<>(time,alcool);
     }
     //TEMPORARY
+
+    public ArrayList<Alcool> getCustomAlcool() {
+        return customAlcool;
+    }
+
+    public void setCustomAlcool(ArrayList<Alcool> customAlcool) {
+        this.customAlcool = customAlcool;
+    }
 
 
 }

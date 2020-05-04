@@ -44,7 +44,7 @@ public class Session {
      * @param percent
      */
     @SuppressLint("NewApi")
-    public void addAlcohol(String bevname, Double volume, Double percent) { //works
+    public void addAlcohol(String bevname, Double volume, Double percent, Boolean custom) { //works
         Alcool new_alcohol = new Alcool(bevname,volume,percent);
         actual_user.setLastdrink(LocalDateTime.now(),new_alcohol); //set la dernière boisson bu par le user
         actual_user.addConsumption(LocalDateTime.now(),new_alcohol);
@@ -52,7 +52,25 @@ public class Session {
         AddAlcoolRateThread thread = new AddAlcoolRateThread(new_alcohol,js,this);
         thread.start();
         Session_Control.refresh();
+        if(custom && !checkIfCustomAA(new_alcohol,actual_user) ){
+            actual_user.addCustom(new_alcohol);
+        }
 
+    }
+
+    /**
+     * check if a custom alcool is already linked to the user
+     * @param a
+     * @param u
+     */
+    public boolean checkIfCustomAA(Alcool a, User u){
+        boolean already = false ;
+        for(int i = 0; i<= u.getCustomAlcool().size(); i ++){
+            if(u.getCustomAlcool().get(i).equals(a)){
+                already = true;
+            }
+        }
+        return already;
     }
     /**
      * Determine de level of skren and generate the informations to display by Session_Control (skren bar)
