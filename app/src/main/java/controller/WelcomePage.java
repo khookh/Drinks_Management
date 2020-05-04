@@ -1,8 +1,6 @@
 
 package controller;
 
-import model.SignIn;
-import model.User;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,14 +13,13 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.defonce_management.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-
-import java.util.ArrayList;
+import model.JSONHandler;
+import model.SignIn;
+import model.User;
 
 public class WelcomePage extends AppCompatActivity {
 
-    private static User actual_user;
-
-    public static ArrayList<User> users = new ArrayList();
+    private JSONHandler jsonHandler = new JSONHandler("userdata.json");
     EditText nickname, password;
     TextView errormessage;
 
@@ -34,8 +31,7 @@ public class WelcomePage extends AppCompatActivity {
         //TEMPORARY FOR TEST
         User newuser = new User("Stefano","e",85.6,23,"123456","boi");
         newuser.setAlcoolRate(0.1);
-        users.add(newuser);
-        WelcomePage.setUsers(users);
+        jsonHandler.addUser(newuser);
         //TEMPORARY FOR TEST
 
         nickname = (EditText)findViewById(R.id.nickname);
@@ -53,14 +49,6 @@ public class WelcomePage extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-    }
-
-    public static ArrayList<User> getUsers() {
-        return users;
-    }
-
-    public static void setUsers(ArrayList<User> users) {
-        WelcomePage.users = users;
     }
 
     @Override
@@ -92,9 +80,9 @@ public class WelcomePage extends AppCompatActivity {
      * @param view
      */
     public void goToSignIn(View view) throws InterruptedException {
-        SignIn.signIn(nickname.getText().toString().trim(),password.getText().toString().trim());
-        errormessage.setText(SignIn.getSignedin());
-        if(SignIn.getSignedin().equals("Signed In")){
+        SignIn si = new SignIn(nickname.getText().toString().trim(),password.getText().toString().trim(),this.jsonHandler);
+        errormessage.setText(si.getSignedin());
+        if(si.getSignedin().equals("Signed In")){
             startActivity(new Intent(WelcomePage.this, Session_Control.class));
         }
     }
@@ -107,10 +95,11 @@ public class WelcomePage extends AppCompatActivity {
     public void goToSignUp(View view){
         startActivity(new Intent(WelcomePage.this, SignUp_Control.class));
     }
-    public static User getActual_user() {
-        return actual_user;
+    public JSONHandler getJsonHandler() {
+        return jsonHandler;
     }
-    public static void setActual_user(User actual_user) {
-        WelcomePage.actual_user = actual_user;
+
+    public void setJsonHandler(JSONHandler jsonHandler) {
+        this.jsonHandler = jsonHandler;
     }
 }

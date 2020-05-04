@@ -27,7 +27,7 @@ public class Session_Control extends AppCompatActivity {
     static String skrenmessage1;
     static String skrenmessage2;
 
-    static User actual_user = WelcomePage.getActual_user();
+    static User actual_user ;
     ViewPager viewPager;
     SectionsPagerAdapter sectionsPagerAdapter;
     Button selectedalcool;

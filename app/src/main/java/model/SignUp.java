@@ -1,12 +1,9 @@
 package model;
 
 import controller.SignUp_Control;
-import controller.WelcomePage;
-import java.util.ArrayList;
 public class SignUp {
     //todo: remove static
     private static String signedup = "error";
-    private static ArrayList<User> users = WelcomePage.getUsers();
 
     /**
      * SignUp instance; verify the information and proceed to sign up
@@ -28,21 +25,7 @@ public class SignUp {
      * @return boolean check ; if the user already exist or not
      */
     private static boolean checkUser(String e, String n) {
-        boolean check = true;
-        ArrayList<User> users = WelcomePage.getUsers();
-        //check dans le stockage, arraylist sol. temporaire pour test
-
-        for (int i = 0; i < users.size(); i++) {
-            if(users.get(i).getEmail().equals(e)){
-                check = false;
-                setSignedup(SignUp_Control.getErrormessage2());
-            }
-            if(users.get(i).getName().equals(n)){
-                check = false;
-                setSignedup(SignUp_Control.getErrormessage3());
-            }
-        }
-        return check;
+      return true;
     }
 
     /**
@@ -58,8 +41,6 @@ public class SignUp {
         User newuser = new User(n,e,w,a,p,s);
 
         //
-        users.add(newuser);
-        WelcomePage.setUsers(users);
         //
     }
 
