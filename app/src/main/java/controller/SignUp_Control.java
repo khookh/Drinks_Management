@@ -1,5 +1,6 @@
 package controller;
 
+import android.annotation.SuppressLint;
 import model.SignUp;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,12 +20,6 @@ public class SignUp_Control extends AppCompatActivity {
     TextView errormessage;
     RadioGroup radioSexGroup;
     RadioButton radioSexButton;
-
-
-    String errormessage1 = getString(R.string.error);
-    String errormessage2 = getString(R.string.email_already);
-    String errormessage3 = getString(R.string.nickname_already);
-    String errormessage4 = getString(R.string.Signed_Up);
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -49,9 +44,9 @@ public class SignUp_Control extends AppCompatActivity {
      * Verify if all fields are correctly completed and then proceed to sign up
      * @param view
      */
+    @SuppressLint("ResourceAsColor")
     public void signUp(View view) throws InterruptedException {
         //TODO: rajouter + réécrire les conditions de manière plus propre
-
         String name = nickname.getText().toString().trim();
         String mail = email.getText().toString().trim();
         String pass = password.getText().toString().trim();
@@ -88,12 +83,12 @@ public class SignUp_Control extends AppCompatActivity {
             String sex = radioSexButton.getText().toString();
 
             SignUp su = new SignUp(name,mail,pass,Integer.parseInt(ag),sex,Double.parseDouble(wg), WelcomePage.getJsonHandler());
-            su.setErrormessage4(errormessage4);
             String signed = su.getSignedup();
 
             errormessage.setText(signed);
-            if(signed.equals(errormessage4)){ //si pas d'erreur
-                TimeUnit.SECONDS.sleep(1);
+            if(signed.equals("Signed Up")) {//si pas d'erreur
+                errormessage.setTextColor(0xFF00FF00);
+                TimeUnit.SECONDS.sleep(2);
                 startActivity(new Intent(SignUp_Control.this, WelcomePage.class)); //retourne à la page d'acceuil
             }
         }

@@ -1,9 +1,10 @@
 package model;
 
+import java.util.regex.Pattern;
+
 public class SignUp {
-    String errormessage4 ;
-
-
+    private static final String emailRegex = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
+    private static Pattern emailPattern = Pattern.compile(emailRegex, Pattern.CASE_INSENSITIVE);
     //todo: remove static
     private static String signedup = "error";
     private static Initialize init;
@@ -19,20 +20,19 @@ public class SignUp {
      * @param js
      */
     public SignUp(String nickname, String email, String password, Integer age, String sex, Double weight, JSONHandler js){
-        if(checkUser(email,nickname)){
-            setSignedup(errormessage4);
+        if(js.doesUserExist(nickname)){
+            setSignedup("Nickname already taken");
+        }
+        else if(!emailPattern.matcher(email).matches()) {
+            setSignedup("Wrong email format");
+        }
+        else{
+            User newuser = new User(nickname,email,weight,age,password,sex);
+            js.addUser(newuser);
+            setSignedup("Signed Up");
         }
     }
 
-    /**
-     * @return boolean check ; if the user already exist or not
-     */
-    private boolean checkUser(String e, String n) {
-        boolean check = true;
-        //
-        //
-        return check;
-    }
 
 
     /**
@@ -46,9 +46,7 @@ public class SignUp {
         SignUp.signedup = signedup;
     }
 
-    public void setErrormessage4(String errormessage4) {
-        this.errormessage4 = errormessage4;
-    }
+
 
 
 }
