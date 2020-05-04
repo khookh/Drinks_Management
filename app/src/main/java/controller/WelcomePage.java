@@ -98,8 +98,4 @@ public class WelcomePage extends AppCompatActivity {
     public static JSONHandler getJsonHandler() {
         return jsonHandler;
     }
-
-    public void setJsonHandler(JSONHandler jsonHandler) {
-        this.jsonHandler = jsonHandler;
-    }
 }
