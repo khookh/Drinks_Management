@@ -13,24 +13,27 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.defonce_management.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-import model.Initialize;
+import model.JSONHandler;
 import model.SignIn;
-
-//todo : implement fragment for sign in and sign up
-
+import model.User;
 
 public class WelcomePage extends AppCompatActivity {
 
+    private JSONHandler jsonHandler = new JSONHandler("userdata.json");
     EditText nickname, password;
     TextView errormessage;
 
-    static Initialize init = new Initialize();
-
-    public WelcomePage(){}
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome);
+
+        //TEMPORARY FOR TEST
+        User newuser = new User("Stefano","e",85.6,23,"123456","boi");
+        newuser.setAlcoolRate(0.1);
+        jsonHandler.addUser(newuser);
+        //TEMPORARY FOR TEST
+
         nickname = (EditText)findViewById(R.id.nickname);
         password = (EditText)findViewById(R.id.password);
         errormessage =(TextView)findViewById(R.id.errormessage);
@@ -50,16 +53,23 @@ public class WelcomePage extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -69,14 +79,12 @@ public class WelcomePage extends AppCompatActivity {
      * Then move to new Activity
      * @param view
      */
-    public void cSign(View view) {
-        SignIn si = new SignIn(nickname.getText().toString().trim(),password.getText().toString().trim(),getInit());
-        si.start(); //lance le thread qui envoie la requête au serveur
-
-        goToSignIn(); //test
-    }
-    public void goToSignIn(){ //called when is notified
-        startActivity(new Intent(WelcomePage.this, Session_Control.class));
+    public void goToSignIn(View view) throws InterruptedException {
+        SignIn si = new SignIn(nickname.getText().toString().trim(),password.getText().toString().trim(),this.jsonHandler);
+        errormessage.setText(si.getSignedin());
+        if(si.getSignedin().equals("Signed In")){
+            startActivity(new Intent(WelcomePage.this, Session_Control.class));
+        }
     }
 
     /**
@@ -87,9 +95,11 @@ public class WelcomePage extends AppCompatActivity {
     public void goToSignUp(View view){
         startActivity(new Intent(WelcomePage.this, SignUp_Control.class));
     }
+    public JSONHandler getJsonHandler() {
+        return jsonHandler;
+    }
 
-    public static Initialize getInit() {
-        return init;
+    public void setJsonHandler(JSONHandler jsonHandler) {
+        this.jsonHandler = jsonHandler;
     }
 }
-
