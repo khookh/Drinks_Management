@@ -14,22 +14,32 @@ import com.example.defonce_management.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import model.JSONHandler;
+import model.JSONHandlerB;
 import model.SignIn;
 import model.User;
 
 public class WelcomePage extends AppCompatActivity {
+    //TEST
+    private JSONHandlerB jsonHandlerB ;
+    //TEST
     private static JSONHandler jsonHandler = new JSONHandler("userdata.json");
     EditText nickname, password;
     TextView errormessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome);
 
         //TEMPORARY FOR TEST
         User newuser = new User("Stefano","e",85.6,23,"123456","boi");
         jsonHandler.addUser(newuser);
+        //TEMPORARY FOR TEST
+        //TEMPORARY FOR TEST
+        jsonHandlerB = new JSONHandlerB(this,"dataJSBBis.json");
+        jsonHandlerB.addUser(newuser);
+        System.out.println(jsonHandlerB.getUserData());
         //TEMPORARY FOR TEST
 
         nickname = (EditText)findViewById(R.id.nickname);
@@ -96,4 +106,5 @@ public class WelcomePage extends AppCompatActivity {
     public static JSONHandler getJsonHandler() {
         return jsonHandler;
     }
+
 }

@@ -7,6 +7,7 @@ import androidx.annotation.RequiresApi;
 import controller.Session_Control;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Implements methods to manage Data displayed by Session_Control
@@ -36,8 +37,8 @@ public class Session {
     @SuppressLint("NewApi")
     public void addAlcohol(String bevname, Double volume, Double percent, Boolean custom) { //works
         Alcool new_alcohol = new Alcool(bevname,volume,percent);
-        actual_user.setLastdrink(LocalDateTime.now(),new_alcohol); //set la dernière boisson bu par le user
-        actual_user.addConsumption(LocalDateTime.now(),new_alcohol);
+        actual_user.setLastdrink(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),new_alcohol); //set la dernière boisson bu par le user
+        actual_user.addConsumption(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),new_alcohol);
         if(custom && !checkIfCustomAA(new_alcohol,actual_user) ){
             actual_user.addCustom(new_alcohol);
         }
@@ -93,7 +94,7 @@ public class Session {
      */
     public String returnldstring() {
         String message = "";
-        Pair<LocalDateTime, Alcool> ld = getActual_user().getLastdrink(); //à remplacer par autre chose quand il y aura persistance
+        Pair<String, Alcool> ld = getActual_user().getLastdrink(); //à remplacer par autre chose quand il y aura persistance
         if(ld!=null){
             Alcool alcool = ld.second;
             message = "Your last drink was : " + alcool.getName();

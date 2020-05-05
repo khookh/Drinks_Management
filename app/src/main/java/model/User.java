@@ -2,7 +2,6 @@ package model;
 
 import android.util.Pair;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -13,8 +12,8 @@ public class User {
     private Integer age;
     private String password;
     private String sex;
-    private static Pair<LocalDateTime, Alcool> lastdrink; //TEMPORARY
-    private HashMap<LocalDateTime,Alcool> consumption = new HashMap<LocalDateTime, Alcool>();
+    private static Pair<String, Alcool> lastdrink; //TEMPORARY
+    private HashMap<String,Alcool> consumption = new HashMap<>();
 
     private ArrayList<Alcool> customAlcool = new ArrayList<>();
     private Double alcoolRate = 0.0; // en g/L dans le sang
@@ -81,25 +80,25 @@ public class User {
         this.alcoolRate = alcoolRate;
     }
 
-    public HashMap<LocalDateTime, Alcool> getConsumption() {
+    public HashMap<String, Alcool> getConsumption() {
         return consumption;
     }
 
-    public void setConsumption(HashMap<LocalDateTime, Alcool> consumption) {
+    public void setConsumption(HashMap<String, Alcool> consumption) {
         this.consumption = consumption;
     }
 
-    public void addConsumption(LocalDateTime time, Alcool new_alcohol){
+    public void addConsumption(String time, Alcool new_alcohol){
         consumption.put(time,new_alcohol);
     }
 
     public void addCustom(Alcool alcool){customAlcool.add(alcool);}
     //TEMPORARY
-    public static Pair<LocalDateTime, Alcool> getLastdrink() {
+    public static Pair<String, Alcool> getLastdrink() {
         return lastdrink;
     }
 
-    public static void setLastdrink(LocalDateTime time , Alcool alcool) {
+    public static void setLastdrink(String time , Alcool alcool) {
         lastdrink = new Pair<>(time,alcool);
     }
     //TEMPORARY

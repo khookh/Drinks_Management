@@ -10,11 +10,11 @@ public class PersistanceTest {
 	@Test
 	public void PersistanceTest(){
 		String nickname = Double.toString((Double) Math.random());
-		JSONHandler jsonHandlerA = new JSONHandler("persistanceTEST");
+		JSONHandler jsonHandlerA = new JSONHandler("persistanceTEST.json");
 		User testuser = new User(nickname, "email@email.com", 50.0, 25, "password", "sex");
 		jsonHandlerA.addUser(testuser);
 
-		JSONHandler jsonHandlerB = new JSONHandler("persistanceTEST");
+		JSONHandler jsonHandlerB = new JSONHandler("persistanceTEST.json");
 		assertEquals(true,jsonHandlerB.doesUserExist(nickname));
 	}
 
