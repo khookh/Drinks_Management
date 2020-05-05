@@ -150,6 +150,7 @@ public class JSONHandler extends Observable {
 		try {
 			FileWriter writer = new FileWriter(filePathJSON, false); // try to write to file
 			writer.write(new ObjectMapper().writeValueAsString(userData));
+			System.out.println("writen2");
 			writer.close();
 			return true;
 		} catch (Exception e) {
@@ -167,9 +168,12 @@ public class JSONHandler extends Observable {
 		File myObj = new File(path);
 		try {
 			myObj.createNewFile();
-			try (FileWriter writer = new FileWriter(path, false)) {
+			try {
+				FileWriter writer = new FileWriter(path, false);
 				Map<String, User> emptydata = new HashMap<>();
 				writer.write(new ObjectMapper().writeValueAsString(emptydata));
+				System.out.println("writen1");
+				writer.close();
 			} catch (IOException e) {
 				//System.exit(0);
 			}
