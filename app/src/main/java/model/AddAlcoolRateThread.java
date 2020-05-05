@@ -5,6 +5,9 @@ import androidx.annotation.RequiresApi;
 
 import java.time.LocalDateTime;
 
+/**
+ * this class implements a thread corresponding to the absorption of a new drink
+ */
 public class AddAlcoolRateThread extends Thread {
 	LocalDateTime init;
 	JSONHandler js;
@@ -26,7 +29,6 @@ public class AddAlcoolRateThread extends Thread {
 			coef = 0.6; //coef chez la femme
 		}
 		this.alcoholqt = (alcohol.getVolume()*10*alcohol.getPercentage()/100)/(coef*js.getActiveUser().getWeight());
-		System.out.println("alcoholqt "+alcoholqt);
 	}
 
 

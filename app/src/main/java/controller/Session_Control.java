@@ -15,6 +15,7 @@ import com.google.android.material.tabs.TabLayout;
 import controller.fragment.Consumption;
 import controller.fragment.Overview;
 import controller.fragment.SectionsPagerAdapter;
+import model.JSONHandler;
 import model.Session;
 import model.predefinedAlcohol.Classic25Pils;
 import model.predefinedAlcohol.VodkaShot;
@@ -149,6 +150,15 @@ public class Session_Control extends AppCompatActivity implements Observer {
      */
     @Override
     public void update(Observable o, Object arg) {
-        cons.cons();
+        if(o instanceof JSONHandler) { //si json updaté on refresh les info affichées
+            cons.cons();
+            ov.over();
+        }
+    }
+    protected void onDestroy(){
+        super.onDestroy();
+        session.getVirtualfoie().setRunning(false); //stop le thread du foie quand on quitte la session TEMPORAIRE
+        System.out.println("virtual foie is gone");
+        finish();
     }
 }

@@ -1,6 +1,5 @@
 package com.example.defonce_management;
 
-import model.JSONHandler;
 import model.User;
 import org.junit.Test;
 

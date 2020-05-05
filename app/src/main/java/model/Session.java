@@ -2,7 +2,6 @@ package model;
 
 import android.annotation.SuppressLint;
 import android.os.Build;
-import android.util.Pair;
 import androidx.annotation.RequiresApi;
 import controller.Session_Control;
 
@@ -13,7 +12,7 @@ import java.time.format.DateTimeFormatter;
  * Implements methods to manage Data displayed by Session_Control
  */
 public class Session {
-
+    private ProcessAlcoolThread virtualfoie;
     private JSONHandler js;
     private String skrenmessage;
     private Integer skrenlevel;
@@ -23,8 +22,8 @@ public class Session {
     public Session(JSONHandler js) {
         this.js = js;
         this.actual_user = js.getActiveUser();
-        ProcessAlcoolThread pat = new ProcessAlcoolThread(js,this);
-        pat.start();
+        virtualfoie = new ProcessAlcoolThread(js,this);
+        virtualfoie.start();
     }
 
 
@@ -37,8 +36,9 @@ public class Session {
     @SuppressLint("NewApi")
     public void addAlcohol(String bevname, Double volume, Double percent, Boolean custom) { //works
         Alcool new_alcohol = new Alcool(bevname,volume,percent);
-        actual_user.setLastdrink(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),new_alcohol); //set la dernière boisson bu par le user
-        actual_user.addConsumption(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),new_alcohol);
+        String time=LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        actual_user.setLastdrink(time); //set la dernière boisson bu par le user
+        actual_user.addConsumption(time,new_alcohol);
         if(custom && !checkIfCustomAA(new_alcohol,actual_user) ){
             actual_user.addCustom(new_alcohol);
         }
@@ -94,9 +94,9 @@ public class Session {
      */
     public String returnldstring() {
         String message = "";
-        Pair<String, Alcool> ld = getActual_user().getLastdrink(); //à remplacer par autre chose quand il y aura persistance
-        if(ld!=null){
-            Alcool alcool = ld.second;
+        String time = getActual_user().getLastdrink(); //à remplacer par autre chose quand il y aura persistance
+        if(time!=null){
+            Alcool alcool = getActual_user().getConsumption().get(time); //return l'alcool correspond au time du last drink
             message = "Your last drink was : " + alcool.getName();
         }
         return message ;
@@ -122,7 +122,9 @@ public class Session {
     public User getActual_user() {
         return actual_user;
     }
-
+    public ProcessAlcoolThread getVirtualfoie() {
+        return virtualfoie;
+    }
 
 
 }

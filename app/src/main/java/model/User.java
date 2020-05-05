@@ -1,7 +1,5 @@
 package model;
 
-import android.util.Pair;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -12,9 +10,9 @@ public class User {
     private Integer age;
     private String password;
     private String sex;
-    private static Pair<String, Alcool> lastdrink; //TEMPORARY
+    private String lastdrink; //TEMPORARY
     private HashMap<String,Alcool> consumption = new HashMap<>();
-
+    //ON PEUT CONVERTIR LE STRING TIME EN LOCAL DATE TIME AVEC LocalDateTime dateTime = LocalDateTime.parse(str, formatter); pour le formatter see session.java
     private ArrayList<Alcool> customAlcool = new ArrayList<>();
     private Double alcoolRate = 0.0; // en g/L dans le sang
 
@@ -94,12 +92,12 @@ public class User {
 
     public void addCustom(Alcool alcool){customAlcool.add(alcool);}
     //TEMPORARY
-    public static Pair<String, Alcool> getLastdrink() {
+    public String getLastdrink() {
         return lastdrink;
     }
 
-    public static void setLastdrink(String time , Alcool alcool) {
-        lastdrink = new Pair<>(time,alcool);
+    public void setLastdrink(String time) {
+        lastdrink = time;
     }
     //TEMPORARY
 

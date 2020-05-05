@@ -5,6 +5,8 @@ public class Alcool {
     private Double Volume; //in cL
     private Double Percentage; // in %
     private Double AlQt; // in cL, quantity of alcohol in the drink
+
+public Alcool(){}
 public Alcool(String name, Double volume, Double percentage) {
         Name = name;
         Volume = volume;

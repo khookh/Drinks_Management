@@ -20,12 +20,14 @@ public class Overview extends Fragment {
         root = inflater.inflate(R.layout.overview, container, false);
         lasttext = root.findViewById(R.id.lastd);
 
-        String ld = this.session.returnldstring();
-        setLastDText(ld);
+        over();
 
         return root;
     }
-
+    public void over(){
+        String ld = this.session.returnldstring();
+        setLastDText(ld);
+    }
     public void setLastDText(String texte) {
         this.lasttext.setText(texte);
     }
