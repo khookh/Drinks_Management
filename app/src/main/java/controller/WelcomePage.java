@@ -40,6 +40,9 @@ public class WelcomePage extends AppCompatActivity {
         jsonHandlerB = new JSONHandlerB(this,"dataJSBBis.json");
         jsonHandlerB.addUser(newuser);
         System.out.println(jsonHandlerB.getUserData());
+        newuser.setEmail("updatedmail");
+        jsonHandlerB.updateUser(newuser);
+        System.out.println(jsonHandlerB.getUserData());
         //TEMPORARY FOR TEST
 
         nickname = (EditText)findViewById(R.id.nickname);

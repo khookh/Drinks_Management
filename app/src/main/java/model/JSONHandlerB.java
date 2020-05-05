@@ -7,9 +7,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Observable;
 
 //TEST CLASS
-public class JSONHandlerB {
+public class JSONHandlerB extends Observable {
+	User activeUser;
 	File file;
 	FileWriter filewriter = null;
 	BufferedWriter bufferedWriter = null;
@@ -33,7 +35,6 @@ public class JSONHandlerB {
 			}
 		}
 		else{System.out.println("JSB file already exists");}
-
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			userData = mapper.readValue(file, new TypeReference<HashMap<String, User>>() {
@@ -56,12 +57,32 @@ public class JSONHandlerB {
 	public boolean doesUserExist(String username) {
 		return userData.containsKey(username);
 	}
+	public void deleteUser(User user){
+		if(doesUserExist(user.getName())){
+			userData.remove(user.getName());
+			updateJSON();
+		}
+	}
+	public void updateUser(User user){
+		if(doesUserExist(user.getName())){
+			deleteUser(user);
+			addUser(user);
+		}
+	}
+	public void notifyObs(){
+		setChanged(); //activate true flag : data has been changed
+		notifyObservers(); //notify observers of changes
+	}
+	public User getUser(String username) {
+		return userData.get(username);
+	}
 	public void updateJSON(){
 		try {
 			filewriter = new FileWriter(file.getAbsoluteFile());
 			BufferedWriter bw = new BufferedWriter(filewriter);
 			bw.write(new ObjectMapper().writeValueAsString(userData));
 			bw.close();
+			notifyObs(); //notify les observeurs à chaque update !
 			System.out.println("Update succesfully JSB");
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -70,6 +91,12 @@ public class JSONHandlerB {
 	}
 	public Map<String, User> getUserData() {
 		return userData;
+	}
+	public User getActiveUser() {
+		return activeUser;
+	}
+	public void setActiveUser(User activeUser) {
+		this.activeUser = activeUser;
 	}
 
 }
