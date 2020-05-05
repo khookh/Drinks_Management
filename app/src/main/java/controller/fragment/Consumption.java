@@ -1,7 +1,6 @@
 package controller.fragment;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -18,6 +17,7 @@ import model.Session;
  * Implements the controls of the Consumption fragment displayed
  */
 public class Consumption extends Fragment {
+    Button selectedalcool;
     View root;
     Session session;
     TextView bar;
@@ -35,30 +35,50 @@ public class Consumption extends Fragment {
         bevname = root.findViewById(R.id.bevname);
 
         setRoot(root);
-
+        createButton();
         cons();
         return root;
     }
 
-    //test
-    public void addButton(Context tis){
-        @SuppressLint("WrongViewCast") HorizontalScrollView hsv1 = root.findViewById( R.id.scrollView);
-        LinearLayout layout = hsv1.findViewById(R.id.linear);
-        layout.removeAllViews();
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams( LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT );
-        lp.setMargins( 20, 0, 20, 0 );
-        Button button = new Button(tis);
-        button.setLayoutParams(lp);
-        button.setGravity( Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL );
-        button.setText("TEST TEST TEST");
-        layout.addView(button);
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void cons(){
         this.session.setSkren();
         setProgressBar(this.session.getSkrenlevel());
         setTextBar("Your alcool blood level is now around "+(double) Math.round(session.getActual_user().getAlcoolRate()*100)/100+" g/L" +"\n"+ session.getSkrenmessage());
+    }
+
+    //todo : move methods managing button from session_control to here
+    //todo : create a list of button , use this list to construct buttons, remove all views before
+    public void createButton(){
+        ScrollView hsv1 = root.findViewById( R.id.scrollView);
+        LinearLayout layout = hsv1.findViewById(R.id.linear);
+        //layout.removeAllViews();
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams( LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT );
+        for(int i = 0 ; i <= 3 ; i++) {
+            Button button = new Button(root.getContext());
+            button.setId(i);
+            button.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    selectedAlcool(v);
+                }
+                });
+            button.setLayoutParams(lp);
+            button.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+            button.setText("TEST TEST TEST");
+            layout.addView(button);
+        }
+    }
+    /**
+     * Called when an alcohol is selected in the Consumption fragment (scrollview items)
+     * @param view
+     */
+    public void selectedAlcool(View view){
+        if(selectedalcool!=null){ //si il y a déjà un alcool selectionné, le réeaffiche comme non sélectionné
+            selectedalcool.setTextColor(Color.BLACK);
+        }
+        selectedalcool = root.findViewById(view.getId());
+        selectedalcool.setTextColor(Color.WHITE); //affiche l'alcool comme selectionné
     }
 
     /**

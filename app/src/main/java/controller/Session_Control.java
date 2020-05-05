@@ -71,6 +71,7 @@ public class Session_Control extends AppCompatActivity implements Observer {
         viewPager.setAdapter(sectionsPagerAdapter); //initialise les fragment dans le viewpager -
         tabs.setupWithViewPager(viewPager);
 
+
         viewPager.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -80,9 +81,9 @@ public class Session_Control extends AppCompatActivity implements Observer {
             }
         });
     }
-
     public static void refresh(){
-        getViewPager().getAdapter().notifyDataSetChanged(); //refresh view
+        getViewPager().getAdapter().notifyDataSetChanged();
+        cons.createButton();//refresh view
     }
 
     /**
