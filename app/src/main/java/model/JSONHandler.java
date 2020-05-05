@@ -17,10 +17,6 @@ public class JSONHandler extends Observable {
 
 
 	private User activeUser;
-	/**
-	 * Integer used to keep
-	 */
-	private static Integer errorID = 0;
 
 	/**
 	 * Path to the used JSON database
@@ -54,19 +50,10 @@ public class JSONHandler extends Observable {
 			});
 		} catch (IOException e) {
 			// if error then create a backup file and increments the error id
-			String filename = "error" + errorID.toString() + ".json";
-			errorID++;
+			String filename = "error.json";
 			File errorFile = new File(filename);
 			userfile.renameTo(errorFile);
 			userfile = createNewJSON(filePathJSON);
-			/*
-			TODO check if error0 exists, error1, ..., errorN
-			TODO manage the error window (notifying view)
-			TODO NOTIFY VIEW with path to errorFile
-			String errorMessage = "An error occured.\nPlease consider to manage the error from the " + filePathJSON +
-					" file stored in the " + filename + " file.";
-			AlertWindow alert = new AlertWindow("Corrupted File", errorMessage);
-			 */
 		}
 	}
 
@@ -201,12 +188,6 @@ public class JSONHandler extends Observable {
 		return new File(filePathJSON).exists(); // try to open the file from filepath. If error then file does not exist
 	}
 
-	/**
-	 * Necessary to keep it public in order to perform test. Works like a setter to change errorID back to zero
-	 */
-	public static void resetErrorID() {
-		errorID = 0;
-	}
 
 	public User getActiveUser() {
 		return activeUser;

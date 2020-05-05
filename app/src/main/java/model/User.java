@@ -19,6 +19,7 @@ public class User {
     private ArrayList<Alcool> customAlcool = new ArrayList<>();
     private Double alcoolRate = 0.0; // en g/L dans le sang
 
+    public User(){}
     public User(String name, String email, Double weight, Integer age, String password, String sex){
         this.name = name;
         this.email = email;

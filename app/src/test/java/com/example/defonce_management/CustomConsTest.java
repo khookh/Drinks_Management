@@ -9,12 +9,13 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class CustomConsTest {
-	JSONHandler jsonHandler = new JSONHandler("test.json");
+	JSONHandler jsonHandler = new JSONHandler("testCONS.json");
 	@Test
 	public void customCons(){
 		String name= Double.toString((Double) Math.random());
-		new SignUp("nickname", "email@email.com", "password", 25, "sex", 50.0, jsonHandler);
-		jsonHandler.setActiveUser(jsonHandler.getUser("nickname"));
+		String nameu = Double.toString((Double) Math.random());
+		new SignUp(nameu, "email@email.com", "password", 25, "sex", 50.0, jsonHandler);
+		jsonHandler.setActiveUser(jsonHandler.getUser(nameu));
 		Session s = new Session(jsonHandler);
 		s.addAlcohol(name,10.0,0.0,true);
 		assertEquals(checkuserlist(name),true);

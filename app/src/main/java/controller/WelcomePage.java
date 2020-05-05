@@ -18,7 +18,6 @@ import model.SignIn;
 import model.User;
 
 public class WelcomePage extends AppCompatActivity {
-
     private static JSONHandler jsonHandler = new JSONHandler("userdata.json");
     EditText nickname, password;
     TextView errormessage;
@@ -30,7 +29,6 @@ public class WelcomePage extends AppCompatActivity {
 
         //TEMPORARY FOR TEST
         User newuser = new User("Stefano","e",85.6,23,"123456","boi");
-        newuser.setAlcoolRate(0.1);
         jsonHandler.addUser(newuser);
         //TEMPORARY FOR TEST
 

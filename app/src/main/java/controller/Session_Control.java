@@ -28,12 +28,11 @@ import java.util.Observer;
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class Session_Control extends AppCompatActivity implements Observer {
 
-    //todo : add refresh from threads
-
     //skrenmessage used to display user state
     static String skrenmessage1;
     static String skrenmessage2;
 
+    //todo : create session in welcomepage after sign in
     Session session = new Session(WelcomePage.getJsonHandler());
 
     static ViewPager viewPager;

@@ -10,7 +10,7 @@ import static org.junit.Assert.assertEquals;
 
 public class JSONTest {
 
-	JSONHandler jsonHandler = new JSONHandler("test.json");
+	JSONHandler jsonHandler = new JSONHandler("testJSON.json");
 	@Test
 	public void JsonTest(){
 		for(int i = 0; i <= 50; i++) {
