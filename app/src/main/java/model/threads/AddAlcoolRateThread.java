@@ -1,4 +1,8 @@
-package model;
+package model.threads;
+
+import model.Alcool;
+import model.JSONHandler;
+import model.Session;
 
 import java.time.LocalDateTime;
 import java.util.TimerTask;

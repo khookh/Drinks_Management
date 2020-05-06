@@ -20,7 +20,6 @@ import java.util.ArrayList;
  * Implements the controls of the Consumption fragment displayed
  */
 public class Consumption extends Fragment {
-    Button selectedalcool;
     View root;
     Session session;
     ArrayList<Button> customButton = new ArrayList<>();
@@ -41,10 +40,9 @@ public class Consumption extends Fragment {
         percent = root.findViewById(R.id.percent);
         bevname = root.findViewById(R.id.bevname);
         eating = root.findViewById(R.id.switch1);
-
+        updateButton();
         setRoot(root);
         cons();
-        createButton();
         return root;
     }
 
@@ -86,6 +84,10 @@ public class Consumption extends Fragment {
         button.setText(customAlcool.getName());
         return button;
     }
+
+    /**
+     * update the list of buttons corresponding to custom consumption
+     */
     public void updateButton(){
         ScrollView hsv1 = root.findViewById( R.id.scrollView);
         LinearLayout layout = hsv1.findViewById(R.id.linear);
@@ -125,8 +127,6 @@ public class Consumption extends Fragment {
     public Switch getEating() {
         return eating;
     }
-
-
     public void setRoot(View root) {
         this.root = root;
     }
@@ -139,4 +139,5 @@ public class Consumption extends Fragment {
         percent.setText("");
         eating.setChecked(false);
     }
+
 }

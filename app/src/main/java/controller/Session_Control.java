@@ -39,8 +39,9 @@ public class Session_Control extends AppCompatActivity implements Observer {
 
     static ViewPager viewPager;
     Button selectedalcool;
-    static Consumption cons;
-    static Overview ov;
+
+    Consumption cons;
+    Overview ov;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -82,6 +83,10 @@ public class Session_Control extends AppCompatActivity implements Observer {
             }
         });
     }
+
+    /**
+     * refresh les éléments attachés au sectionPagerAdapter
+     */
     public static void refresh(){
         getViewPager().getAdapter().notifyDataSetChanged();
        //refresh view
@@ -134,6 +139,7 @@ public class Session_Control extends AppCompatActivity implements Observer {
         }
         cons.clearFields();
         cons.updateButton(); //updata custom consommation list
+        ov.updateText();
         refresh();//refresh data displayed
     }
 
@@ -161,12 +167,21 @@ public class Session_Control extends AppCompatActivity implements Observer {
         if(o instanceof JSONHandler) { //si json updaté on refresh les info affichées
             cons.cons();
             ov.over();
+            //refresh();
         }
     }
+
+    /**
+     * called upon destruction of this activity
+     */
     protected void onDestroy(){
         super.onDestroy();
         session.getVirtualfoie().cancel(); //stop le thread du foie quand on quitte la session TEMPORAIRE
         System.out.println("virtual foie is gone");
         finish();
     }
+    public Consumption getCons() {
+        return cons;
+    }
+
 }

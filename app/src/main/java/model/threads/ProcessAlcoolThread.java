@@ -1,7 +1,9 @@
-package model;
+package model.threads;
 
 import android.os.Build;
 import androidx.annotation.RequiresApi;
+import model.JSONHandler;
+import model.Session;
 
 import java.util.TimerTask;
 
@@ -30,7 +32,7 @@ public class ProcessAlcoolThread extends TimerTask {
 					js.getActiveUser().setAlcoolRate(0.0);
 				}
 				else {
-					js.getActiveUser().setAlcoolRate(js.getActiveUser().getAlcoolRate() - (this.elimrate /60)); //update user alcool rate
+					js.getActiveUser().setAlcoolRate(newAR); //update user alcool rate
 				}
 				js.updateUser(js.getActiveUser()); //update user in json
 				System.out.println("Remove"+this.elimrate/60);

@@ -116,11 +116,11 @@ public class JSONHandler extends Observable {
 			BufferedWriter bw = new BufferedWriter(filewriter);
 			bw.write(new ObjectMapper().writeValueAsString(userData));
 			bw.close();
-			notifyObs(); //notify les observeurs à chaque update !
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.out.println("Update failed JSB");
 		}
+		notifyObs(); //notify les observeurs à chaque update !
 	}
 	public Map<String, User> getUserData() {
 		return userData;

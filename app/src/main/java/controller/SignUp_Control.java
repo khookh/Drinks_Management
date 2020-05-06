@@ -88,15 +88,10 @@ public class SignUp_Control extends AppCompatActivity {
             errormessage.setText(signed);
             if(signed.equals("Signed Up")) {//si pas d'erreur
                 errormessage.setTextColor(0xFF00FF00);
-                TimeUnit.SECONDS.sleep(2);
+                TimeUnit.SECONDS.sleep(1);
                 startActivity(new Intent(SignUp_Control.this, WelcomePage.class)); //retourne à la page d'acceuil
             }
         }
     }
-
-    /**
-     *Getter implemented to avoid hardcoding strings
-     */
-
 
 }

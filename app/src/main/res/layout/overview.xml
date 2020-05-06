@@ -19,5 +19,24 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintVertical_bias="0.008"/>
+    <ScrollView
+            android:layout_width="366dp"
+            android:layout_height="196dp"
+            android:id="@+id/scrollView"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.488" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lastweek" app:layout_constraintVertical_bias="0.092">
+        <LinearLayout android:layout_width="match_parent" android:id="@+id/linear" android:layout_height="wrap_content"
+                      android:orientation="vertical"/>
+    </ScrollView>
+    <TextView
+            android:text="Drinks from the last 7 days"
+            android:gravity="center"
+            android:layout_width="196dp"
+            android:layout_height="38dp"
+            android:id="@+id/lastweek" android:layout_marginTop="55dp"
+            app:layout_constraintTop_toBottomOf="@+id/lastd" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.0"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

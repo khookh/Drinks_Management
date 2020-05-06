@@ -4,10 +4,12 @@ import android.annotation.SuppressLint;
 import android.os.Build;
 import androidx.annotation.RequiresApi;
 import controller.Session_Control;
+import model.threads.AddAlcoolRateThread;
+import model.threads.ProcessAlcoolThread;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Timer;
+import java.util.*;
 
 /**
  * Implements methods to manage Data displayed by Session_Control
@@ -18,13 +20,13 @@ public class Session {
     private String skrenmessage;
     private Integer skrenlevel;
     User actual_user ;
-
+    TreeMap<String, Alcool> map;
     @RequiresApi(api = Build.VERSION_CODES.O)
     public Session(JSONHandler js) {
         this.js = js;
         this.actual_user = js.getActiveUser();
         actual_user.setAlcoolRate(0.0);
-        virtualfoie = new ProcessAlcoolThread(js,this);
+        virtualfoie = new ProcessAlcoolThread(js,this); //create the virtual foie at launch of the session
         Timer timer = new Timer();
         timer.schedule(virtualfoie,60000,60000); //1 call each minute
     }
@@ -32,15 +34,14 @@ public class Session {
 
     /**
      * Create new alcohol and the time it has been consumed and add it to the actual_user
-     * @param bevname
-     * @param volume
-     * @param percent
+     * @param bevname beverage name
+     * @param volume beverage volume
+     * @param percent beverage alcoolic concentration
      */
     @SuppressLint("NewApi")
     public void addAlcohol(String bevname, Double volume, Double percent, Boolean custom, Boolean eating) { //works
         Alcool new_alcohol = new Alcool(bevname,volume,percent);
         String time=LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        actual_user.setLastdrink(time); //set la dernière boisson bu par le user
         actual_user.addConsumption(time,new_alcohol);
         if(custom && checkIfCustomAA(new_alcohol,actual_user) ){
             actual_user.addCustom(new_alcohol);
@@ -96,15 +97,59 @@ public class Session {
     /**
      * @return message: string indiquant quelle est la dernière boisson
      */
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public String returnldstring() {
+        map = new TreeMap<String, Alcool>(getActual_user().getConsumption()); //comme hashmap mais avec capacité de sorting
         String message = "";
-        String time = getActual_user().getLastdrink(); //à remplacer par autre chose quand il y aura persistance
-        if(time!=null){
-            Alcool alcool = getActual_user().getConsumption().get(time); //return l'alcool correspond au time du last drink
-            message = "Your last drink was : " + alcool.getName();
+        LocalDateTime weekago = LocalDateTime.now().minusWeeks(1);
+        if(!map.isEmpty()){
+            Alcool lastdrink = map.lastEntry().getValue();
+            message = "Your last drink was : " + lastdrink.getName();
         }
         return message ;
     }
+
+    /**
+     * @param date
+     * @return a treemap containing only alcools consumed after date
+     */
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public TreeMap returnTMfromdate(LocalDateTime date){
+        map = new TreeMap<String, Alcool>(getActual_user().getConsumption());
+        TreeMap sortedmap = new TreeMap<String, Alcool>();
+        Set set = map.entrySet();
+        Iterator it = set.iterator();
+        while(it.hasNext()){
+            Map.Entry entry = (Map.Entry) it.next();
+            LocalDateTime keytime = LocalDateTime.parse((String) entry.getKey(),DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            if(keytime.isAfter(date)){
+                sortedmap.put(entry.getKey(),entry.getValue());
+            }
+        }
+        return sortedmap;
+    }
+
+    /**
+     * @param date
+     * @return an array list of strings corresponding to previous alcoolic consumption before given date
+     */
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public ArrayList<String> returnstringfromdate(LocalDateTime date){
+        ArrayList<String> messagelist = new ArrayList<>();
+        TreeMap sortedmap = returnTMfromdate(date);
+        Set set = sortedmap.entrySet();
+        Iterator it = set.iterator();
+        while(it.hasNext()){
+            Map.Entry entry = (Map.Entry) it.next() ;
+            Alcool alcool = (Alcool) entry.getValue() ;
+            LocalDateTime time = LocalDateTime.parse((String) entry.getKey(),DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            String message = alcool.getName() + "    --------    " + time.getDayOfMonth() + " " + time.getMonth() + " " + time.getHour() + "H" + time.getMinute();
+            messagelist.add(message);
+        }
+        return messagelist;
+    }
+
+
 
     public String getSkrenmessage() {
         return skrenmessage;
@@ -129,6 +174,7 @@ public class Session {
     public ProcessAlcoolThread getVirtualfoie() {
         return virtualfoie;
     }
+
 
 
 }
