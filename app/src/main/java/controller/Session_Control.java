@@ -15,6 +15,7 @@ import com.google.android.material.tabs.TabLayout;
 import controller.fragment.Consumption;
 import controller.fragment.Overview;
 import controller.fragment.SectionsPagerAdapter;
+import model.Alcool;
 import model.JSONHandler;
 import model.Session;
 import model.predefinedAlcohol.Classic25Pils;
@@ -114,19 +115,24 @@ public class Session_Control extends AppCompatActivity implements Observer {
      * @param view
      */
     public void addconsumption(View view){
+        Boolean eating = cons.getEating().isChecked();
         if(selectedalcool!=null){
             if(selectedalcool.getTag().equals("Classic25Pils")){
-                this.session.addAlcohol(Classic25Pils.getName(),Classic25Pils.getVolume(),Classic25Pils.getPercentage(),false);
+                this.session.addAlcohol(Classic25Pils.getName(),Classic25Pils.getVolume(),Classic25Pils.getPercentage(),false,eating);
             }
             else if(selectedalcool.getTag().equals("VodkaShot")){
-                this.session.addAlcohol(VodkaShot.getName(),VodkaShot.getVolume(),VodkaShot.getPercentage(),false);
+                this.session.addAlcohol(VodkaShot.getName(),VodkaShot.getVolume(),VodkaShot.getPercentage(),false,eating);
+            }
+            else if(selectedalcool.getTag().getClass().equals(Alcool.class)){
+                Alcool custom = (Alcool)(selectedalcool.getTag());
+                this.session.addAlcohol(custom.getName(),custom.getVolume(),custom.getPercentage(),false,eating);
             }
             deselectalcool();
-            //TODO ; add predifined alcohol
         }
         else if(!cons.getBevname().isEmpty() && !cons.getVolume().isEmpty() && !cons.getPercent().isEmpty() ){
-            this.session.addAlcohol(cons.getBevname(),Double.parseDouble(cons.getVolume()), Double.parseDouble(cons.getPercent()),true);
+            this.session.addAlcohol(cons.getBevname(),Double.parseDouble(cons.getVolume()), Double.parseDouble(cons.getPercent()),true,eating);
         }
+        cons.clearFields();
         cons.updateButton(); //updata custom consommation list
         refresh();//refresh data displayed
     }

@@ -42,6 +42,7 @@ public class ProcessAlcoolThread extends Thread {
 				}
 				js.updateUser(js.getActiveUser()); //update user in json
 				init = LocalDateTime.now(); // reset time reference
+				System.out.println("Remove"+this.elimrate/60);
 			}
 		}
 	}

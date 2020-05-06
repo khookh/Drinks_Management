@@ -27,6 +27,7 @@ public class Consumption extends Fragment {
     Session_Control session_control;
     TextView bar;
     ProgressBar skren;
+    Switch eating;
     EditText volume, percent, bevname;
 
 
@@ -39,6 +40,7 @@ public class Consumption extends Fragment {
         volume = root.findViewById(R.id.volume);
         percent = root.findViewById(R.id.percent);
         bevname = root.findViewById(R.id.bevname);
+        eating = root.findViewById(R.id.switch1);
 
         setRoot(root);
         cons();
@@ -71,8 +73,7 @@ public class Consumption extends Fragment {
         return session.getActual_user().getCustomAlcool();
     }
     public Button buttonSetting(Alcool customAlcool,int i){
-        Button button = new Button(root.getContext());
-        System.out.println("alcool : "+customAlcool+" name : "+customAlcool.getName());
+        Button button = new Button(root.getContext());;
         button.setId(i);
         button.setTag(customAlcool);
         button.setOnClickListener(new View.OnClickListener() {
@@ -121,14 +122,21 @@ public class Consumption extends Fragment {
     public void setSession(Session session) {
         this.session = session;
     }
-    public View getRoot() {
-        return root;
+    public Switch getEating() {
+        return eating;
     }
+
 
     public void setRoot(View root) {
         this.root = root;
     }
     public void setSession_control(Session_Control session_control) {
         this.session_control = session_control;
+    }
+    public void clearFields(){
+        bevname.setText("");
+        volume.setText("");
+        percent.setText("");
+        eating.setChecked(false);
     }
 }

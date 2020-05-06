@@ -15,13 +15,8 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.defonce_management.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-import model.Alcool;
 import model.JSONHandler;
 import model.SignIn;
-import model.User;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class WelcomePage extends AppCompatActivity {
     private static JSONHandler jsonHandler;
@@ -40,14 +35,14 @@ public class WelcomePage extends AppCompatActivity {
         setContentView(R.layout.welcome);
 
         //TEMPORARY FOR TEST
-        User newuser = new User("Stefano","e",85.6,23,"123456","boi");
-        Alcool newa = new Alcool("testalcool",25.0,7.2);
-        String time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        newuser.addConsumption(time,newa);
-        newuser.setLastdrink(time);
-        jsonHandler.addUser(newuser);
-        jsonHandler.updateUser(newuser);
-        System.out.println("JSB2 "+jsonHandler.getUserData());
+        //User newuser = new User("Stefano","e",85.6,23,"123456","boi");
+        //Alcool newa = new Alcool("testalcool",25.0,7.2);
+        //String time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        //newuser.addConsumption(time,newa);
+        //newuser.setLastdrink(time);
+        //jsonHandler.addUser(newuser);
+        //jsonHandler.updateUser(newuser);
+        //System.out.println("JSB2 "+jsonHandler.getUserData());
         //TEMPORARY FOR TEST
 
         nickname = (EditText)findViewById(R.id.nickname);

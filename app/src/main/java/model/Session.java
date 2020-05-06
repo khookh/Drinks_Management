@@ -34,7 +34,7 @@ public class Session {
      * @param percent
      */
     @SuppressLint("NewApi")
-    public void addAlcohol(String bevname, Double volume, Double percent, Boolean custom) { //works
+    public void addAlcohol(String bevname, Double volume, Double percent, Boolean custom, Boolean eating) { //works
         Alcool new_alcohol = new Alcool(bevname,volume,percent);
         String time=LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         actual_user.setLastdrink(time); //set la dernière boisson bu par le user
@@ -43,7 +43,7 @@ public class Session {
             actual_user.addCustom(new_alcohol);
         }
         js.updateUser(actual_user);
-        AddAlcoolRateThread thread = new AddAlcoolRateThread(new_alcohol,js,this);
+        AddAlcoolRateThread thread = new AddAlcoolRateThread(new_alcohol,js,this,eating);
         thread.start();
 
     }
