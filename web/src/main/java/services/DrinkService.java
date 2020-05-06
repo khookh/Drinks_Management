@@ -3,14 +3,18 @@ package services;
 import info.CustomDrink;
 import info.User;
 import util.DateFormatter;
+import util.StringGenerators;
 
 import javax.xml.transform.Result;
+import java.sql.Statement;
 import java.text.ParseException;
 import java.util.Date;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DrinkService extends Service {
 
@@ -43,7 +47,7 @@ public class DrinkService extends Service {
             "," + PERCENT_FIELD + "," + DATE_FIELD +") VALUES(?,?,?,?,?);";
 
     private static String GET_DRINK_INFO = "SELECT * FROM " + TABLE_NAME +
-            " WHERE id=?";
+            " WHERE IN (";
 
     @Override
     public void start() throws CantStartServiceException {
@@ -129,5 +133,40 @@ public class DrinkService extends Service {
         }
         return null;
     }
+
+    /**
+     * Fills a {@link java.util.HashMap} with each specified drink id as key and
+     * the corresponding {@link CustomDrink} objects containing all the drink
+     * informations.
+     *
+     * @param idList, the list of ids to retrieve and fill in the hashmap
+     * @return a {@link java.util.HashMap} containing all the {@link CustomDrink}
+     *          to retrieve.
+     * @throws SQLException
+     */
+    public Map<Integer, CustomDrink> fillDrinkInfos(int[] idList) throws SQLException {
+        try {
+            DBConnection connection = DBConnection.getInstance();
+            String valuesString = StringGenerators.buildIdList(idList);
+            String sqlQuery = GET_DRINK_INFO + valuesString + ");";
+            ResultSet set = connection.executeQuery(sqlQuery);
+
+            Map<Integer, CustomDrink> drinkInfos = new HashMap<>();
+            while (set.next()) {
+                int id = set.getInt("id");
+                String name = set.getString(NAME_FIELD);
+                float volume = set.getFloat(VOLUME_FIELD);
+                float perc = set.getFloat(PERCENT_FIELD);
+                drinkInfos.put(id, new CustomDrink(name, volume, perc));
+            }
+            connection.close();
+            return drinkInfos;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.exit(-1);
+        }
+        return null;
+    }
+
 
 }

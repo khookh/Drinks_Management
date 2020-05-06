@@ -44,6 +44,8 @@ public class ConsumeService extends Service {
     private static String GET_CONSUMPTIONS = "SELECT * FROM " + TABLE_NAME + " WHERE " + USER_ID_FIELD + "=? ORDER BY "
             + TIME_FIELD + " LIMIT=?;";
 
+    private static String GET_DRINK_IDS = "SELECT DISTINCT " + DRINK_ID_FIELD + " FROM " + TABLE_NAME + " WHERE id=?;";
+
     @Override
     public void start() throws CantStartServiceException {
         startCreateTables(TABLE_NAME, CREATE_TABLE);
@@ -111,5 +113,23 @@ public class ConsumeService extends Service {
             throw new SQLException("Couldn't parse date");
         }
     }
+
+    /**
+     * Returns all the unique drink ids consumed at least
+     * once by one user.
+     * @return
+     */
+    public int[] getUserDrinkIds(User user) throws SQLException {
+        DBConnection connection = DBConnection.getInstance();
+        PreparedStatement stmt = connection.getPreparedStmt(GET_DRINK_IDS);
+        stmt.setInt(1, user.getId());
+        ResultSet set = connection.executePreparedQuery(stmt);
+
+        // TODO get ResultSet size.
+        while (set.next()) {
+
+        }
+    }
+
 
 }
