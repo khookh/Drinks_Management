@@ -1,2 +1,2 @@
-include ':app', ':web'
+include ':json', ':app', ':web'
 rootProject.name='Defonce_Management'
