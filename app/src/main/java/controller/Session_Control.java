@@ -15,6 +15,8 @@ import com.google.android.material.tabs.TabLayout;
 import controller.fragment.Consumption;
 import controller.fragment.Overview;
 import controller.fragment.SectionsPagerAdapter;
+import model.Alcool;
+import model.JSONHandler;
 import model.Session;
 import model.predefinedAlcohol.Classic25Pils;
 import model.predefinedAlcohol.VodkaShot;
@@ -49,8 +51,6 @@ public class Session_Control extends AppCompatActivity implements Observer {
         setSkrenmessage1(getString(R.string.skrenmsg1));
         setSkrenmessage2(getString(R.string.skrenmsg2));
 
-        WelcomePage.getJsonHandler().addObserver(this);
-
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         ViewPager viewPager = findViewById(R.id.view_pager);
         setViewPager(viewPager);
@@ -59,16 +59,19 @@ public class Session_Control extends AppCompatActivity implements Observer {
 
         cons = new Consumption();
         cons.setSession(this.session);
+        cons.setSession_control(this);
         // cons.addButton(this); test
         ov = new Overview();
         ov.setSession(this.session);
 
+        WelcomePage.getJsonHandler().addObserver(this);
 
 
         sectionsPagerAdapter.addFragment(cons, getString(R.string.Alcool_Consumption));
         sectionsPagerAdapter.addFragment(ov, getString(R.string.Overview));
         viewPager.setAdapter(sectionsPagerAdapter); //initialise les fragment dans le viewpager -
         tabs.setupWithViewPager(viewPager);
+
 
         viewPager.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -79,9 +82,9 @@ public class Session_Control extends AppCompatActivity implements Observer {
             }
         });
     }
-
     public static void refresh(){
-        getViewPager().getAdapter().notifyDataSetChanged(); //refresh view
+        getViewPager().getAdapter().notifyDataSetChanged();
+       //refresh view
     }
 
     /**
@@ -112,20 +115,26 @@ public class Session_Control extends AppCompatActivity implements Observer {
      * @param view
      */
     public void addconsumption(View view){
+        Boolean eating = cons.getEating().isChecked();
         if(selectedalcool!=null){
             if(selectedalcool.getTag().equals("Classic25Pils")){
-                this.session.addAlcohol(Classic25Pils.getName(),Classic25Pils.getVolume(),Classic25Pils.getPercentage(),false);
+                this.session.addAlcohol(Classic25Pils.getName(),Classic25Pils.getVolume(),Classic25Pils.getPercentage(),false,eating);
             }
             else if(selectedalcool.getTag().equals("VodkaShot")){
-                this.session.addAlcohol(VodkaShot.getName(),VodkaShot.getVolume(),VodkaShot.getPercentage(),false);
+                this.session.addAlcohol(VodkaShot.getName(),VodkaShot.getVolume(),VodkaShot.getPercentage(),false,eating);
+            }
+            else if(selectedalcool.getTag().getClass().equals(Alcool.class)){
+                Alcool custom = (Alcool)(selectedalcool.getTag());
+                this.session.addAlcohol(custom.getName(),custom.getVolume(),custom.getPercentage(),false,eating);
             }
             deselectalcool();
-            //TODO ; add predifined alcohol
         }
         else if(!cons.getBevname().isEmpty() && !cons.getVolume().isEmpty() && !cons.getPercent().isEmpty() ){
-            this.session.addAlcohol(cons.getBevname(),Double.parseDouble(cons.getVolume()), Double.parseDouble(cons.getPercent()),true);
+            this.session.addAlcohol(cons.getBevname(),Double.parseDouble(cons.getVolume()), Double.parseDouble(cons.getPercent()),true,eating);
         }
-        getViewPager().getAdapter().notifyDataSetChanged(); //refresh data displayed
+        cons.clearFields();
+        cons.updateButton(); //updata custom consommation list
+        refresh();//refresh data displayed
     }
 
 
@@ -149,6 +158,15 @@ public class Session_Control extends AppCompatActivity implements Observer {
      */
     @Override
     public void update(Observable o, Object arg) {
-        cons.cons();
+        if(o instanceof JSONHandler) { //si json updaté on refresh les info affichées
+            cons.cons();
+            ov.over();
+        }
+    }
+    protected void onDestroy(){
+        super.onDestroy();
+        session.getVirtualfoie().cancel(); //stop le thread du foie quand on quitte la session TEMPORAIRE
+        System.out.println("virtual foie is gone");
+        finish();
     }
 }
