@@ -10,6 +10,7 @@ import services.ConsumeService;
 import services.DrinkService;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class ConsumeController extends Controller {
 
@@ -63,6 +64,22 @@ public class ConsumeController extends Controller {
 
     private void handlePacket(Context ctx, AskConsumptionsPacket packet) {
         // TODO handle packet
+        try {
+            User user = authService.authenticateUser(packet.getToken());
+            if (user == null)  {
+                 returnPacket(ctx, new ResponseWrongTokenPacket(false, "Wrong token"));
+                return;
+            }
+            List<Consumption> consumptionList = consumeService.getConsumptions(user, packet.getConsumptionCount(), this.drinkService);
+            if (consumptionList == null) {
+                returnPacket(ctx, new ResponseConsumptionsPacket(false, "Server error occurred while getting consumptions.", null));
+                return;
+            }
+            returnPacket(ctx, new ResponseConsumptionsPacket(true, "Query success.", consumptionList.toArray(new Consumption[0])));
+        } catch (SQLException e) {
+            e.printStackTrace();
+            returnPacket(ctx, new ResponseConsumePacket(false, "Server error occurred while logging user"));
+        }
         returnPacket(ctx, new ResponseConsumePacket(false, "Functionality not implemented yet."));
     }
 

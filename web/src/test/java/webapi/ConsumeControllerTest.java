@@ -12,7 +12,9 @@ import services.ConsumeService;
 import services.DrinkService;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -64,6 +66,27 @@ public class ConsumeControllerTest {
             JSONPacket responsePacket = ReadJSON.readPacket(responseJson);
             assertTrue(responsePacket instanceof ResponseConsumePacket);
             assertTrue(((ResponseConsumePacket)responsePacket).isSuccess());
+        } catch (IOException e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+    @Test
+    @Order(3)
+    void getConsumptions() {
+        // adds some new consumptions
+        consumeDrink();
+        consumeDrink();
+
+        // 3 consumptions so far
+        AskConsumptionsPacket packet = new AskConsumptionsPacket(token, 3);
+        try {
+            String responseJson = HttpUtils.sendPost("", WriteJSON.writePacket(packet));
+            JSONPacket responsePacket = ReadJSON.readPacket(responseJson);
+            assertTrue(responsePacket instanceof  ResponseConsumptionsPacket);
+            assertTrue(((ResponseConsumptionsPacket) responsePacket).isSuccess());
+            List<Consumption> consumptionList = Arrays.asList(((ResponseConsumptionsPacket) responsePacket).getConsumptions());
         } catch (IOException e) {
             e.printStackTrace();
             fail();

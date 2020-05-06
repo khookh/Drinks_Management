@@ -42,6 +42,9 @@ public class DrinkService extends Service {
             " (" + USER_ID_FIELD + "," + NAME_FIELD + "," + VOLUME_FIELD +
             "," + PERCENT_FIELD + "," + DATE_FIELD +") VALUES(?,?,?,?,?);";
 
+    private static String GET_DRINK_INFO = "SELECT * FROM " + TABLE_NAME +
+            " WHERE id=?";
+
     @Override
     public void start() throws CantStartServiceException {
         startCreateTables(TABLE_NAME, CREATE_TABLE);
@@ -107,5 +110,24 @@ public class DrinkService extends Service {
         return -1;
     }
 
+    public CustomDrink getDrinkInfo(int drinkId) throws SQLException {
+        try {
+            DBConnection connection = DBConnection.getInstance();
+            PreparedStatement stmt = connection.getPreparedStmt(GET_DRINK_INFO);
+            stmt.setInt(1, drinkId);
+            ResultSet set = connection.executePreparedQuery(stmt);
+            if (!set.next()) return null;
+            String name = set.getString(NAME_FIELD);
+            float volume = set.getFloat(VOLUME_FIELD);
+            float perc = set.getFloat(PERCENT_FIELD);
+            CustomDrink drink = new CustomDrink(name, volume, perc);
+            connection.close();
+            return drink;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.exit(-1);
+        }
+        return null;
+    }
 
 }

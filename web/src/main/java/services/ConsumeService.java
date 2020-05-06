@@ -1,13 +1,16 @@
 package services;
 
 
+import info.Consumption;
+import info.CustomDrink;
 import info.User;
 import util.DateFormatter;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.util.Date;
+import java.util.*;
 
 /**
  * This services takes care of the consumptions
@@ -37,6 +40,9 @@ public class ConsumeService extends Service {
     private static String ADD_CONSUMPTION = "INSERT INTO " + TABLE_NAME +
             " (" + DRINK_ID_FIELD + "," + USER_ID_FIELD + "," + TIME_FIELD +") " +
             "VALUES(?,?,?);";
+
+    private static String GET_CONSUMPTIONS = "SELECT * FROM " + TABLE_NAME + " WHERE " + USER_ID_FIELD + "=? ORDER BY "
+            + TIME_FIELD + " LIMIT=?;";
 
     @Override
     public void start() throws CantStartServiceException {
@@ -77,4 +83,33 @@ public class ConsumeService extends Service {
         }
         return -1;
     }
+
+    public List<Consumption> getConsumptions(User user, int consumptionCount, DrinkService drinkService) throws SQLException {
+        try {
+            List<Consumption> consumptionList = new ArrayList<>();
+            DBConnection connection = DBConnection.getInstance();
+            PreparedStatement stmt = connection.getPreparedStmt(GET_CONSUMPTIONS);
+            stmt.setInt(1, user.getId());
+            stmt.setInt(2, consumptionCount);
+            ResultSet set = connection.executePreparedQuery(stmt);
+
+            Map<Integer, CustomDrink> drinkInfo = new HashMap<Integer, CustomDrink>();
+            while (set.next()) {
+                int drinkId = set.getInt(DRINK_ID_FIELD);
+                Date date = DateFormatter.fromString(set.getString(TIME_FIELD));
+                CustomDrink drink = drinkInfo.get(drinkId);
+                if (drink == null) {
+                    drink = drinkService.getDrinkInfo(drinkId);
+                    if (drink == null) return null;
+                    drinkInfo.put(drinkId, drink);
+                }
+                consumptionList.add(new Consumption(drink, date));
+            }
+            connection.close();
+            return consumptionList;
+        } catch (ParseException e) {
+            throw new SQLException("Couldn't parse date");
+        }
+    }
+
 }

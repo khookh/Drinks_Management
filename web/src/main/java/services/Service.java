@@ -1,5 +1,6 @@
 package services;
 
+import info.CustomDrink;
 import util.Logger;
 
 import java.sql.ResultSet;
@@ -82,9 +83,6 @@ public abstract class Service {
         DBConnection controller = DBConnection.getInstance();
         controller.executeUpdate(createTableSQL);
 }
-
-
-
 
 
 }
