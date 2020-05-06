@@ -7,6 +7,7 @@ import controller.Session_Control;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Timer;
 
 /**
  * Implements methods to manage Data displayed by Session_Control
@@ -22,8 +23,10 @@ public class Session {
     public Session(JSONHandler js) {
         this.js = js;
         this.actual_user = js.getActiveUser();
+        actual_user.setAlcoolRate(0.0);
         virtualfoie = new ProcessAlcoolThread(js,this);
-        virtualfoie.start();
+        Timer timer = new Timer();
+        timer.schedule(virtualfoie,60000,60000); //1 call each minute
     }
 
 
@@ -43,8 +46,9 @@ public class Session {
             actual_user.addCustom(new_alcohol);
         }
         js.updateUser(actual_user);
-        AddAlcoolRateThread thread = new AddAlcoolRateThread(new_alcohol,js,this,eating);
-        thread.start();
+        AddAlcoolRateThread alcoolThreadTimer = new AddAlcoolRateThread(new_alcohol,js,this,eating);
+        Timer timer = new Timer();
+        timer.schedule(alcoolThreadTimer,60000,60000); //1 call each minute
 
     }
 

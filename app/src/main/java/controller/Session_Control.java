@@ -165,7 +165,7 @@ public class Session_Control extends AppCompatActivity implements Observer {
     }
     protected void onDestroy(){
         super.onDestroy();
-        session.getVirtualfoie().setRunning(false); //stop le thread du foie quand on quitte la session TEMPORAIRE
+        session.getVirtualfoie().cancel(); //stop le thread du foie quand on quitte la session TEMPORAIRE
         System.out.println("virtual foie is gone");
         finish();
     }
