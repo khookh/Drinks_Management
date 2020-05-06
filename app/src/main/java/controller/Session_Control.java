@@ -50,8 +50,6 @@ public class Session_Control extends AppCompatActivity implements Observer {
         setSkrenmessage1(getString(R.string.skrenmsg1));
         setSkrenmessage2(getString(R.string.skrenmsg2));
 
-        WelcomePage.getJsonHandler().addObserver(this);
-
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         ViewPager viewPager = findViewById(R.id.view_pager);
         setViewPager(viewPager);
@@ -60,10 +58,12 @@ public class Session_Control extends AppCompatActivity implements Observer {
 
         cons = new Consumption();
         cons.setSession(this.session);
+        cons.setSession_control(this);
         // cons.addButton(this); test
         ov = new Overview();
         ov.setSession(this.session);
 
+        WelcomePage.getJsonHandler().addObserver(this);
 
 
         sectionsPagerAdapter.addFragment(cons, getString(R.string.Alcool_Consumption));
@@ -83,7 +83,7 @@ public class Session_Control extends AppCompatActivity implements Observer {
     }
     public static void refresh(){
         getViewPager().getAdapter().notifyDataSetChanged();
-        cons.createButton();//refresh view
+       //refresh view
     }
 
     /**
@@ -127,7 +127,8 @@ public class Session_Control extends AppCompatActivity implements Observer {
         else if(!cons.getBevname().isEmpty() && !cons.getVolume().isEmpty() && !cons.getPercent().isEmpty() ){
             this.session.addAlcohol(cons.getBevname(),Double.parseDouble(cons.getVolume()), Double.parseDouble(cons.getPercent()),true);
         }
-        getViewPager().getAdapter().notifyDataSetChanged(); //refresh data displayed
+        cons.updateButton(); //updata custom consommation list
+        refresh();//refresh data displayed
     }
 
 

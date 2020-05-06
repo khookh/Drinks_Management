@@ -39,7 +39,7 @@ public class Session {
         String time=LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         actual_user.setLastdrink(time); //set la dernière boisson bu par le user
         actual_user.addConsumption(time,new_alcohol);
-        if(custom && !checkIfCustomAA(new_alcohol,actual_user) ){
+        if(custom && checkIfCustomAA(new_alcohol,actual_user) ){
             actual_user.addCustom(new_alcohol);
         }
         js.updateUser(actual_user);
@@ -54,10 +54,10 @@ public class Session {
      * @param u
      */
     public boolean checkIfCustomAA(Alcool a, User u){
-        boolean already = false ;
+        boolean already = true;
         for(int i = 0; i< u.getCustomAlcool().size(); i ++){
             if(u.getCustomAlcool().get(i).equals(a)){
-                already = true;
+                already = false;
             }
         }
         return already;
