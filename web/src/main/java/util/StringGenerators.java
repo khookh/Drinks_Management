@@ -1,6 +1,7 @@
 package util;
 
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -39,10 +40,10 @@ public class StringGenerators {
      * @param ids, the ids to fill
      * @return the list on string format
      */
-    public static String buildIdList(int[] ids) {
+    public static String buildIdList(List<Integer> ids) {
         StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < ids.length; i++) {
-            builder.append(i+",");
+        for (int i = 0; i < ids.size(); i++) {
+            builder.append(ids.get(i)+",");
         }
         return builder.deleteCharAt(builder.length() - 1).toString();
     }

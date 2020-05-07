@@ -1,6 +1,7 @@
 package controllers;
 
 import info.Consumption;
+import info.CustomDrink;
 import info.User;
 import io.javalin.http.Context;
 import packets.*;
@@ -10,7 +11,9 @@ import services.ConsumeService;
 import services.DrinkService;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ConsumeController extends Controller {
 
@@ -70,12 +73,15 @@ public class ConsumeController extends Controller {
                  returnPacket(ctx, new ResponseWrongTokenPacket(false, "Wrong token"));
                 return;
             }
-            List<Consumption> consumptionList = consumeService.getConsumptions(user, packet.getConsumptionCount(), this.drinkService);
+            List<Integer> drinkIds = this.consumeService.getUserDrinkIds(user, packet.getConsumptionCount());
+            Map<Integer, CustomDrink> drinkInfo = this.drinkService.fillDrinkInfos(drinkIds);
+            List<Consumption> consumptionList = this.consumeService.getConsumptions(user, packet.getConsumptionCount(), drinkInfo);
             if (consumptionList == null) {
                 returnPacket(ctx, new ResponseConsumptionsPacket(false, "Server error occurred while getting consumptions.", null));
                 return;
             }
             returnPacket(ctx, new ResponseConsumptionsPacket(true, "Query success.", consumptionList.toArray(new Consumption[0])));
+            return;
         } catch (SQLException e) {
             e.printStackTrace();
             returnPacket(ctx, new ResponseConsumePacket(false, "Server error occurred while logging user"));

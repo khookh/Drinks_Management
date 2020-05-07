@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class DrinkService extends Service {
@@ -47,7 +48,7 @@ public class DrinkService extends Service {
             "," + PERCENT_FIELD + "," + DATE_FIELD +") VALUES(?,?,?,?,?);";
 
     private static String GET_DRINK_INFO = "SELECT * FROM " + TABLE_NAME +
-            " WHERE IN (";
+            " WHERE id IN (";
 
     @Override
     public void start() throws CantStartServiceException {
@@ -87,8 +88,9 @@ public class DrinkService extends Service {
             controller.close();
             return -1;
         }
+        int id = set.getInt("id");
         controller.close();
-        return set.getInt("id");
+        return id;
     }
 
     public int addDrink(CustomDrink drink, User user) throws SQLException {
@@ -114,6 +116,14 @@ public class DrinkService extends Service {
         return -1;
     }
 
+    /**
+     * Searches in the database all the informations relative
+     * to a {@link CustomDrink} from a drink id.
+     * @param drinkId the drink id
+     * @return  a {@link CustomDrink} object containing all drink
+     *          details.
+     * @throws SQLException
+     */
     public CustomDrink getDrinkInfo(int drinkId) throws SQLException {
         try {
             DBConnection connection = DBConnection.getInstance();
@@ -144,28 +154,22 @@ public class DrinkService extends Service {
      *          to retrieve.
      * @throws SQLException
      */
-    public Map<Integer, CustomDrink> fillDrinkInfos(int[] idList) throws SQLException {
-        try {
-            DBConnection connection = DBConnection.getInstance();
-            String valuesString = StringGenerators.buildIdList(idList);
-            String sqlQuery = GET_DRINK_INFO + valuesString + ");";
-            ResultSet set = connection.executeQuery(sqlQuery);
+    public Map<Integer, CustomDrink> fillDrinkInfos(List<Integer> idList) throws SQLException {
+        DBConnection connection = DBConnection.getInstance();
+        String valuesString = StringGenerators.buildIdList(idList);
+        String sqlQuery = GET_DRINK_INFO + valuesString + ");";
+        ResultSet set = connection.executeQuery(sqlQuery);
 
-            Map<Integer, CustomDrink> drinkInfos = new HashMap<>();
-            while (set.next()) {
-                int id = set.getInt("id");
-                String name = set.getString(NAME_FIELD);
-                float volume = set.getFloat(VOLUME_FIELD);
-                float perc = set.getFloat(PERCENT_FIELD);
-                drinkInfos.put(id, new CustomDrink(name, volume, perc));
-            }
-            connection.close();
-            return drinkInfos;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.exit(-1);
+        Map<Integer, CustomDrink> drinkInfos = new HashMap<>();
+        while (set.next()) {
+            int id = set.getInt("id");
+            String name = set.getString(NAME_FIELD);
+            float volume = set.getFloat(VOLUME_FIELD);
+            float perc = set.getFloat(PERCENT_FIELD);
+            drinkInfos.put(id, new CustomDrink(name, volume, perc));
         }
-        return null;
+        connection.close();
+        return drinkInfos;
     }
 
 

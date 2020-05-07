@@ -84,7 +84,7 @@ public class ConsumeControllerTest {
         try {
             String responseJson = HttpUtils.sendPost("", WriteJSON.writePacket(packet));
             JSONPacket responsePacket = ReadJSON.readPacket(responseJson);
-            assertTrue(responsePacket instanceof  ResponseConsumptionsPacket);
+            assertTrue(responsePacket instanceof ResponseConsumptionsPacket);
             assertTrue(((ResponseConsumptionsPacket) responsePacket).isSuccess());
             List<Consumption> consumptionList = Arrays.asList(((ResponseConsumptionsPacket) responsePacket).getConsumptions());
         } catch (IOException e) {

@@ -42,9 +42,11 @@ public class ConsumeService extends Service {
             "VALUES(?,?,?);";
 
     private static String GET_CONSUMPTIONS = "SELECT * FROM " + TABLE_NAME + " WHERE " + USER_ID_FIELD + "=? ORDER BY "
-            + TIME_FIELD + " LIMIT=?;";
+            + TIME_FIELD + " DESC LIMIT ?;";
 
-    private static String GET_DRINK_IDS = "SELECT DISTINCT " + DRINK_ID_FIELD + " FROM " + TABLE_NAME + " WHERE id=?;";
+    private static String GET_DRINK_IDS = "SELECT DISTINCT " + DRINK_ID_FIELD + " FROM " + TABLE_NAME +
+            " WHERE "+DRINK_ID_FIELD+" IN ( SELECT " + DRINK_ID_FIELD + " " + TIME_FIELD + " FROM " +
+            TABLE_NAME + " WHERE " + USER_ID_FIELD + "=? ORDER BY " + TIME_FIELD + " DESC) LIMIT ?;";
 
     @Override
     public void start() throws CantStartServiceException {
@@ -86,7 +88,7 @@ public class ConsumeService extends Service {
         return -1;
     }
 
-    public List<Consumption> getConsumptions(User user, int consumptionCount, DrinkService drinkService) throws SQLException {
+    public List<Consumption> getConsumptions(User user, int consumptionCount, Map<Integer, CustomDrink> drinkInfos) throws SQLException {
         try {
             List<Consumption> consumptionList = new ArrayList<>();
             DBConnection connection = DBConnection.getInstance();
@@ -95,16 +97,11 @@ public class ConsumeService extends Service {
             stmt.setInt(2, consumptionCount);
             ResultSet set = connection.executePreparedQuery(stmt);
 
-            Map<Integer, CustomDrink> drinkInfo = new HashMap<Integer, CustomDrink>();
             while (set.next()) {
                 int drinkId = set.getInt(DRINK_ID_FIELD);
                 Date date = DateFormatter.fromString(set.getString(TIME_FIELD));
-                CustomDrink drink = drinkInfo.get(drinkId);
-                if (drink == null) {
-                    drink = drinkService.getDrinkInfo(drinkId);
-                    if (drink == null) return null;
-                    drinkInfo.put(drinkId, drink);
-                }
+                CustomDrink drink = drinkInfos.get(drinkId);
+                if (drink == null) return null;
                 consumptionList.add(new Consumption(drink, date));
             }
             connection.close();
@@ -116,19 +113,23 @@ public class ConsumeService extends Service {
 
     /**
      * Returns all the unique drink ids consumed at least
-     * once by one user.
-     * @return
+     * once by one user in the last {@code count} consumptions.
+     * @return a {@link List} containing the unique drink ids.
      */
-    public int[] getUserDrinkIds(User user) throws SQLException {
+    public List<Integer> getUserDrinkIds(User user, int count) throws SQLException {
         DBConnection connection = DBConnection.getInstance();
         PreparedStatement stmt = connection.getPreparedStmt(GET_DRINK_IDS);
         stmt.setInt(1, user.getId());
+        stmt.setInt(2, count);
         ResultSet set = connection.executePreparedQuery(stmt);
 
-        // TODO get ResultSet size.
-        while (set.next()) {
+        List<Integer> drinkIds = new ArrayList<>();
 
+        while (set.next()) {
+            drinkIds.add(set.getInt(DRINK_ID_FIELD));
         }
+
+        return drinkIds;
     }
 
 
