@@ -16,7 +16,7 @@ public class AddAlcoolRateThread extends TimerTask {
 	JSONHandler js;
 	Session s;
 	Double alcoholqtPerMin; //la qt max d'alcool qui sera absorbée par le corps
-	Integer eat = 1;
+	int eat = 1;
 
 	public AddAlcoolRateThread(Alcool alcohol, JSONHandler js, Session session, Boolean eating){
 		if(eating.equals(true)){
@@ -35,13 +35,14 @@ public class AddAlcoolRateThread extends TimerTask {
 	}
 
 	public void run() {
-				if(min==30*eat){
+				if(min == 30*eat){
 					cancel();
-				}
-					System.out.println("add " + alcoholqtPerMin );
-					min ++;
-					js.getActiveUser().setAlcoolRate(js.getActiveUser().getAlcoolRate()+alcoholqtPerMin); //update user alcool rate
+				}else {
+					System.out.println("add " + alcoholqtPerMin);
+					min++;
+					js.getActiveUser().setAlcoolRate(js.getActiveUser().getAlcoolRate() + alcoholqtPerMin); //update user alcool rate
 					js.updateUser(js.getActiveUser()); //update user in json
+				}
 	}
 
 }

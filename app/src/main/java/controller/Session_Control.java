@@ -121,26 +121,34 @@ public class Session_Control extends AppCompatActivity implements Observer {
      */
     public void addconsumption(View view){
         Boolean eating = cons.getEating().isChecked();
+        String name = null;
         if(selectedalcool!=null){
             if(selectedalcool.getTag().equals("Classic25Pils")){
-                this.session.addAlcohol(Classic25Pils.getName(),Classic25Pils.getVolume(),Classic25Pils.getPercentage(),false,eating);
+                name = Classic25Pils.getName();
+                this.session.addAlcohol(name,Classic25Pils.getVolume(),Classic25Pils.getPercentage(),false,eating);
             }
             else if(selectedalcool.getTag().equals("VodkaShot")){
-                this.session.addAlcohol(VodkaShot.getName(),VodkaShot.getVolume(),VodkaShot.getPercentage(),false,eating);
+                name = VodkaShot.getName();
+                this.session.addAlcohol(name,VodkaShot.getVolume(),VodkaShot.getPercentage(),false,eating);
             }
             else if(selectedalcool.getTag().getClass().equals(Alcool.class)){
                 Alcool custom = (Alcool)(selectedalcool.getTag());
-                this.session.addAlcohol(custom.getName(),custom.getVolume(),custom.getPercentage(),false,eating);
+                name = custom.getName();
+                this.session.addAlcohol(name,custom.getVolume(),custom.getPercentage(),false,eating);
             }
             deselectalcool();
         }
         else if(!cons.getBevname().isEmpty() && !cons.getVolume().isEmpty() && !cons.getPercent().isEmpty() ){
-            this.session.addAlcohol(cons.getBevname(),Double.parseDouble(cons.getVolume()), Double.parseDouble(cons.getPercent()),true,eating);
+            name = cons.getBevname();
+            this.session.addAlcohol(name,Double.parseDouble(cons.getVolume()), Double.parseDouble(cons.getPercent()),true,eating);
         }
         cons.clearFields();
         cons.updateButton(); //updata custom consommation list
         ov.updateText();
-        refresh();//refresh data displayed
+        refresh();
+        if(name!=null){
+            cons.setConsText("Consumption "+name+" added !");
+        }
     }
 
 

@@ -132,7 +132,8 @@
             android:layout_height="1dp"
             android:background="@android:color/darker_gray"
             tools:layout_editor_absoluteX="0dp" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.593"/>
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.593"
+            android:id="@+id/view"/>
     <TextView
             android:text="@string/add_an_alcool_from_the_list_below"
             android:gravity="center"
@@ -144,5 +145,13 @@
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintBottom_toTopOf="@+id/scrollView"
             app:layout_constraintTop_toBottomOf="@+id/barcomment" app:layout_constraintVertical_bias="1.0"/>
+    <TextView
+            android:text="0"
+            android:layout_width="360dp"
+            android:layout_height="44dp"
+            android:id="@+id/consumptiontext" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintBottom_toTopOf="@+id/view"
+            app:layout_constraintTop_toBottomOf="@+id/scrollView"
+            android:gravity="center"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
