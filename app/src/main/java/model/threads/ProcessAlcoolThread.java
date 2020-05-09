@@ -1,9 +1,6 @@
 package model.threads;
 
-import android.os.Build;
-import androidx.annotation.RequiresApi;
 import model.JSONHandler;
-import model.Session;
 
 import java.util.TimerTask;
 
@@ -13,12 +10,9 @@ import java.util.TimerTask;
  */
 public class ProcessAlcoolThread extends TimerTask {
 	JSONHandler js;
-	Session s;
 	Double elimrate;
-	@RequiresApi(api = Build.VERSION_CODES.O)
-	public ProcessAlcoolThread(JSONHandler js, Session session){
+	public ProcessAlcoolThread(JSONHandler js){
 		this.js = js;
-		this.s = session;
 		if(js.getActiveUser().getSex().equals("Man")) {
 			this.elimrate = 0.125 ; //taux d'élimination horaire moyen chez l'homme (g/L par heure)
 		}
@@ -27,7 +21,7 @@ public class ProcessAlcoolThread extends TimerTask {
 		}
 	}
 	public void run(){
-				Double newAR = js.getActiveUser().getAlcoolRate()-(this.elimrate/60);
+				double newAR = js.getActiveUser().getAlcoolRate()-(this.elimrate/60);
 				if(newAR<0){
 					js.getActiveUser().setAlcoolRate(0.0);
 				}
@@ -36,8 +30,6 @@ public class ProcessAlcoolThread extends TimerTask {
 				}
 				js.updateUser(js.getActiveUser()); //update user in json
 				System.out.println("Remove"+this.elimrate/60);
-
-
 	}
 }
 

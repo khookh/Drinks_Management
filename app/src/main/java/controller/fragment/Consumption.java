@@ -24,7 +24,7 @@ public class Consumption extends Fragment {
     Session session;
     ArrayList<Button> customButton = new ArrayList<>();
     Session_Control session_control;
-    TextView bar, consumption;
+    TextView bar;
     ProgressBar skren;
     Switch eating;
     EditText volume, percent, bevname;
@@ -40,7 +40,6 @@ public class Consumption extends Fragment {
         percent = root.findViewById(R.id.percent);
         bevname = root.findViewById(R.id.bevname);
         eating = root.findViewById(R.id.switch1);
-        consumption = root.findViewById(R.id.consumptiontext);
         updateButton();
         setRoot(root);
         cons();
@@ -50,7 +49,6 @@ public class Consumption extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void cons(){
-        setConsText("");
         this.session.setSkren();
         setProgressBar(this.session.getSkrenlevel());
         setTextBar("Your alcool blood level is now around "+(double) Math.round(session.getActual_user().getAlcoolRate()*100)/100+" g/L" +"\n"+ session.getSkrenmessage());
@@ -112,7 +110,6 @@ public class Consumption extends Fragment {
      * @param progress
      */
     public void setProgressBar(Integer progress) { skren.setProgress(progress); }
-    public void setConsText(String txt) {consumption.setText(txt);}
     public String getVolume() {
         return volume.getText().toString();
     }

@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.os.Build;
 import androidx.annotation.RequiresApi;
 import controller.Session_Control;
-import model.threads.AddAlcoolRateThread;
 import model.threads.ProcessAlcoolThread;
 
 import java.time.LocalDateTime;
@@ -26,9 +25,10 @@ public class Session {
         this.js = js;
         this.actual_user = js.getActiveUser();
         actual_user.setAlcoolRate(0.0);
-        virtualfoie = new ProcessAlcoolThread(js,this); //create the virtual foie at launch of the session
-        Timer timer = new Timer();
-        timer.schedule(virtualfoie,60000,60000); //1 call each minute
+        //virtualfoie = new ProcessAlcoolThread(js,this); //create the virtual foie at launch of the session
+        //virtualfoie.start();
+       // Timer timer = new Timer();
+        //timer.schedule(virtualfoie,60000,60000); //1 call each minute
     }
 
 
@@ -39,7 +39,7 @@ public class Session {
      * @param percent beverage alcoolic concentration
      */
     @SuppressLint("NewApi")
-    public void addAlcohol(String bevname, Double volume, Double percent, Boolean custom, Boolean eating) { //works
+    public Alcool addAlcohol(String bevname, Double volume, Double percent, Boolean custom) { //works
         Alcool new_alcohol = new Alcool(bevname,volume,percent);
         String time=LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         actual_user.addConsumption(time,new_alcohol);
@@ -47,9 +47,11 @@ public class Session {
             actual_user.addCustom(new_alcohol);
         }
         js.updateUser(actual_user);
-        AddAlcoolRateThread alcoolThreadTimer = new AddAlcoolRateThread(new_alcohol,js,this,eating);
-        Timer timer = new Timer();
-        timer.schedule(alcoolThreadTimer,60000,60000); //1 call each minute
+        //AddAlcoolRateThread alcoolThreadTimer = new AddAlcoolRateThread(new_alcohol,js,this,eating);
+        //alcoolThreadTimer.start();
+        //Timer timer = new Timer();
+        //timer.schedule(alcoolThreadTimer,60000,60000); //1 call each minute
+        return new_alcohol;
 
     }
 
@@ -143,7 +145,11 @@ public class Session {
             Map.Entry entry = (Map.Entry) it.next() ;
             Alcool alcool = (Alcool) entry.getValue() ;
             LocalDateTime time = LocalDateTime.parse((String) entry.getKey(),DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-            String message = alcool.getName() + "    --------    " + time.getDayOfMonth() + " " + time.getMonth() + " " + time.getHour() + "H" + time.getMinute();
+            String minute = Integer.toString(time.getMinute());
+            if(time.getMinute() < 10){
+                minute = "0"+ Integer.toString(time.getMinute());
+            }
+            String message = alcool.getName() + "    --------    " + time.getDayOfMonth() + " " + time.getMonth() + " " + time.getHour() + "H" + minute;
             messagelist.add(message);
         }
         return messagelist;

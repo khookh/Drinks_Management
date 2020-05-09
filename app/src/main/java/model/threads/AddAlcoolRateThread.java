@@ -1,8 +1,9 @@
 package model.threads;
 
+import android.os.Build;
+import androidx.annotation.RequiresApi;
 import model.Alcool;
 import model.JSONHandler;
-import model.Session;
 
 import java.time.LocalDateTime;
 import java.util.TimerTask;
@@ -12,19 +13,18 @@ import java.util.TimerTask;
  */
 public class AddAlcoolRateThread extends TimerTask {
 	int min = 0;
-	LocalDateTime init;
+	BackGroundServiceAddAlc bgsa ;
 	JSONHandler js;
-	Session s;
 	Double alcoholqtPerMin; //la qt max d'alcool qui sera absorbée par le corps
 	int eat = 1;
 
-	public AddAlcoolRateThread(Alcool alcohol, JSONHandler js, Session session, Boolean eating){
+	public AddAlcoolRateThread(Alcool alcohol, JSONHandler js, Boolean eating, BackGroundServiceAddAlc backGroundServiceAddAlc){
 		if(eating.equals(true)){
 			this.eat = 2;
 		}
+		this.bgsa = backGroundServiceAddAlc;
 		this.js = js;
-		this.s = session;
-		Double coef;
+		double coef;
 		if(js.getActiveUser().getSex().equals("Man")) {
 			coef = 0.7 ; //coefficient de diffusion de l'alcool dans le sang chez l'homme
 		}
@@ -34,15 +34,16 @@ public class AddAlcoolRateThread extends TimerTask {
 		this.alcoholqtPerMin = (alcohol.getVolume()*10*alcohol.getPercentage()/100)/(coef*js.getActiveUser().getWeight())/(30*this.eat);
 	}
 
+	@RequiresApi(api = Build.VERSION_CODES.O)
 	public void run() {
-				if(min == 30*eat){
-					cancel();
-				}else {
-					System.out.println("add " + alcoholqtPerMin);
-					min++;
-					js.getActiveUser().setAlcoolRate(js.getActiveUser().getAlcoolRate() + alcoholqtPerMin); //update user alcool rate
-					js.updateUser(js.getActiveUser()); //update user in json
-				}
+			if (min == 30 * eat) {
+				cancel();
+				bgsa.stopSelf();
+			}
+			System.out.println("add " + alcoholqtPerMin + "  " + LocalDateTime.now());
+			min++;
+			js.getActiveUser().setAlcoolRate(js.getActiveUser().getAlcoolRate() + alcoholqtPerMin); //update user alcool rate
+			js.updateUser(js.getActiveUser()); //update user in json
 	}
 
 }

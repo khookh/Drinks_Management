@@ -1,12 +1,14 @@
 package controller;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -20,7 +22,10 @@ import model.JSONHandler;
 import model.Session;
 import model.predefinedAlcohol.Classic25Pils;
 import model.predefinedAlcohol.VodkaShot;
+import model.threads.BackGroundServiceAddAlc;
+import model.threads.BackGroundServiceLiver;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -30,11 +35,9 @@ import java.util.Observer;
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class Session_Control extends AppCompatActivity implements Observer {
 
-    //skrenmessage used to display user state
     static String skrenmessage1;
     static String skrenmessage2;
-
-    //todo : create session in welcomepage after sign in
+    ArrayList<Intent> servicesIntent = new ArrayList<>();
     Session session = new Session(WelcomePage.getJsonHandler());
 
     static ViewPager viewPager;
@@ -46,6 +49,8 @@ public class Session_Control extends AppCompatActivity implements Observer {
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        createLiver();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.session);
 
@@ -66,7 +71,6 @@ public class Session_Control extends AppCompatActivity implements Observer {
         ov.setSession(this.session);
 
         WelcomePage.getJsonHandler().addObserver(this);
-
 
         sectionsPagerAdapter.addFragment(cons, getString(R.string.Alcool_Consumption));
         sectionsPagerAdapter.addFragment(ov, getString(R.string.Overview));
@@ -122,32 +126,34 @@ public class Session_Control extends AppCompatActivity implements Observer {
     public void addconsumption(View view){
         Boolean eating = cons.getEating().isChecked();
         String name = null;
+        Alcool new_alcohol = null;
         if(selectedalcool!=null){
             if(selectedalcool.getTag().equals("Classic25Pils")){
                 name = Classic25Pils.getName();
-                this.session.addAlcohol(name,Classic25Pils.getVolume(),Classic25Pils.getPercentage(),false,eating);
+                new_alcohol = this.session.addAlcohol(name,Classic25Pils.getVolume(),Classic25Pils.getPercentage(),false);
             }
             else if(selectedalcool.getTag().equals("VodkaShot")){
                 name = VodkaShot.getName();
-                this.session.addAlcohol(name,VodkaShot.getVolume(),VodkaShot.getPercentage(),false,eating);
+                new_alcohol = this.session.addAlcohol(name,VodkaShot.getVolume(),VodkaShot.getPercentage(),false);
             }
             else if(selectedalcool.getTag().getClass().equals(Alcool.class)){
                 Alcool custom = (Alcool)(selectedalcool.getTag());
                 name = custom.getName();
-                this.session.addAlcohol(name,custom.getVolume(),custom.getPercentage(),false,eating);
+                new_alcohol = this.session.addAlcohol(name,custom.getVolume(),custom.getPercentage(),false);
             }
             deselectalcool();
         }
         else if(!cons.getBevname().isEmpty() && !cons.getVolume().isEmpty() && !cons.getPercent().isEmpty() ){
             name = cons.getBevname();
-            this.session.addAlcohol(name,Double.parseDouble(cons.getVolume()), Double.parseDouble(cons.getPercent()),true,eating);
+            new_alcohol = this.session.addAlcohol(name,Double.parseDouble(cons.getVolume()), Double.parseDouble(cons.getPercent()),true);
         }
         cons.clearFields();
         cons.updateButton(); //updata custom consommation list
         ov.updateText();
         refresh();
-        if(name!=null){
-            cons.setConsText("Consumption "+name+" added !");
+        if(name!=null && new_alcohol!= null){
+            createAddAlcool(new_alcohol,eating);
+            Toast.makeText(this, "Consumption "+name+" has been added !", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -179,17 +185,35 @@ public class Session_Control extends AppCompatActivity implements Observer {
         }
     }
 
+    public void createLiver(){
+        Intent liverIntent = new Intent(this, BackGroundServiceLiver.class);
+        startService(liverIntent);
+        servicesIntent.add(liverIntent);
+    }
+
+    public void createAddAlcool(Alcool alcool, Boolean eating){
+        Intent serviceIntent = new Intent(this, BackGroundServiceAddAlc.class);
+        serviceIntent.putExtra("alcool", alcool);
+        serviceIntent.putExtra("eating",eating);
+        startService(serviceIntent);
+        servicesIntent.add(serviceIntent);
+    }
+
     /**
      * called upon destruction of this activity
      */
     protected void onDestroy(){
         super.onDestroy();
-        session.getVirtualfoie().cancel(); //stop le thread du foie quand on quitte la session TEMPORAIRE
-        System.out.println("virtual foie is gone");
+        deleteServices();
         finish();
     }
-    public Consumption getCons() {
-        return cons;
+    protected void deleteServices(){
+        if(servicesIntent!=null) {
+            for (int i = 0; i < servicesIntent.size(); i++) {
+                stopService(servicesIntent.get(i));
+            }
+        }
     }
+
 
 }

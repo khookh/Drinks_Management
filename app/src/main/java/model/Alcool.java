@@ -1,6 +1,8 @@
 package model;
 
-public class Alcool {
+import java.io.Serializable;
+
+public class Alcool implements Serializable {
         private Double UA;
     private String Name;
     private Double Volume; //in cL
@@ -8,7 +10,7 @@ public class Alcool {
     private Double AlQt; // in cL, quantity of alcohol in the drink
 
 public Alcool(){}
-public Alcool(String name, Double volume, Double percentage) {
+public Alcool(String name, Double volume, Double percentage){
         Name = name;
         Volume = volume;
         Percentage = percentage;
