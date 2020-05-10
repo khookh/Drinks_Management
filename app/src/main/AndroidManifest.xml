@@ -18,7 +18,8 @@
         <activity
                 android:name="controller.WelcomePage"
                 android:label="@string/app_name"
-                android:theme="@style/AppTheme.NoActionBar">
+                android:theme="@style/AppTheme.NoActionBar"
+                android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -26,7 +27,8 @@
         </activity>
         <activity
                 android:name="controller.SignUp_Control"
-                android:label="Sign_Up">
+                android:label="Sign_Up"
+                android:screenOrientation="portrait">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="controller.SignUp_Control" />
@@ -35,7 +37,8 @@
                 android:name="controller.Session_Control"
                 android:configChanges="orientation|screenSize|keyboardHidden"
                 android:windowSoftInputMode="adjustPan"
-                android:label="Session">
+                android:label="Session"
+                android:screenOrientation="portrait">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="controller.Session_Control" />

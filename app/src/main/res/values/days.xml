@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="choose_days">Choose a number of days</string>
+
+    <string-array name="days_array">
+        <item>day</item>
+        <item>3 days</item>
+        <item>week</item>
+        <item>month</item>
+    </string-array>
+
+</resources>
