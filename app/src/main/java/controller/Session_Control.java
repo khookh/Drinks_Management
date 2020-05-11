@@ -211,6 +211,7 @@ public class Session_Control extends AppCompatActivity implements Observer {
         if(servicesIntent!=null) {
             for (int i = 0; i < servicesIntent.size(); i++) {
                 stopService(servicesIntent.get(i));
+                System.out.println("service "+i+" destoryed");
             }
         }
     }

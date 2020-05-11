@@ -37,8 +37,8 @@ public class AddAlcoolRateThread extends TimerTask {
 	@RequiresApi(api = Build.VERSION_CODES.O)
 	public void run() {
 			if (min == 30 * eat) {
-				cancel();
 				bgsa.stopSelf();
+				cancel();
 			}
 			System.out.println("add " + alcoholqtPerMin + "  " + LocalDateTime.now());
 			min++;

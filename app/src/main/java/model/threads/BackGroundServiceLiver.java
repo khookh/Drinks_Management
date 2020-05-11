@@ -12,6 +12,8 @@ public class BackGroundServiceLiver extends Service
 {
 	private JSONHandler js;
 
+	private Timer timer;
+
 	public IBinder onBind(Intent arg0)
 	{
 		return null;
@@ -30,13 +32,14 @@ public class BackGroundServiceLiver extends Service
 	}
 
 	public void startFoieService(JSONHandler js){
-		Timer timer = new Timer();
-		timer.scheduleAtFixedRate(new ProcessAlcoolThread(js),0,60000);
+		timer = new Timer();
+		timer.scheduleAtFixedRate(new ProcessAlcoolThread(js),60000,60000);
 	}
 
 
 	public void onDestroy()
 	{
+		timer.cancel();
 		super.onDestroy();
 		//Toast.makeText(this, "Service Stopped ...", Toast.LENGTH_SHORT).show();
 	}
